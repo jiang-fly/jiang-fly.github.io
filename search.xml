@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo与MarkDown</title>
+    <url>/2020/08/08/MarkDown/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy84NTc0MTMwLTM3Nzc4OTA4YmU5ODFkZGQuUE5H?x-oss-process=image/format,png#pic_center" alt="Hexo与MarkDown"></p>
+<blockquote>
+<p>&emsp;&emsp;在hexo中的markdown语法稍有不同本文将列举我遇的例子，同时简述hexo的一些指令集，适用于初学者使用hexo+github搭建博客写作发布文章。</p>
+</blockquote>
+<h1 id="Hexo-指令"><a href="#Hexo-指令" class="headerlink" title="Hexo 指令"></a>Hexo 指令</h1><h2 id="hexo新建文章"><a href="#hexo新建文章" class="headerlink" title="hexo新建文章"></a>hexo新建文章</h2><p>&emsp;&emsp;hexo文件夹下右键点击Git Base here后键入$hexo new 布局 “文章名”</p>
+<table>
+<thead>
+<tr>
+<th>布局</th>
+<th>路径</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>post    source</td>
+<td>_post</td>
+<td>新建一个文章</td>
+</tr>
+<tr>
+<td>draft    source</td>
+<td>_drafts</td>
+<td>新建一个草稿文件</td>
+</tr>
+<tr>
+<td>page</td>
+<td>source</td>
+<td>新建一个页面文件</td>
+</tr>
+</tbody></table>
+<h2 id="hexo部署与调试"><a href="#hexo部署与调试" class="headerlink" title="hexo部署与调试"></a>hexo部署与调试</h2><pre><code>
+$ hexo clean //清除静态页面缓存（清除 public 文件夹)         
+$ hexo g     //在本地生成静态页面（生成 public 文件夹）        
+$ hexo s     //启动本地服务 http://localhost:4000，进行预览调试           
+$ hexo d     //远程部署，同步到 GitHub         
+
+$ npm install hexo-deployer-git --save    //自动部署
+$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d          //发布</code></pre><h1 id="MarkDown-与-文章编辑"><a href="#MarkDown-与-文章编辑" class="headerlink" title="MarkDown 与 文章编辑"></a>MarkDown 与 文章编辑</h1><h2 id="emsp-文章配置"><a href="#emsp-文章配置" class="headerlink" title="&emsp;文章配置"></a>&emsp;文章配置</h2><p>&emsp;&emsp;在hexo文件夹下右键点击Git Base here后键入$hexo new page “name”，source/_post 文件夹中生成name.md文件，打开后即可编辑，编辑格式如下：</p>
+<pre><code>title: 文章名
+date: 2017-10-31 20:38:17     //发表日期
+updated: 2017-10-31 21:58:03  //更新日期
+categories: Life              //文章分类
+tags: [tag1,tag2]             //文章标签，多标签时使用英文逗号隔开
+photos:                       //如果使用Fancybox（文章头部展示图片），如此设置  
+                              //注意冒号后面有空格</code></pre><h1 id="MarkDown语法在hexo中"><a href="#MarkDown语法在hexo中" class="headerlink" title="MarkDown语法在hexo中"></a>MarkDown语法在hexo中</h1><blockquote>
+<p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
+</blockquote>
+<p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
+<pre><code class="//代码块放置于3个反引号中间，回车即可换行">#include&lt;stdio.h&gt;
+int main()
+{
+    printf(&quot;Hello World!\n&quot;);
+    return 0;
+}
+</code></pre>
+<p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
+<p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
+<pre><code class="java">&lt;!-- more --&gt;</code></pre>
+<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
+]]></content>
+      <categories>
+        <category>MarkDown的使用</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>MarkDown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2020/07/16/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -16,7 +87,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>我的第一遍博客</title>
+    <title>我的第一篇博客</title>
     <url>/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>什么都不知道</p>
 <a id="more"></a>
