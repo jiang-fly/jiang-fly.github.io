@@ -12,6 +12,20 @@
 .github-emoji:hover{
     animation: emoji-face 5s infinite ease-in-out;
 }
+
+/*#全局字体*/
+@font-face{
+    font-family: '江西拙楷2.0';
+    src: url('../font/江西拙楷2.0.ttf');
+}
+
+body{
+    font-family: '江西拙楷2.0';
+}
+
+
+
+
 @keyframes emoji-face {
     2% {
         transform: translate(0, 1.5px) rotate(1.5deg);
