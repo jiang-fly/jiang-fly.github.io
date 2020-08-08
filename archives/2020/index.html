@@ -850,6 +850,17 @@ $(function () {
 </div>
 
 
+    <script type="text/javascript">
+   //只在桌面版网页启用特效
+    var windowWidth = $(window).width();
+    if (windowWidth > 768) {
+    document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+}
+</script>
+
+
+
+
     <script src="/libs/materialize/materialize.min.js"></script>
     <script src="/libs/masonry/masonry.pkgd.min.js"></script>
     <script src="/libs/aos/aos.js"></script>
