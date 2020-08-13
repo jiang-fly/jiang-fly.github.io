@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo与MarkDown, JiangBlog">
+    <meta name="keywords" content="Integer的valueOf(int)方法, JiangBlog">
     <meta name="description" content="人无远虑，必有近忧！">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hexo与MarkDown | JiangBlog</title>
+    <title>Integer的valueOf(int)方法 | JiangBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -481,12 +481,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hexo与MarkDown</h1>
+                    <h1 class="description center-align post-title">Integer的valueOf(int)方法</h1>
                 </div>
             </div>
         </div>
@@ -607,8 +607,12 @@
                                 <span class="chip bg-color">博客</span>
                             </a>
                         
-                            <a href="/tags/MarkDown/">
-                                <span class="chip bg-color">MarkDown</span>
+                            <a href="/tags/Integer/">
+                                <span class="chip bg-color">Integer</span>
+                            </a>
+                        
+                            <a href="/tags/String/">
+                                <span class="chip bg-color">String</span>
                             </a>
                         
                     </div>
@@ -619,8 +623,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/MarkDown%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-category">
-                                MarkDown的使用
+                            <a href="/categories/%E5%8C%85%E8%A3%85%E5%99%A8%E7%B1%BB%E5%9E%8B/" class="post-category">
+                                包装器类型
                             </a>
                         
                     </div>
@@ -632,28 +636,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-08
+                    2020-08-14
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-09
+                    2020-08-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    505
+                    731
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 
@@ -668,65 +672,83 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy84NTc0MTMwLTM3Nzc4OTA4YmU5ODFkZGQuUE5H?x-oss-process=image/format,png#pic_center" alt="Hexo与MarkDown"></p>
-<blockquote>
-<p>&emsp;&emsp;在hexo中的markdown语法稍有不同本文将列举我遇的例子，同时简述hexo的一些指令集，适用于初学者使用hexo+github搭建博客写作发布文章。</p>
-</blockquote>
-<h1 id="Hexo-指令"><a href="#Hexo-指令" class="headerlink" title="Hexo 指令"></a>Hexo 指令</h1><h2 id="hexo新建文章"><a href="#hexo新建文章" class="headerlink" title="hexo新建文章"></a>hexo新建文章</h2><p>&emsp;&emsp;hexo文件夹下右键点击Git Base here后键入$hexo new 布局 “文章名”</p>
-<table>
-<thead>
-<tr>
-<th>布局</th>
-<th>路径</th>
-<th>注释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>post    source</td>
-<td>_post</td>
-<td>新建一个文章</td>
-</tr>
-<tr>
-<td>draft    source</td>
-<td>_drafts</td>
-<td>新建一个草稿文件</td>
-</tr>
-<tr>
-<td>page</td>
-<td>source</td>
-<td>新建一个页面文件</td>
-</tr>
-</tbody></table>
-<h2 id="hexo部署与调试"><a href="#hexo部署与调试" class="headerlink" title="hexo部署与调试"></a>hexo部署与调试</h2><pre><code>
-$ hexo clean //清除静态页面缓存（清除 public 文件夹)         
-$ hexo g     //在本地生成静态页面（生成 public 文件夹）        
-$ hexo s     //启动本地服务 http://localhost:4000，进行预览调试           
-$ hexo d     //远程部署，同步到 GitHub         
+                <p><strong>先来看一段代码</strong></p>
+<pre><code class="java">public class IntegerDemo01 {
 
-$ npm install hexo-deployer-git --save    //自动部署
-$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d          //发布</code></pre><h1 id="MarkDown-与-文章编辑"><a href="#MarkDown-与-文章编辑" class="headerlink" title="MarkDown 与 文章编辑"></a>MarkDown 与 文章编辑</h1><h2 id="emsp-文章配置"><a href="#emsp-文章配置" class="headerlink" title="&emsp;文章配置"></a>&emsp;文章配置</h2><p>&emsp;&emsp;在hexo文件夹下右键点击Git Base here后键入$hexo new page “name”，source/_post 文件夹中生成name.md文件，打开后即可编辑，编辑格式如下：</p>
-<pre><code>title: 文章名
-date: 2017-10-31 20:38:17     //发表日期
-updated: 2017-10-31 21:58:03  //更新日期
-categories: Life              //文章分类
-tags: [tag1,tag2]             //文章标签，多标签时使用英文逗号隔开
-photos:                       //如果使用Fancybox（文章头部展示图片），如此设置  
-                              //注意冒号后面有空格</code></pre><h1 id="MarkDown语法在hexo中"><a href="#MarkDown语法在hexo中" class="headerlink" title="MarkDown语法在hexo中"></a>MarkDown语法在hexo中</h1><blockquote>
-<p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
+public static void main(String[] args) {
+     Integer i2 =100;
+     Integer i3 =100;
+     System.out.println(i2==i3);
+
+     Integer i4 =1000;
+     Integer i5 =1000;
+     System.out.println(i3==i4);
+
+    }
+}</code></pre>
+<p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
+<pre><code class="java">import java.io.PrintStream;
+public class IntegerDemo01
+ {
+
+  public IntegerDemo01()
+  {
+    }
+
+  public static void main(String args[])
+ {
+    Integer i2 = Integer.valueOf(100);
+    Integer i3 = Integer.valueOf(100);
+    System.out.println(i2 == i3);
+    Integer i4 = Integer.valueOf(1000);
+    Integer i5 = Integer.valueOf(1000);
+    System.out.println(i3 == i4);
+ }
+}</code></pre>
+<blockquote>
+<p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
 </blockquote>
-<p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
-<pre><code class="//代码块放置于3个反引号中间，回车即可换行">#include&lt;stdio.h&gt;
-int main()
-{
-    printf(&quot;Hello World!\n&quot;);
-    return 0;
-}
-</code></pre>
-<p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
-<p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
-<pre><code class="java">&lt;!-- more --&gt;</code></pre>
-<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
+<pre><code class="java">public static Integer valueOf(int i) {
+    if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)
+   //如果数值在-128~127之间的 
+return IntegerCache.cache[i + (-IntegerCache.low)];
+   //返回 
+    return new Integer(i);
+ }</code></pre>
+<blockquote>
+<p><strong>来看这段代码的描述</strong></p>
+<ul>
+<li>Returns an {@code Integer} instance representing the specified<br>{@code int} value.,<br>返回了这个Integer的含有指定的值的实例</li>
+<li>as this method is likely to yield significantly better space and time performance by</li>
+<li>显着更好的空间和时间性能</li>
+<li>caching frequently requested values.</li>
+</ul>
+</blockquote>
+<p><strong>解释：</strong><br><strong>1.这个方法返回了一个带有值的实例，<br>2.然后返回了一个从-128~127的值的缓存数组，用于缓存在这个范围内所有创建的实例对象。<br>3.如果之前有存在就直接拿来用，不存在的话就新建new 一个Integer对象。</strong></p>
+<h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
+<p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
+</blockquote>
+<pre><code class="java"> String str = &quot;abc&quot;;
+    String str2 =&quot;abc&quot;;
+    System.out.println(str==str2);
+    String str3 = new String(&quot;abc&quot;);
+    String str4 = new String(&quot;abc&quot;);
+    System.out.print(str3==str4);</code></pre>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
+<blockquote>
+<p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
+</blockquote>
+<pre><code class="java">    String str = &quot;abc&quot;;
+    String str2 = &quot;abc&quot;;
+    System.out.println(str == str2);
+    String str3 = new String(&quot;abc&quot;);
+    String str4 = new String(&quot;abc&quot;);
+    System.out.print(str3 == str4);</code></pre>
+<blockquote>
+<p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
+</blockquote>
 
             </div>
             <hr/>
@@ -752,7 +774,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/2020/08/08/MarkDown/">http://yoursite.com/2020/08/08/MarkDown/</a>
+                    <a href="http://yoursite.com/2020/08/14/Integer/">http://yoursite.com/2020/08/14/Integer/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,8 +816,12 @@ int main()
                                     <span class="chip bg-color">博客</span>
                                 </a>
                             
-                                <a href="/tags/MarkDown/">
-                                    <span class="chip bg-color">MarkDown</span>
+                                <a href="/tags/Integer/">
+                                    <span class="chip bg-color">Integer</span>
+                                </a>
+                            
+                                <a href="/tags/String/">
+                                    <span class="chip bg-color">String</span>
                                 </a>
                             
                         </div>
@@ -1226,9 +1252,10 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/08/14/Integer/">
                     <div class="card-image">
@@ -1251,9 +1278,9 @@ public static void main(String[] args) {
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1266,6 +1293,7 @@ public static void main(String[] args) {
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1292,45 +1320,31 @@ public static void main(String[] args) {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">
+                <a href="/2020/08/08/MarkDown/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="我的第一篇博客">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Hexo与MarkDown">
                         
-                        <span class="card-title">我的第一篇博客</span>
+                        <span class="card-title">Hexo与MarkDown</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            第一章什么都不知道
-
-
-第二章也是什么都不知道
-二级标题
-列表1
-列表2
-
- 百度一下
- 
-
- 字体是斜线 字体加粗了
-&lt;html&gt;&lt;/html&gt;
-&lt;&lt;!DOCTYPE html&gt;
-&lt;html
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-08
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
-                                    前端
+                            <a href="/categories/MarkDown%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-category">
+                                    MarkDown的使用
                                 </a>
                             
                             
@@ -1344,8 +1358,8 @@ public static void main(String[] args) {
                         <span class="chip bg-color">博客</span>
                     </a>
                     
-                    <a href="/tags/Hexo/">
-                        <span class="chip bg-color">Hexo</span>
+                    <a href="/tags/MarkDown/">
+                        <span class="chip bg-color">MarkDown</span>
                     </a>
                     
                 </div>
