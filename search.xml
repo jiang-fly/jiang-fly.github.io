@@ -253,7 +253,25 @@ int main()
       </categories>
       <tags>
         <tag>前端</tag>
-        <tag>前端框架</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL内连接和外连接的区别</title>
+    <url>/2020/08/22/SQL%E4%B8%AD%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%8F%B3%E8%BF%9E%E6%8E%A5,%E5%86%85%E8%BF%9E%E6%8E%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<p><strong>例子，相信你一看就明白，不需要多说<br>A表(a1,b1,c1) B表(a2,b2)</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200823002746459.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200823002801818.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>左连接：<br>select A.<em>,B.</em> from A left outer join B on(A.a1=B.a2)<br>结果是:</strong><br><img src="https://img-blog.csdnimg.cn/20200823002839691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>右连接：<br>select A.<em>,B.</em> from A right outer join B on(A.a1=B.a2)<br>结果是:</strong><br><img src="https://img-blog.csdnimg.cn/20200823002901758.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>内连接：<br>自然联结：SELECT * FROM a, b where a.a1=b.a2，这两种写法一样<br>（内连接和自然联结一样，一般情况下都使用自然联结）</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200823002934343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<p><strong>结论：</strong></p>
+<p><strong><font color=red>左连接：左边有的，右边没有的为null（A right outer join B）<br><br>右连接：左边没有的，右边有的为null（A left outer join B）<br><br>内连接：显示左边右边共有的（A inner join B）</font></strong></p>
+]]></content>
+      <categories>
+        <category>SQL</category>
+      </categories>
+      <tags>
+        <tag>内连接</tag>
+        <tag>外连接</tag>
       </tags>
   </entry>
 </search>
