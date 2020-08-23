@@ -166,6 +166,24 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>SQL内连接和外连接的区别</title>
+    <url>/2020/08/22/SQL%E4%B8%AD%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%8F%B3%E8%BF%9E%E6%8E%A5,%E5%86%85%E8%BF%9E%E6%8E%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<p><strong>例子，相信你一看就明白，不需要多说<br>A表(a1,b1,c1) B表(a2,b2)</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200823002746459.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200823002801818.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>左连接：<br>select A.<em>,B.</em> from A left outer join B on(A.a1=B.a2)<br>结果是:</strong><br><img src="https://img-blog.csdnimg.cn/20200823002839691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>右连接：<br>select A.<em>,B.</em> from A right outer join B on(A.a1=B.a2)<br>结果是:</strong><br><img src="https://img-blog.csdnimg.cn/20200823002901758.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>内连接：<br>自然联结：SELECT * FROM a, b where a.a1=b.a2，这两种写法一样<br>（内连接和自然联结一样，一般情况下都使用自然联结）</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200823002934343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<p><strong>结论：</strong></p>
+<p><strong><font color=red>左连接：左边有的，右边没有的为null（A right outer join B）<br><br>右连接：左边没有的，右边有的为null（A left outer join B）<br><br>内连接：显示左边右边共有的（A inner join B）</font></strong></p>
+]]></content>
+      <categories>
+        <category>SQL</category>
+      </categories>
+      <tags>
+        <tag>内连接</tag>
+        <tag>外连接</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2020/07/16/hello-world/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -182,6 +200,26 @@ int main()
 ]]></content>
   </entry>
   <entry>
+    <title>Vue笔记(1)</title>
+    <url>/2020/08/22/Vue1/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="Vue概述"><a href="#Vue概述" class="headerlink" title="Vue概述"></a>Vue概述</h2><p> &emsp;&emsp;Vue (读音/vju/, 类似于view)是一套用于构建用户界面的<font color=red><strong>渐进式框架</strong></font>，发布于2014年2月。与其它大型框架不同的是，Vue被设计为可以自底向上逐层应用。<font color=red><strong>Vue的核心库只关注视图层</strong></font>，不仅易于上手，还便于与第三方库(如: <font color=red><strong>vue-router: 跳转，vue-resource: 通信，vuex:管理</strong></font>)或既有项目整合。</p>
+<h2 id="前端知识体系"><a href="#前端知识体系" class="headerlink" title="前端知识体系"></a>前端知识体系</h2><p>&emsp;&emsp; 想要成为真正的“互联网Java全栈工程师”还有很长的一段路要走，其中“我大前端”是绕不开的一门必修课。本阶段课程的主要目的就是带领我Java后台程序员认识前端、了解前端、掌握前端,为实现成为“互联网Java全栈工程师”再向前迈进一步。</p>
+<h2 id="前端三要素"><a href="#前端三要素" class="headerlink" title="前端三要素"></a>前端三要素</h2><p>●HTML (结构) :超文本标记语言(Hyper Text Markup Language) ，决定网页的结构和内容<br>●CSS (表现) :层叠样式表(Cascading Style sheets) ，设定网页的表现样式<br>●JavaScript (行为) :是一种弱类型脚本语言，其源代码不需经过编译，而是由浏览器解释运行,用于控制网页的行为</p>
+<h2 id="表现层（CSS）"><a href="#表现层（CSS）" class="headerlink" title="表现层（CSS）"></a>表现层（CSS）</h2><p>  &emsp;&emsp;CSS层叠样式表是<font color=red><em>一门标记语言</em></font>,并不是编程语言，因此不可以自定义变量，不可以引用等，换句话说就是不具备任何语法支持，它主要缺陷如下:<br>●语法不够强大，比如无法嵌套书写，导致模块化开发中需要写很多重复的选择器;<br>●没有变量和合理的样式复用机制，使得逻辑上相关的属性值必须以字面量的形式重复输出，导致难以维护;<br>这就导致了我们在工作中无端增加了许多工作量。为了解决这个问题，前端开发人员会使用一种称之为<font color=red><strong>[CSS预处理器]</strong></font>的工具，提供CSS缺失的样式层复用机制、减少冗余代码，提高样式代码的可维护性。大大提高了前端在样式上的开发效率。（例如页面在不同的时候有不同的需求，淘宝在双11和618的样式就会不一样）</p>
+<h2 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h2><p>  &emsp;&emsp;CSS预处理器定义了一种新的语言，其基本思想是，用一种专门的<font color=red>编程语言</font>，为CSS增加了一些编程的特性，将CSS作为目标生成文件,然后开发者就只要使用这种语言进行CSS的编码工作。转化成通俗易懂的话来说就是“_<font color=red>用一种专门的编程语言,进行Web页面样式设计，再通过编译器转化为正常的CSS文件，以供项目使用</font>_”<br>常用的CSS预处理器有哪些<br>●SASS:基于Ruby,通过服务端处理，功能强大。解析效率高。需要学习Ruby语言，上手难度高于LESS。<br>●LESS:基于NodeJS,通过客户端处理，使用简单。功能比SASS简单，解析效率也低于SASS,但在实际开发中足够了，所以我们后台人员如果需要的话，建议使用LESS。</p>
+<h2 id="JavaScript框架"><a href="#JavaScript框架" class="headerlink" title="JavaScript框架"></a>JavaScript框架</h2><p>●<font color=red>jQuery</font>: 大家熟知的JavaScript框架，优点是简化了DOM操作，缺点是DOM操作太频繁,影响前端性能;在前端眼里使用它仅仅是为了兼容IE6、7、8;<br>●<font color=red>Angular</font>: Google收购的前端框架，由一群Java程序员开发，其特点是将后台的MVC模式搬到了前端并增加了模块化开发的理念，与微软合作，采用TypeScript语法开发;对后台程序员友好，对前端程序员不太友好;最大的缺点是版本迭代不合理(如: 1代-&gt; 2代，除了名字，基本就是两个东西;截止发表博客时已推出了Angular6)<br>●<font color=red>React</font>: Facebook出品，一款高性能的JS前端框架;特点是提出了新概念[虚拟DOM]用于<br>减少真实DOM操作，在内存中模拟DOM操作，有效的提升了前端渲染效率;缺点是使用复<br>杂，因为需要额外学习一门[JSX] 语言;<br>●<font color=red>Vue</font>:一款渐进式JavaScript框架，所谓渐进式就是逐步实现新特性的意思，如实现模块化开发、路由、状态管理等新特性。其特点是综合了Angular (模块化)和React (虚拟DOM)的优点;<br>●<font color=red>Axios</font> :前端通信框架;因为Vue 的边界很明确，就是为了处理DOM,所以并不具备通信能<br>力，此时就需要额外使用一个<font color=blue>通信框架与服务器交互</font>;当然也可以直接选择使用jQuery提供的AJAX通信功能;<br>前端三大框架：Angular、React、Vue</p>
+<h2 id="UI框架"><a href="#UI框架" class="headerlink" title="UI框架"></a>UI框架</h2><p>●Ant-Design:阿里巴巴出品，基于React的UI框架<br>●<font color=red>ElementUI、 iview、 ice: 饿了么出品，基于Vue的UI框架</font><br>●Bootstrap: Twitter推出的一个用于前端开发的开源工具包<br>●AmazeUI:又叫”妹子UI”，一款HTML5跨屏前端框架.<br>JavaScript 构建工具<br>●Babel: JS编译工具，主要用于浏览器不支持的ES新特性，比如用于编译TypeScript<br>●WebPack: 模块打包器，主要作用是打包、压缩、合并及按序加载<br>注：以上知识点将WebApp开发所需技能全部梳理完毕</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>中缀表达式转后缀表达式</title>
     <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -196,6 +234,195 @@ int main()
       <tags>
         <tag>中缀表达式</tag>
         <tag>后缀表达式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一个Vue程序</title>
+    <url>/2020/08/24/%E7%AC%AC%E4%B8%80%E4%B8%AAVue%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p>&emsp;&emsp; Vue (读音/vju/, 类似于view)是一套用于构建用户界面的渐进式框架，发布于2014年2月。与其它大型框架不同的是，Vue被设计为可以自底向上逐层应用。Vue的核心库只关注视图层，不仅易于上手，还便于与第三方库(如: vue-router, vue-resource, vuex)或既有项目整合。</p>
+<h2 id="MVVM模式的实现者"><a href="#MVVM模式的实现者" class="headerlink" title="MVVM模式的实现者"></a>MVVM模式的实现者</h2><p>●<font color=red><strong>Model</strong></font>:模型层，在这里表示JavaScript对象<br>●<font color=red><strong>View</strong></font>:视图层,在这里表示DOM (HTML操作的元素)<br>●<font color=red><strong>ViewModel</strong></font>:连接视图和数据的中间件，Vue.js就是MVVM中的ViewModel层的实现者<br><strong>&emsp;&emsp;<font color=green>在MVVM架构中，是不允许数据和视图直接通信的，只能通过ViewModel来通信，而ViewModel就是定义了一个Observer观察者</font></strong><br>●<font color=red><strong>ViewModel</strong></font>能够观察到数据的变化，并对视图对应的内容进行更新<br>●<font color=red><strong>ViewModel</strong></font>能够监听到视图的变化，并能够通知数据发生改变</p>
+<p>&emsp;&emsp;<font color=blue><strong><em>至此，我们就明白了，Vue.js 就是一个MVVM的实现者，他的核心就是实现了DOM监听与数据绑定</em></strong></font></p>
+<h2 id="为什么要使用Vue-js"><a href="#为什么要使用Vue-js" class="headerlink" title="为什么要使用Vue.js"></a>为什么要使用Vue.js</h2><p>●<font color=red>轻量级</font>，体积小是一个重要指标。Vue.js 压缩后有只有20多kb (Angular 压缩后56kb+ ,<br>React压缩后44kb+ )<br>●<font color=red>移动优先</font>。更适合移动端，比如移动端的Touch事件<br>●<font color=red>易上手</font>，学习曲线平稳,文档齐全<br>●<font color=red>吸取了Angular (模块化)和React (虚拟DOM)的长处</font>，并拥有自己独特的功能，如:计算属性<br>●<font color=red>开源</font>，社区活跃度高</p>
+<p><strong>代码 demo1.html 初入门之绑定数据</strong></p>
+<pre><code class="java">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;!--1.导入vue.js--&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    {{message}}
+&lt;/div&gt;
+&lt;script&gt;
+     let vm = new Vue({
+        el: &quot;#app&quot;,
+        data: {
+            message: &quot;hello,vue&quot;
+        }
+    });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<h2 id="什么是MVVM"><a href="#什么是MVVM" class="headerlink" title="什么是MVVM?"></a>什么是MVVM?</h2><p>&emsp;&emsp; MVVM (Model-View-ViewModel) 是一种软件架构设计模式，由微软WPF (用于替代WinForm，以前就是用这个技术开发桌面应用程序的)和Silverlight (类似于Java Applet,简单点说就是在浏览器上运行的WPF)的架构师Ken Cooper和Ted Peters 开发，是一种简化用户界面的<font color=red><strong><em>事件驱动编程方式</em></strong></font>。由John Gossman (同样也是WPF和Silverlight的架构师)于2005年在他的博客上发表。<br>&emsp;&emsp; MVVM源自于经典的MVC (ModI-View-Controller) 模式。<strong><font color=red>MVVM的核心是ViewModel层</font>，<font color=red>负责转换Model中的数据对象来让数据变得更容易管理和使用</font>，</strong></p>
+<p><strong>其作用如下:</strong><br><font color=blue>●<font color=blue><em>该层向上与视图层进行双向数据绑定<br>●向下与Model层通过接口请求进行数据交互</font></em></p>
+<p><img src="https://img-blog.csdnimg.cn/20200824012825185.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="MVVM图解"></p>
+<h2 id="为什么要使用MVVM"><a href="#为什么要使用MVVM" class="headerlink" title="为什么要使用MVVM"></a>为什么要使用MVVM</h2><p>&emsp;&emsp; MVVM模式和MVC模式一样，主要目的是分离视图(View)和模型(Model),有几大好处<br>●<font color=red>低耦合</font>:视图(View)可以独立于Model变化和修改,一个ViewModel可以绑定到不同的<br>View上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。<br>●<font color=red>可复用</font>:你可以把一些视图逻辑放在一个ViewModel里面，让很多View重用这段视图逻辑。<br>●<font color=red>独立开发</font>:开发人员可以专注于业务逻辑和数据的开发(ViewModel),设计人员可以专注于页面设计。<br>●<font color=red>可测试</font>:界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</p>
+<p><strong>代码 demo2.html if else 语法</strong></p>
+<pre><code class="java">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;!--1.导入vue.js--&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;h1 v-if=&quot;ok&quot;&gt;Yes&lt;/h1&gt;
+    &lt;h1 v-else&gt;No&lt;/h1&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    let vm = new Vue({
+        el: &quot;#app&quot;,
+        data: {
+            ok: true
+        }
+    });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>代码 demo03.html for循环获取数据</strong></p>
+<pre><code class="java">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;!--1.导入vue.js--&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;app&quot;&gt;
+    &lt;li v-for=&quot;text in allTexts&quot;&gt;
+        {{text.message}}
+    &lt;/li&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    let vm = new Vue({
+        el: &quot;#app&quot;,
+        data: {
+            allTexts: [
+                {message: &quot;1&quot;},
+                {message: &quot;2&quot;},
+                {message: &quot;3&quot;},
+            ]
+        }
+    });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>代码demo04 事件绑定</strong></p>
+<pre><code class="java">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;!--1.导入vue.js--&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;button v-on:click=&quot;sayHi()&quot;&gt;点我&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    let vm = new Vue({
+        el: &quot;#app&quot;,
+        data: {
+            message: &quot;cqh&quot;
+        },
+        methods: {
+            sayHi: function () {
+                alert(this.message);
+            }
+        }
+    });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="什么是双向数据绑定"><a href="#什么是双向数据绑定" class="headerlink" title="什么是双向数据绑定"></a>什么是双向数据绑定</h2><p> &emsp; <font color=red><strong>Vue.js是一个MVVM框架，即数据双向绑定,即当数据发生变化的时候,视图也就发生变化，当视图发生变化的时候，数据也会跟着同步变化。这也算是Vue.js的精髓之处了。</strong></font><br> 值得注意的是，我们所说的数据双向绑定，一定是对于UI控件来说的，非UI控件不会涉及到数据双向绑定。单向数据绑定是使用状态管理工具的前提。如果我们使用vuex，那么数据流也是单项的，这时就会和双向数据绑定有冲突。</p>
+<h2 id="为什么要实现数据的双向绑定"><a href="#为什么要实现数据的双向绑定" class="headerlink" title="为什么要实现数据的双向绑定"></a>为什么要实现数据的双向绑定</h2><p> &emsp;&emsp; 在Vue.js 中，如果使用vuex ，实际上数据还是单向的，之所以说是数据双向绑定，这是用的UI控件来说，对于我们处理表单，Vue.js的双向数据绑定用起来就特别舒服了。即两者并不互斥，在全局性数据流使用单项,方便跟踪;局部性数据流使用双向，简单易操作。</p>
+<h2 id="在表单中使用双向数据绑定"><a href="#在表单中使用双向数据绑定" class="headerlink" title="在表单中使用双向数据绑定"></a>在表单中使用双向数据绑定</h2><p> &emsp;&emsp; 你可以用v-model 指令在表单 、 及 元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。尽管有些神奇，但v-model本质上不过是语法糖。它负责监听户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。<br>代码 demo05 数据双向绑定示例 实现之后当输入框输入相应文字 在后面提示框会输入相同文字</p>
+<p><br>``</p>
+<p><font color=red><strong>代码 demo05 数据双向绑定示例 实现之后当输入框输入相应文字 在后面提示框会输入相同文字</strong></font></p>
+<pre><code class="java">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;!--1.导入vue.js--&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    数据双向绑定示例：&lt;input type=&quot;text&quot; v-model=&quot;message&quot;&gt;{{message}}
+&lt;/div&gt;
+&lt;script&gt;
+    let vm = new Vue({
+        el: &quot;#app&quot;,
+        data: {
+            message: &quot;&quot;
+        },
+    });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="什么是组件"><a href="#什么是组件" class="headerlink" title="什么是组件"></a>什么是组件</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组件是可复用的Vue实例，说白了就是一组可以重复使用的模板，跟JSTL的自定义标签、Thymeleaf的th:fragment 等框架有着异曲同工之妙。通常一个应用会以一棵嵌套的组件树的形式来组织:<br>&nbsp;&nbsp;&nbsp; 注意:在实际开发中，我们并不会用以下方式开发组件，而是采用vue-cli创建.vue模板文件的方式开发，以下方法只是为了让大家理解什么是组件。<br><br><font color=red>Vue.component()方法注册组件</font></p>
+<p><strong>代码 组件练习 demo06</strong></p>
+<pre><code class="java">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;!--1.导入vue.js--&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;cqh v-for=&quot;item in items&quot; v-bind:testComponent=&quot;item&quot;&gt;&lt;/cqh&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    /*定义一个vue组件*/
+    Vue.component(&quot;cqh&quot;, {
+        props: [&#39;testComponent&#39;],
+        template: &#39;&lt;li&gt;{{testComponent}}&lt;/li&gt;&#39;
+    });
+    let vm = new Vue({
+        el: &quot;#app&quot;,
+        data: {
+            items: [&quot;Java&quot;, &quot;Linux&quot;, &quot;前端&quot;]
+        }
+    });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -234,44 +461,6 @@ int main()
       <tags>
         <tag>博客</tag>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue笔记(1)</title>
-    <url>/2020/08/22/Vue1/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h2 id="Vue概述"><a href="#Vue概述" class="headerlink" title="Vue概述"></a>Vue概述</h2><p> &emsp;&emsp;Vue (读音/vju/, 类似于view)是一套用于构建用户界面的<font color=red><strong>渐进式框架</strong></font>，发布于2014年2月。与其它大型框架不同的是，Vue被设计为可以自底向上逐层应用。<font color=red><strong>Vue的核心库只关注视图层</strong></font>，不仅易于上手，还便于与第三方库(如: <font color=red><strong>vue-router: 跳转，vue-resource: 通信，vuex:管理</strong></font>)或既有项目整合。</p>
-<h2 id="前端知识体系"><a href="#前端知识体系" class="headerlink" title="前端知识体系"></a>前端知识体系</h2><p>&emsp;&emsp; 想要成为真正的“互联网Java全栈工程师”还有很长的一段路要走，其中“我大前端”是绕不开的一门必修课。本阶段课程的主要目的就是带领我Java后台程序员认识前端、了解前端、掌握前端,为实现成为“互联网Java全栈工程师”再向前迈进一步。</p>
-<h2 id="前端三要素"><a href="#前端三要素" class="headerlink" title="前端三要素"></a>前端三要素</h2><p>●HTML (结构) :超文本标记语言(Hyper Text Markup Language) ，决定网页的结构和内容<br>●CSS (表现) :层叠样式表(Cascading Style sheets) ，设定网页的表现样式<br>●JavaScript (行为) :是一种弱类型脚本语言，其源代码不需经过编译，而是由浏览器解释运行,用于控制网页的行为</p>
-<h2 id="表现层（CSS）"><a href="#表现层（CSS）" class="headerlink" title="表现层（CSS）"></a>表现层（CSS）</h2><p>  &emsp;&emsp;CSS层叠样式表是<font color=red><em>一门标记语言</em></font>,并不是编程语言，因此不可以自定义变量，不可以引用等，换句话说就是不具备任何语法支持，它主要缺陷如下:<br>●语法不够强大，比如无法嵌套书写，导致模块化开发中需要写很多重复的选择器;<br>●没有变量和合理的样式复用机制，使得逻辑上相关的属性值必须以字面量的形式重复输出，导致难以维护;<br>这就导致了我们在工作中无端增加了许多工作量。为了解决这个问题，前端开发人员会使用一种称之为<font color=red><strong>[CSS预处理器]</strong></font>的工具，提供CSS缺失的样式层复用机制、减少冗余代码，提高样式代码的可维护性。大大提高了前端在样式上的开发效率。（例如页面在不同的时候有不同的需求，淘宝在双11和618的样式就会不一样）</p>
-<h2 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h2><p>  &emsp;&emsp;CSS预处理器定义了一种新的语言，其基本思想是，用一种专门的<font color=red>编程语言</font>，为CSS增加了一些编程的特性，将CSS作为目标生成文件,然后开发者就只要使用这种语言进行CSS的编码工作。转化成通俗易懂的话来说就是“_<font color=red>用一种专门的编程语言,进行Web页面样式设计，再通过编译器转化为正常的CSS文件，以供项目使用</font>_”<br>常用的CSS预处理器有哪些<br>●SASS:基于Ruby,通过服务端处理，功能强大。解析效率高。需要学习Ruby语言，上手难度高于LESS。<br>●LESS:基于NodeJS,通过客户端处理，使用简单。功能比SASS简单，解析效率也低于SASS,但在实际开发中足够了，所以我们后台人员如果需要的话，建议使用LESS。</p>
-<h2 id="JavaScript框架"><a href="#JavaScript框架" class="headerlink" title="JavaScript框架"></a>JavaScript框架</h2><p>●<font color=red>jQuery</font>: 大家熟知的JavaScript框架，优点是简化了DOM操作，缺点是DOM操作太频繁,影响前端性能;在前端眼里使用它仅仅是为了兼容IE6、7、8;<br>●<font color=red>Angular</font>: Google收购的前端框架，由一群Java程序员开发，其特点是将后台的MVC模式搬到了前端并增加了模块化开发的理念，与微软合作，采用TypeScript语法开发;对后台程序员友好，对前端程序员不太友好;最大的缺点是版本迭代不合理(如: 1代-&gt; 2代，除了名字，基本就是两个东西;截止发表博客时已推出了Angular6)<br>●<font color=red>React</font>: Facebook出品，一款高性能的JS前端框架;特点是提出了新概念[虚拟DOM]用于<br>减少真实DOM操作，在内存中模拟DOM操作，有效的提升了前端渲染效率;缺点是使用复<br>杂，因为需要额外学习一门[JSX] 语言;<br>●<font color=red>Vue</font>:一款渐进式JavaScript框架，所谓渐进式就是逐步实现新特性的意思，如实现模块化开发、路由、状态管理等新特性。其特点是综合了Angular (模块化)和React (虚拟DOM)的优点;<br>●<font color=red>Axios</font> :前端通信框架;因为Vue 的边界很明确，就是为了处理DOM,所以并不具备通信能<br>力，此时就需要额外使用一个<font color=blue>通信框架与服务器交互</font>;当然也可以直接选择使用jQuery提供的AJAX通信功能;<br>前端三大框架：Angular、React、Vue</p>
-<h2 id="UI框架"><a href="#UI框架" class="headerlink" title="UI框架"></a>UI框架</h2><p>●Ant-Design:阿里巴巴出品，基于React的UI框架<br>●<font color=red>ElementUI、 iview、 ice: 饿了么出品，基于Vue的UI框架</font><br>●Bootstrap: Twitter推出的一个用于前端开发的开源工具包<br>●AmazeUI:又叫”妹子UI”，一款HTML5跨屏前端框架.<br>JavaScript 构建工具<br>●Babel: JS编译工具，主要用于浏览器不支持的ES新特性，比如用于编译TypeScript<br>●WebPack: 模块打包器，主要作用是打包、压缩、合并及按序加载<br>注：以上知识点将WebApp开发所需技能全部梳理完毕</p>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL内连接和外连接的区别</title>
-    <url>/2020/08/22/SQL%E4%B8%AD%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%8F%B3%E8%BF%9E%E6%8E%A5,%E5%86%85%E8%BF%9E%E6%8E%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<p><strong>例子，相信你一看就明白，不需要多说<br>A表(a1,b1,c1) B表(a2,b2)</strong></p>
-<p><img src="https://img-blog.csdnimg.cn/20200823002746459.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200823002801818.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>左连接：<br>select A.<em>,B.</em> from A left outer join B on(A.a1=B.a2)<br>结果是:</strong><br><img src="https://img-blog.csdnimg.cn/20200823002839691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>右连接：<br>select A.<em>,B.</em> from A right outer join B on(A.a1=B.a2)<br>结果是:</strong><br><img src="https://img-blog.csdnimg.cn/20200823002901758.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>内连接：<br>自然联结：SELECT * FROM a, b where a.a1=b.a2，这两种写法一样<br>（内连接和自然联结一样，一般情况下都使用自然联结）</strong></p>
-<p><img src="https://img-blog.csdnimg.cn/20200823002934343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-<p><strong>结论：</strong></p>
-<p><strong><font color=red>左连接：左边有的，右边没有的为null（A right outer join B）<br><br>右连接：左边没有的，右边有的为null（A left outer join B）<br><br>内连接：显示左边右边共有的（A inner join B）</font></strong></p>
-]]></content>
-      <categories>
-        <category>SQL</category>
-      </categories>
-      <tags>
-        <tag>内连接</tag>
-        <tag>外连接</tag>
       </tags>
   </entry>
 </search>
