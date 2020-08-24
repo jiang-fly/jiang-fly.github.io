@@ -8,48 +8,48 @@
 <p>装箱就是自动将基本数据类型转换为包装器类型（int–&gt;Integer）；调用方法：Integer的<br>valueOf(int) 方法<br>拆箱就是自动将包装器类型转换为基本数据类型（Integer–&gt;int）。调用方法：Integer的intValue方法</p>
 </blockquote>
 <p><strong>先来看一段代码</strong></p>
-<pre><code class="java">public class IntegerDemo01 {
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span> <span class="token punctuation">{</span>
 
-public static void main(String[] args) {
-     Integer i2 =100;
-     Integer i3 =100;
-     System.out.println(i2==i3);
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     Integer i2 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     Integer i3 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2<span class="token operator">==</span>i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-     Integer i4 =1000;
-     Integer i5 =1000;
-     System.out.println(i3==i4);
+     Integer i4 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     Integer i5 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
-}</code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
-<pre><code class="java">import java.io.PrintStream;
-public class IntegerDemo01
- {
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>PrintStream<span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span>
+ <span class="token punctuation">{</span>
 
-  public IntegerDemo01()
-  {
-    }
+  <span class="token keyword">public</span> <span class="token function">IntegerDemo01</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-  public static void main(String args[])
- {
-    Integer i2 = Integer.valueOf(100);
-    Integer i3 = Integer.valueOf(100);
-    System.out.println(i2 == i3);
-    Integer i4 = Integer.valueOf(1000);
-    Integer i5 = Integer.valueOf(1000);
-    System.out.println(i3 == i4);
- }
-}</code></pre>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+    Integer i2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i3 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2 <span class="token operator">==</span> i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i4 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i5 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3 <span class="token operator">==</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <blockquote>
 <p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
 </blockquote>
-<pre><code class="java">public static Integer valueOf(int i) {
-    if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)
-   //如果数值在-128~127之间的 
-return IntegerCache.cache[i + (-IntegerCache.low)];
-   //返回 
-    return new Integer(i);
- }</code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
+   <span class="token comment" spellcheck="true">//如果数值在-128~127之间的 </span>
+<span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">//返回 </span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></code></pre>
 <blockquote>
 <p><strong>来看这段代码的描述</strong></p>
 <ul>
@@ -63,24 +63,24 @@ return IntegerCache.cache[i + (-IntegerCache.low)];
 <h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
 <p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
 </blockquote>
-<pre><code class="java"> String str = &quot;abc&quot;;
-    String str2 =&quot;abc&quot;;
-    System.out.println(str==str2);
-    String str3 = new String(&quot;abc&quot;);
-    String str4 = new String(&quot;abc&quot;);
-    System.out.print(str3==str4);</code></pre>
+<pre class=" language-java"><code class="language-java"> String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span><span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token operator">==</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3<span class="token operator">==</span>str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
 <p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
 <p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
 <blockquote>
 <p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
 </blockquote>
-<pre><code class="java">    String str = &quot;abc&quot;;
-    String str2 = &quot;abc&quot;;
-    System.out.println(str == str2);
-    String str3 = new String(&quot;abc&quot;);
-    String str4 = new String(&quot;abc&quot;);
-    System.out.print(str3 == str4);</code></pre>
+<pre class=" language-java"><code class="language-java">    String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str <span class="token operator">==</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3 <span class="token operator">==</span> str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <blockquote>
 <p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
 </blockquote>
@@ -145,16 +145,16 @@ photos:                       //如果使用Fancybox（文章头部展示图片�
 <p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
 </blockquote>
 <p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
-<pre><code class="//代码块放置于3个反引号中间，回车即可换行">#include&lt;stdio.h&gt;
+<pre class=" language-//代码块放置于3个反引号中间，回车即可换行"><code class="language-//代码块放置于3个反引号中间，回车即可换行">#include<stdio.h>
 int main()
 {
-    printf(&quot;Hello World!\n&quot;);
+    printf("Hello World!\n");
     return 0;
 }
 </code></pre>
 <p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
 <p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
-<pre><code class="java">&lt;!-- more --&gt;</code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> more <span class="token operator">--</span><span class="token operator">></span></code></pre>
 <p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
 ]]></content>
       <categories>
@@ -209,32 +209,15 @@ int main()
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
 <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>中缀表达式转后缀表达式</title>
-    <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h2 id="中缀表达式转后缀表达式步骤"><a href="#中缀表达式转后缀表达式步骤" class="headerlink" title="中缀表达式转后缀表达式步骤"></a>中缀表达式转后缀表达式步骤</h2><p>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2； <br><br>2) 从左至右扫描中缀表达式； <br><br>3) 遇到操作数时，将其压s2； <br><br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br><br>&emsp;&emsp;&emsp;&emsp;1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br><br>&emsp;&emsp;&emsp;&emsp;2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br><br>&emsp;&emsp;&emsp;&emsp;3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br><br>5) 遇到括号时：<br><br>&emsp;&emsp;&emsp;&emsp;(1) 如果是左括号“(”，则直接压入s1<br><br>&emsp;&emsp;&emsp;&emsp;(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃 <br><br>6) 重复步骤2至5，直到表达式的最右边 <br><br>7) 将s1中剩余的运算符依次弹出并压入s2 <br><br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式 <br></p>
-<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明:"></a>举例说明:</h2><p>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</p>
-<p>因此结果为<br>“1 2 3 + 4 × + 5 –”</p>
-<p><img src="https://img-blog.csdnimg.cn/20200822002413957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>中缀表达式</tag>
-        <tag>后缀表达式</tag>
-      </tags>
   </entry>
   <entry>
     <title>我的第一篇博客</title>
@@ -275,6 +258,23 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>中缀表达式转后缀表达式</title>
+    <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="中缀表达式转后缀表达式步骤"><a href="#中缀表达式转后缀表达式步骤" class="headerlink" title="中缀表达式转后缀表达式步骤"></a>中缀表达式转后缀表达式步骤</h2><p>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2； <br><br>2) 从左至右扫描中缀表达式； <br><br>3) 遇到操作数时，将其压s2； <br><br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br><br>&emsp;&emsp;&emsp;&emsp;1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br><br>&emsp;&emsp;&emsp;&emsp;2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br><br>&emsp;&emsp;&emsp;&emsp;3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br><br>5) 遇到括号时：<br><br>&emsp;&emsp;&emsp;&emsp;(1) 如果是左括号“(”，则直接压入s1<br><br>&emsp;&emsp;&emsp;&emsp;(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃 <br><br>6) 重复步骤2至5，直到表达式的最右边 <br><br>7) 将s1中剩余的运算符依次弹出并压入s2 <br><br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式 <br></p>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明:"></a>举例说明:</h2><p>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</p>
+<p>因此结果为<br>“1 2 3 + 4 × + 5 –”</p>
+<p><img src="https://img-blog.csdnimg.cn/20200822002413957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>中缀表达式</tag>
+        <tag>后缀表达式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>第一个Vue程序</title>
     <url>/2020/08/24/%E7%AC%AC%E4%B8%80%E4%B8%AAVue%E7%A8%8B%E5%BA%8F/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -283,28 +283,28 @@ int main()
 <p>&emsp;&emsp;<font color=blue><strong><em>至此，我们就明白了，Vue.js 就是一个MVVM的实现者，他的核心就是实现了DOM监听与数据绑定</em></strong></font></p>
 <h2 id="为什么要使用Vue-js"><a href="#为什么要使用Vue-js" class="headerlink" title="为什么要使用Vue.js"></a>为什么要使用Vue.js</h2><p>●<font color=red>轻量级</font>，体积小是一个重要指标。Vue.js 压缩后有只有20多kb (Angular 压缩后56kb+ ,<br>React压缩后44kb+ )<br>●<font color=red>移动优先</font>。更适合移动端，比如移动端的Touch事件<br>●<font color=red>易上手</font>，学习曲线平稳,文档齐全<br>●<font color=red>吸取了Angular (模块化)和React (虚拟DOM)的长处</font>，并拥有自己独特的功能，如:计算属性<br>●<font color=red>开源</font>，社区活跃度高</p>
 <p><strong>代码 demo1.html 初入门之绑定数据</strong></p>
-<pre><code class="java">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Title&lt;/title&gt;
-    &lt;!--1.导入vue.js--&gt;
-    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&quot;app&quot;&gt;
-    {{message}}
-&lt;/div&gt;
-&lt;script&gt;
-     let vm = new Vue({
-        el: &quot;#app&quot;,
-        data: {
-            message: &quot;hello,vue&quot;
-        }
-    });
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>title<span class="token operator">></span>Title<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span><span class="token number">1</span><span class="token punctuation">.</span>导入vue<span class="token punctuation">.</span>js<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+<span class="token operator">&lt;</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span><span class="token operator">></span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span>message<span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+     let vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        el<span class="token operator">:</span> <span class="token string">"#app"</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span> <span class="token punctuation">{</span>
+            message<span class="token operator">:</span> <span class="token string">"hello,vue"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span>
 
 </code></pre>
 <h2 id="什么是MVVM"><a href="#什么是MVVM" class="headerlink" title="什么是MVVM?"></a>什么是MVVM?</h2><p>&emsp;&emsp; MVVM (Model-View-ViewModel) 是一种软件架构设计模式，由微软WPF (用于替代WinForm，以前就是用这个技术开发桌面应用程序的)和Silverlight (类似于Java Applet,简单点说就是在浏览器上运行的WPF)的架构师Ken Cooper和Ted Peters 开发，是一种简化用户界面的<font color=red><strong><em>事件驱动编程方式</em></strong></font>。由John Gossman (同样也是WPF和Silverlight的架构师)于2005年在他的博客上发表。<br>&emsp;&emsp; MVVM源自于经典的MVC (ModI-View-Controller) 模式。<strong><font color=red>MVVM的核心是ViewModel层</font>，<font color=red>负责转换Model中的数据对象来让数据变得更容易管理和使用</font>，</strong></p>
@@ -312,146 +312,147 @@ int main()
 <p><img src="https://img-blog.csdnimg.cn/20200824012825185.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="MVVM图解"></p>
 <h2 id="为什么要使用MVVM"><a href="#为什么要使用MVVM" class="headerlink" title="为什么要使用MVVM"></a>为什么要使用MVVM</h2><p>&emsp;&emsp; MVVM模式和MVC模式一样，主要目的是分离视图(View)和模型(Model),有几大好处<br>●<font color=red>低耦合</font>:视图(View)可以独立于Model变化和修改,一个ViewModel可以绑定到不同的<br>View上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。<br>●<font color=red>可复用</font>:你可以把一些视图逻辑放在一个ViewModel里面，让很多View重用这段视图逻辑。<br>●<font color=red>独立开发</font>:开发人员可以专注于业务逻辑和数据的开发(ViewModel),设计人员可以专注于页面设计。<br>●<font color=red>可测试</font>:界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</p>
 <p><strong>代码 demo2.html if else 语法</strong></p>
-<pre><code class="java">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Title&lt;/title&gt;
-    &lt;!--1.导入vue.js--&gt;
-    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&quot;app&quot;&gt;
-    &lt;h1 v-if=&quot;ok&quot;&gt;Yes&lt;/h1&gt;
-    &lt;h1 v-else&gt;No&lt;/h1&gt;
-&lt;/div&gt;
-&lt;script&gt;
-    let vm = new Vue({
-        el: &quot;#app&quot;,
-        data: {
-            ok: true
-        }
-    });
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>title<span class="token operator">></span>Title<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span><span class="token number">1</span><span class="token punctuation">.</span>导入vue<span class="token punctuation">.</span>js<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+<span class="token operator">&lt;</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>h1 v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">"ok"</span><span class="token operator">></span>Yes<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+    <span class="token operator">&lt;</span>h1 v<span class="token operator">-</span><span class="token keyword">else</span><span class="token operator">></span>No<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+    let vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        el<span class="token operator">:</span> <span class="token string">"#app"</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span> <span class="token punctuation">{</span>
+            ok<span class="token operator">:</span> <span class="token boolean">true</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span>
 </code></pre>
 <p><strong>代码 demo03.html for循环获取数据</strong></p>
-<pre><code class="java">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Title&lt;/title&gt;
-    &lt;!--1.导入vue.js--&gt;
-    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
+<pre class=" language-java"><code class="language-java">
+<span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>title<span class="token operator">></span>Title<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span><span class="token number">1</span><span class="token punctuation">.</span>导入vue<span class="token punctuation">.</span>js<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+<span class="token operator">&lt;</span>body<span class="token operator">></span>
 
-&lt;div id=&quot;app&quot;&gt;
-    &lt;li v-for=&quot;text in allTexts&quot;&gt;
-        {{text.message}}
-    &lt;/li&gt;
-&lt;/div&gt;
-&lt;script&gt;
-    let vm = new Vue({
-        el: &quot;#app&quot;,
-        data: {
-            allTexts: [
-                {message: &quot;1&quot;},
-                {message: &quot;2&quot;},
-                {message: &quot;3&quot;},
-            ]
-        }
-    });
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+<span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>li v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"text in allTexts"</span><span class="token operator">></span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span>text<span class="token punctuation">.</span>message<span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+    let vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        el<span class="token operator">:</span> <span class="token string">"#app"</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span> <span class="token punctuation">{</span>
+            allTexts<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">{</span>message<span class="token operator">:</span> <span class="token string">"1"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span>message<span class="token operator">:</span> <span class="token string">"2"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span>message<span class="token operator">:</span> <span class="token string">"3"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span></code></pre>
 <p><strong>代码demo04 事件绑定</strong></p>
-<pre><code class="java">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Title&lt;/title&gt;
-    &lt;!--1.导入vue.js--&gt;
-    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&quot;app&quot;&gt;
-    &lt;button v-on:click=&quot;sayHi()&quot;&gt;点我&lt;/button&gt;
-&lt;/div&gt;
-&lt;script&gt;
-    let vm = new Vue({
-        el: &quot;#app&quot;,
-        data: {
-            message: &quot;cqh&quot;
-        },
-        methods: {
-            sayHi: function () {
-                alert(this.message);
-            }
-        }
-    });
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>title<span class="token operator">></span>Title<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span><span class="token number">1</span><span class="token punctuation">.</span>导入vue<span class="token punctuation">.</span>js<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+<span class="token operator">&lt;</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>button v<span class="token operator">-</span>on<span class="token operator">:</span>click<span class="token operator">=</span><span class="token string">"sayHi()"</span><span class="token operator">></span>点我<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+    let vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        el<span class="token operator">:</span> <span class="token string">"#app"</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span> <span class="token punctuation">{</span>
+            message<span class="token operator">:</span> <span class="token string">"cqh"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+            sayHi<span class="token operator">:</span> <span class="token function">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">alert</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span>
 </code></pre>
 <h2 id="什么是双向数据绑定"><a href="#什么是双向数据绑定" class="headerlink" title="什么是双向数据绑定"></a>什么是双向数据绑定</h2><p> &emsp; <font color=red><strong>Vue.js是一个MVVM框架，即数据双向绑定,即当数据发生变化的时候,视图也就发生变化，当视图发生变化的时候，数据也会跟着同步变化。这也算是Vue.js的精髓之处了。</strong></font><br> 值得注意的是，我们所说的数据双向绑定，一定是对于UI控件来说的，非UI控件不会涉及到数据双向绑定。单向数据绑定是使用状态管理工具的前提。如果我们使用vuex，那么数据流也是单项的，这时就会和双向数据绑定有冲突。</p>
 <h2 id="为什么要实现数据的双向绑定"><a href="#为什么要实现数据的双向绑定" class="headerlink" title="为什么要实现数据的双向绑定"></a>为什么要实现数据的双向绑定</h2><p> &emsp;&emsp; 在Vue.js 中，如果使用vuex ，实际上数据还是单向的，之所以说是数据双向绑定，这是用的UI控件来说，对于我们处理表单，Vue.js的双向数据绑定用起来就特别舒服了。即两者并不互斥，在全局性数据流使用单项,方便跟踪;局部性数据流使用双向，简单易操作。</p>
 <h2 id="在表单中使用双向数据绑定"><a href="#在表单中使用双向数据绑定" class="headerlink" title="在表单中使用双向数据绑定"></a>在表单中使用双向数据绑定</h2><p> &emsp;&emsp; 你可以用v-model 指令在表单 、 及 元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。尽管有些神奇，但v-model本质上不过是语法糖。它负责监听户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。<br>代码 demo05 数据双向绑定示例 实现之后当输入框输入相应文字 在后面提示框会输入相同文字</p>
 <p><br>``</p>
 <p><font color=red><strong>代码 demo05 数据双向绑定示例 实现之后当输入框输入相应文字 在后面提示框会输入相同文字</strong></font></p>
-<pre><code class="java">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Title&lt;/title&gt;
-    &lt;!--1.导入vue.js--&gt;
-    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&quot;app&quot;&gt;
-    数据双向绑定示例：&lt;input type=&quot;text&quot; v-model=&quot;message&quot;&gt;{{message}}
-&lt;/div&gt;
-&lt;script&gt;
-    let vm = new Vue({
-        el: &quot;#app&quot;,
-        data: {
-            message: &quot;&quot;
-        },
-    });
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>title<span class="token operator">></span>Title<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span><span class="token number">1</span><span class="token punctuation">.</span>导入vue<span class="token punctuation">.</span>js<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+<span class="token operator">&lt;</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span><span class="token operator">></span>
+    数据双向绑定示例：<span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"text"</span> v<span class="token operator">-</span>model<span class="token operator">=</span><span class="token string">"message"</span><span class="token operator">></span><span class="token punctuation">{</span><span class="token punctuation">{</span>message<span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+    let vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        el<span class="token operator">:</span> <span class="token string">"#app"</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span> <span class="token punctuation">{</span>
+            message<span class="token operator">:</span> <span class="token string">""</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span>
 </code></pre>
 <h2 id="什么是组件"><a href="#什么是组件" class="headerlink" title="什么是组件"></a>什么是组件</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组件是可复用的Vue实例，说白了就是一组可以重复使用的模板，跟JSTL的自定义标签、Thymeleaf的th:fragment 等框架有着异曲同工之妙。通常一个应用会以一棵嵌套的组件树的形式来组织:<br>&nbsp;&nbsp;&nbsp; 注意:在实际开发中，我们并不会用以下方式开发组件，而是采用vue-cli创建.vue模板文件的方式开发，以下方法只是为了让大家理解什么是组件。<br><br><font color=red>Vue.component()方法注册组件</font></p>
 <p><strong>代码 组件练习 demo06</strong></p>
-<pre><code class="java">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Title&lt;/title&gt;
-    &lt;!--1.导入vue.js--&gt;
-    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&quot;app&quot;&gt;
-    &lt;cqh v-for=&quot;item in items&quot; v-bind:testComponent=&quot;item&quot;&gt;&lt;/cqh&gt;
-&lt;/div&gt;
-&lt;script&gt;
-    /*定义一个vue组件*/
-    Vue.component(&quot;cqh&quot;, {
-        props: [&#39;testComponent&#39;],
-        template: &#39;&lt;li&gt;{{testComponent}}&lt;/li&gt;&#39;
-    });
-    let vm = new Vue({
-        el: &quot;#app&quot;,
-        data: {
-            items: [&quot;Java&quot;, &quot;Linux&quot;, &quot;前端&quot;]
-        }
-    });
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>title<span class="token operator">></span>Title<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span><span class="token number">1</span><span class="token punctuation">.</span>导入vue<span class="token punctuation">.</span>js<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+<span class="token operator">&lt;</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>cqh v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item in items"</span> v<span class="token operator">-</span>bind<span class="token operator">:</span>testComponent<span class="token operator">=</span><span class="token string">"item"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>cqh<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+    <span class="token comment" spellcheck="true">/*定义一个vue组件*/</span>
+    Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">"cqh"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        props<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'testComponent'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        template<span class="token operator">:</span> <span class="token string">'&lt;li>{{testComponent}}&lt;/li>'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    let vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        el<span class="token operator">:</span> <span class="token string">"#app"</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span> <span class="token punctuation">{</span>
+            items<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"Java"</span><span class="token punctuation">,</span> <span class="token string">"Linux"</span><span class="token punctuation">,</span> <span class="token string">"前端"</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span>
 
 </code></pre>
 ]]></content>

@@ -30,7 +30,7 @@
     <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="JiangBlog" type="application/atom+xml">
-</head>
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css"></head>
 
 
 
@@ -650,7 +650,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    852
+                    835
                 </div>
                 
 
@@ -677,48 +677,48 @@
 <p>装箱就是自动将基本数据类型转换为包装器类型（int–&gt;Integer）；调用方法：Integer的<br>valueOf(int) 方法<br>拆箱就是自动将包装器类型转换为基本数据类型（Integer–&gt;int）。调用方法：Integer的intValue方法</p>
 </blockquote>
 <p><strong>先来看一段代码</strong></p>
-<pre><code class="java">public class IntegerDemo01 {
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span> <span class="token punctuation">{</span>
 
-public static void main(String[] args) {
-     Integer i2 =100;
-     Integer i3 =100;
-     System.out.println(i2==i3);
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     Integer i2 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     Integer i3 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2<span class="token operator">==</span>i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-     Integer i4 =1000;
-     Integer i5 =1000;
-     System.out.println(i3==i4);
+     Integer i4 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     Integer i5 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
-}</code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
-<pre><code class="java">import java.io.PrintStream;
-public class IntegerDemo01
- {
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>PrintStream<span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span>
+ <span class="token punctuation">{</span>
 
-  public IntegerDemo01()
-  {
-    }
+  <span class="token keyword">public</span> <span class="token function">IntegerDemo01</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-  public static void main(String args[])
- {
-    Integer i2 = Integer.valueOf(100);
-    Integer i3 = Integer.valueOf(100);
-    System.out.println(i2 == i3);
-    Integer i4 = Integer.valueOf(1000);
-    Integer i5 = Integer.valueOf(1000);
-    System.out.println(i3 == i4);
- }
-}</code></pre>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+    Integer i2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i3 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2 <span class="token operator">==</span> i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i4 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i5 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3 <span class="token operator">==</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <blockquote>
 <p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
 </blockquote>
-<pre><code class="java">public static Integer valueOf(int i) {
-    if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)
-   //如果数值在-128~127之间的 
-return IntegerCache.cache[i + (-IntegerCache.low)];
-   //返回 
-    return new Integer(i);
- }</code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
+   <span class="token comment" spellcheck="true">//如果数值在-128~127之间的 </span>
+<span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">//返回 </span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></code></pre>
 <blockquote>
 <p><strong>来看这段代码的描述</strong></p>
 <ul>
@@ -732,24 +732,24 @@ return IntegerCache.cache[i + (-IntegerCache.low)];
 <h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
 <p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
 </blockquote>
-<pre><code class="java"> String str = &quot;abc&quot;;
-    String str2 =&quot;abc&quot;;
-    System.out.println(str==str2);
-    String str3 = new String(&quot;abc&quot;);
-    String str4 = new String(&quot;abc&quot;);
-    System.out.print(str3==str4);</code></pre>
+<pre class=" language-java"><code class="language-java"> String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span><span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token operator">==</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3<span class="token operator">==</span>str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
 <p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
 <p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
 <blockquote>
 <p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
 </blockquote>
-<pre><code class="java">    String str = &quot;abc&quot;;
-    String str2 = &quot;abc&quot;;
-    System.out.println(str == str2);
-    String str3 = new String(&quot;abc&quot;);
-    String str4 = new String(&quot;abc&quot;);
-    System.out.print(str3 == str4);</code></pre>
+<pre class=" language-java"><code class="language-java">    String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str <span class="token operator">==</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3 <span class="token operator">==</span> str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <blockquote>
 <p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
 </blockquote>
@@ -1505,7 +1505,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">5.9k</span>&nbsp;字
+                class="white-color">5.7k</span>&nbsp;字
             
             
             
