@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-08-24T17:42:42.484Z</updated>
+  <updated>2020-08-26T16:56:35.991Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决CentOS7虚拟机无法上网并设置CentOS7虚拟机使用静态IP上网</title>
+    <link href="http://yoursite.com/2020/08/27/%E8%A7%A3%E5%86%B3CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%97%A0%E6%B3%95%E4%B8%8A%E7%BD%91%E5%B9%B6%E8%AE%BE%E7%BD%AECentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81IP%E4%B8%8A%E7%BD%91/"/>
+    <id>http://yoursite.com/2020/08/27/%E8%A7%A3%E5%86%B3CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%97%A0%E6%B3%95%E4%B8%8A%E7%BD%91%E5%B9%B6%E8%AE%BE%E7%BD%AECentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81IP%E4%B8%8A%E7%BD%91/</id>
+    <published>2020-08-26T16:47:47.000Z</published>
+    <updated>2020-08-26T16:56:35.991Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp
+        
+      
+    
+    </summary>
+    
+    
+      <category term="虚拟机" scheme="http://yoursite.com/categories/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+    
+      <category term="虚拟机" scheme="http://yoursite.com/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+      <category term="CentOS7" scheme="http://yoursite.com/tags/CentOS7/"/>
+    
+  </entry>
   
   <entry>
     <title>Vue笔记三</title>

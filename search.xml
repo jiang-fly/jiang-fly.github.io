@@ -1,171 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Integer的valueOf(int)方法</title>
-    <url>/2020/08/14/Integer/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<blockquote>
-<p>装箱就是自动将基本数据类型转换为包装器类型（int–&gt;Integer）；调用方法：Integer的<br>valueOf(int) 方法<br>拆箱就是自动将包装器类型转换为基本数据类型（Integer–&gt;int）。调用方法：Integer的intValue方法</p>
-</blockquote>
-<p><strong>先来看一段代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span> <span class="token punctuation">{</span>
-
-<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-     Integer i2 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
-     Integer i3 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
-     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2<span class="token operator">==</span>i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-     Integer i4 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
-     Integer i5 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
-     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>PrintStream<span class="token punctuation">;</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span>
- <span class="token punctuation">{</span>
-
-  <span class="token keyword">public</span> <span class="token function">IntegerDemo01</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-    Integer i2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i3 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2 <span class="token operator">==</span> i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i4 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i5 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3 <span class="token operator">==</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<blockquote>
-<p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
-   <span class="token comment" spellcheck="true">//如果数值在-128~127之间的 </span>
-<span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-   <span class="token comment" spellcheck="true">//返回 </span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span></code></pre>
-<blockquote>
-<p><strong>来看这段代码的描述</strong></p>
-<ul>
-<li>Returns an {@code Integer} instance representing the specified<br>{@code int} value.,<br>返回了这个Integer的含有指定的值的实例</li>
-<li>as this method is likely to yield significantly better space and time performance by</li>
-<li>显着更好的空间和时间性能</li>
-<li>caching frequently requested values.</li>
-</ul>
-</blockquote>
-<p><strong>解释：</strong><br><strong>1.这个方法返回了一个带有值的实例，<br>2.然后返回了一个从-128~127的值的缓存数组，用于缓存在这个范围内所有创建的实例对象。<br>3.如果之前有存在就直接拿来用，不存在的话就新建new 一个Integer对象。</strong></p>
-<h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
-<p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java"> String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    String str2 <span class="token operator">=</span><span class="token string">"abc"</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token operator">==</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3<span class="token operator">==</span>str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
-<blockquote>
-<p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java">    String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    String str2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str <span class="token operator">==</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3 <span class="token operator">==</span> str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<blockquote>
-<p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>包装器类型</category>
-      </categories>
-      <tags>
-        <tag>博客</tag>
-        <tag>Integer</tag>
-        <tag>String</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo与MarkDown</title>
-    <url>/2020/08/08/MarkDown/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy84NTc0MTMwLTM3Nzc4OTA4YmU5ODFkZGQuUE5H?x-oss-process=image/format,png#pic_center" alt="Hexo与MarkDown"></p>
-<blockquote>
-<p>&emsp;&emsp;在hexo中的markdown语法稍有不同本文将列举我遇的例子，同时简述hexo的一些指令集，适用于初学者使用hexo+github搭建博客写作发布文章。</p>
-</blockquote>
-<h1 id="Hexo-指令"><a href="#Hexo-指令" class="headerlink" title="Hexo 指令"></a>Hexo 指令</h1><h2 id="hexo新建文章"><a href="#hexo新建文章" class="headerlink" title="hexo新建文章"></a>hexo新建文章</h2><p>&emsp;&emsp;hexo文件夹下右键点击Git Base here后键入$hexo new 布局 “文章名”</p>
-<table>
-<thead>
-<tr>
-<th>布局</th>
-<th>路径</th>
-<th>注释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>post    source</td>
-<td>_post</td>
-<td>新建一个文章</td>
-</tr>
-<tr>
-<td>draft    source</td>
-<td>_drafts</td>
-<td>新建一个草稿文件</td>
-</tr>
-<tr>
-<td>page</td>
-<td>source</td>
-<td>新建一个页面文件</td>
-</tr>
-</tbody></table>
-<h2 id="hexo部署与调试"><a href="#hexo部署与调试" class="headerlink" title="hexo部署与调试"></a>hexo部署与调试</h2><pre><code>
-$ hexo clean //清除静态页面缓存（清除 public 文件夹)         
-$ hexo g     //在本地生成静态页面（生成 public 文件夹）        
-$ hexo s     //启动本地服务 http://localhost:4000，进行预览调试           
-$ hexo d     //远程部署，同步到 GitHub         
-
-$ npm install hexo-deployer-git --save    //自动部署
-$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d          //发布</code></pre><h1 id="MarkDown-与-文章编辑"><a href="#MarkDown-与-文章编辑" class="headerlink" title="MarkDown 与 文章编辑"></a>MarkDown 与 文章编辑</h1><h2 id="emsp-文章配置"><a href="#emsp-文章配置" class="headerlink" title="&emsp;文章配置"></a>&emsp;文章配置</h2><p>&emsp;&emsp;在hexo文件夹下右键点击Git Base here后键入$hexo new page “name”，source/_post 文件夹中生成name.md文件，打开后即可编辑，编辑格式如下：</p>
-<pre><code>title: 文章名
-date: 2017-10-31 20:38:17     //发表日期
-updated: 2017-10-31 21:58:03  //更新日期
-categories: Life              //文章分类
-tags: [tag1,tag2]             //文章标签，多标签时使用英文逗号隔开
-photos:                       //如果使用Fancybox（文章头部展示图片），如此设置  
-                              //注意冒号后面有空格</code></pre><h1 id="MarkDown语法在hexo中"><a href="#MarkDown语法在hexo中" class="headerlink" title="MarkDown语法在hexo中"></a>MarkDown语法在hexo中</h1><blockquote>
-<p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
-</blockquote>
-<p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
-<pre class=" language-//代码块放置于3个反引号中间，回车即可换行"><code class="language-//代码块放置于3个反引号中间，回车即可换行">#include<stdio.h>
-int main()
-{
-    printf("Hello World!\n");
-    return 0;
-}
-</code></pre>
-<p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
-<p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
-<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> more <span class="token operator">--</span><span class="token operator">></span></code></pre>
-<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
-]]></content>
-      <categories>
-        <category>MarkDown的使用</category>
-      </categories>
-      <tags>
-        <tag>博客</tag>
-        <tag>MarkDown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL内连接和外连接的区别</title>
     <url>/2020/08/22/SQL%E4%B8%AD%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%8F%B3%E8%BF%9E%E6%8E%A5,%E5%86%85%E8%BF%9E%E6%8E%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -464,23 +299,6 @@ int main()
 ]]></content>
   </entry>
   <entry>
-    <title>中缀表达式转后缀表达式</title>
-    <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h2 id="中缀表达式转后缀表达式步骤"><a href="#中缀表达式转后缀表达式步骤" class="headerlink" title="中缀表达式转后缀表达式步骤"></a>中缀表达式转后缀表达式步骤</h2><p>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2； <br><br>2) 从左至右扫描中缀表达式； <br><br>3) 遇到操作数时，将其压s2； <br><br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br><br>&emsp;&emsp;&emsp;&emsp;1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br><br>&emsp;&emsp;&emsp;&emsp;2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br><br>&emsp;&emsp;&emsp;&emsp;3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br><br>5) 遇到括号时：<br><br>&emsp;&emsp;&emsp;&emsp;(1) 如果是左括号“(”，则直接压入s1<br><br>&emsp;&emsp;&emsp;&emsp;(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃 <br><br>6) 重复步骤2至5，直到表达式的最右边 <br><br>7) 将s1中剩余的运算符依次弹出并压入s2 <br><br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式 <br></p>
-<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明:"></a>举例说明:</h2><p>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</p>
-<p>因此结果为<br>“1 2 3 + 4 × + 5 –”</p>
-<p><img src="https://img-blog.csdnimg.cn/20200822002413957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>中缀表达式</tag>
-        <tag>后缀表达式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>第一个Vue程序</title>
     <url>/2020/08/24/%E7%AC%AC%E4%B8%80%E4%B8%AAVue%E7%A8%8B%E5%BA%8F/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -671,6 +489,44 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>解决CentOS7虚拟机无法上网并设置CentOS7虚拟机使用静态IP上网</title>
+    <url>/2020/08/27/%E8%A7%A3%E5%86%B3CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%97%A0%E6%B3%95%E4%B8%8A%E7%BD%91%E5%B9%B6%E8%AE%BE%E7%BD%AECentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81IP%E4%B8%8A%E7%BD%91/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<p>&emsp;&emsp;<strong>最近在VMware虚拟机里玩Centos，装好后发现上不了网。经过一番艰辛的折腾，终于找到出解决问题的方法了。最终的效果是无论是ping内网IP还是ping外网ip，都能正常ping通。方法四步走：</strong></p>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>我们进入/etc/sysconfig/network-scripts目录，查看该目录有没有形如<font color=red>ifcfg-XXX</font>的文件：<br><img src="https://img-blog.csdnimg.cn/20200827003203399.png#pic_center" alt=""><br>&emsp;&emsp;如果你看不到以<font color=red>ifcfg-</font>打头的文件（ifcfg-lo除外），说明网卡设备没有被正确识别，可能是你下载的centos镜像版本和你安装centos时选择的centos版本不一致，比如，centos镜像是64位的，却按照32位来安装。这个。。重装吧.</p>
+<h2 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h2><p>在VMware里，依次点击”编辑“ - ”虚拟网络编辑器“，如下图，我选择的是NAT模式：<br><img src="https://img-blog.csdnimg.cn/20200827003735144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>&emsp;&emsp;为了能够使用静态IP，这里不要勾选”使用本地DHCP服务将IP分配给虚拟机“这个选项。然后是配置子网ip，子网IP与宿主机的ip一定不能处在同一地址范围里，否则就算虚拟机能上网，网络既慢，还不稳定。我主机的ip段是192.168.115.xxx，所以我配了192.168.10.xxx来避开主机的ip段，反正ip的第三个数字在0到254并且不是115就行。Nat模式相当于配置了一个子路由器，有设置过多级路由的朋友对此应该有所体会。各位结合自己机器的IP来合理配置一个子网ip吧。</p>
+<p>&emsp;&emsp;在这个界面接着点”NAT设置”，查看虚拟机的网关，这个网关在第三步要用。我这里的网关是192.168.10.2。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200827003831407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h2 id="第三步："><a href="#第三步：" class="headerlink" title="第三步："></a>第三步：</h2><p>以root权限编辑 <font color=red><strong>vi /etc/sysconfig/network-scripts/ifcfg-eno16777736</strong></font>这个文件，效果如下：</p>
+<p>TYPE=Ethernet<br>BOOTPROTO=static <font color=red> #设置静态Ip</font><br>DEFROUTE=yes<br>IPV4_FAILURE_FATAL=no<br>IPV6INIT=yes<br>IPV6_AUTOCONF=yes<br>IPV6_DEFROUTE=yes<br>IPV6_FAILURE_FATAL=no<br>NAME=eno16777736<br>UUID=4f40dedc-031b-4b72-ad4d-ef4721947439<br>DEVICE=eno16777736<br>ONBOOT=yes  <font color=red>#这里如果为no的话就改为yes，表示网卡设备自动启动</font><br>PEERDNS=yes<br>PEERROUTES=yes<br>IPV6_PEERDNS=yes<br>IPV6_PEERROUTES=yes<br>IPV6_PRIVACY=no</p>
+<p>GATEWAY=192.168.10.2 <font color=red> #这里的网关地址就是第二步获取到的那个网关地址</font><br>IPADDR=192.168.10.150 <font color=red> #配置ip，在第二步已经设置ip处于192.168.10.xxx这个范围，我就随便设为150了，只要不和网关相同均可</font><br>NETMASK=255.255.255.0<font color=red>#子网掩码</font><br>DNS1=202.96.128.86<font color=red>#dns服务器1，填写你所在的网络可用的dns服务器地址即可</font><br>DNS2=223.5.5.5<font color=red>#dns服器2</font></p>
+<p>关键的参数我都用彩色底纹标记出来了，其他的保持默认就好，确认无误后保存退出。</p>
+<h2 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h2><p>重启网卡服务，执行service network restart，然后总算能上网了：</p>
+<p>ping下百度的域名</p>
+<p><img src="https://img-blog.csdnimg.cn/20200827004327947.png#pic_center" alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20200827004200264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<p>如果主机ping不通虚拟机，可将主机中网络连接VMware Virtual Ethernet Adapter for VMnet8的ip设置成和虚拟机ip同一网段的，默认网关留空</p>
+<p><img src="https://img-blog.csdnimg.cn/20200827004404903.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h2 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h2><p><strong>如果出现Xshell链接错误：Could notconnect to ‘192.168.18.128’ (port 22): Connection failed.</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200827004610248.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><font color=red>这个问题一般是你 的什么配置影响了虚拟机的网卡网关设置！！！。</font></p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>　　网上的那些解决方案，我都试过，比如。</p>
+<blockquote>
+<p><a href="http://blog.csdn.net/fengasdfgh/article/details/60135290" target="_blank" rel="noopener">http://blog.csdn.net/fengasdfgh/article/details/60135290</a></p>
+</blockquote>
+<p>　　什么，关闭防火墙、重启ssh服务等，都不行。</p>
+<p>　　给大家，附上这种方法<br><img src="https://img-blog.csdnimg.cn/20200827004840625.png#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200827004855343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20200827004922696.png#pic_center" alt=""></p>
+<p><strong>最后修改之前虚拟机的ip，重复上面步骤即可</strong></p>
+]]></content>
+      <categories>
+        <category>虚拟机</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>CentOS7</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>我的第一篇博客</title>
     <url>/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -706,6 +562,188 @@ int main()
       <tags>
         <tag>博客</tag>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo与MarkDown</title>
+    <url>/2020/08/08/MarkDown/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy84NTc0MTMwLTM3Nzc4OTA4YmU5ODFkZGQuUE5H?x-oss-process=image/format,png#pic_center" alt="Hexo与MarkDown"></p>
+<blockquote>
+<p>&emsp;&emsp;在hexo中的markdown语法稍有不同本文将列举我遇的例子，同时简述hexo的一些指令集，适用于初学者使用hexo+github搭建博客写作发布文章。</p>
+</blockquote>
+<h1 id="Hexo-指令"><a href="#Hexo-指令" class="headerlink" title="Hexo 指令"></a>Hexo 指令</h1><h2 id="hexo新建文章"><a href="#hexo新建文章" class="headerlink" title="hexo新建文章"></a>hexo新建文章</h2><p>&emsp;&emsp;hexo文件夹下右键点击Git Base here后键入$hexo new 布局 “文章名”</p>
+<table>
+<thead>
+<tr>
+<th>布局</th>
+<th>路径</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>post    source</td>
+<td>_post</td>
+<td>新建一个文章</td>
+</tr>
+<tr>
+<td>draft    source</td>
+<td>_drafts</td>
+<td>新建一个草稿文件</td>
+</tr>
+<tr>
+<td>page</td>
+<td>source</td>
+<td>新建一个页面文件</td>
+</tr>
+</tbody></table>
+<h2 id="hexo部署与调试"><a href="#hexo部署与调试" class="headerlink" title="hexo部署与调试"></a>hexo部署与调试</h2><pre><code>
+$ hexo clean //清除静态页面缓存（清除 public 文件夹)         
+$ hexo g     //在本地生成静态页面（生成 public 文件夹）        
+$ hexo s     //启动本地服务 http://localhost:4000，进行预览调试           
+$ hexo d     //远程部署，同步到 GitHub         
+
+$ npm install hexo-deployer-git --save    //自动部署
+$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d          //发布</code></pre><h1 id="MarkDown-与-文章编辑"><a href="#MarkDown-与-文章编辑" class="headerlink" title="MarkDown 与 文章编辑"></a>MarkDown 与 文章编辑</h1><h2 id="emsp-文章配置"><a href="#emsp-文章配置" class="headerlink" title="&emsp;文章配置"></a>&emsp;文章配置</h2><p>&emsp;&emsp;在hexo文件夹下右键点击Git Base here后键入$hexo new page “name”，source/_post 文件夹中生成name.md文件，打开后即可编辑，编辑格式如下：</p>
+<pre><code>title: 文章名
+date: 2017-10-31 20:38:17     //发表日期
+updated: 2017-10-31 21:58:03  //更新日期
+categories: Life              //文章分类
+tags: [tag1,tag2]             //文章标签，多标签时使用英文逗号隔开
+photos:                       //如果使用Fancybox（文章头部展示图片），如此设置  
+                              //注意冒号后面有空格</code></pre><h1 id="MarkDown语法在hexo中"><a href="#MarkDown语法在hexo中" class="headerlink" title="MarkDown语法在hexo中"></a>MarkDown语法在hexo中</h1><blockquote>
+<p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
+</blockquote>
+<p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
+<pre class=" language-//代码块放置于3个反引号中间，回车即可换行"><code class="language-//代码块放置于3个反引号中间，回车即可换行">#include<stdio.h>
+int main()
+{
+    printf("Hello World!\n");
+    return 0;
+}
+</code></pre>
+<p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
+<p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> more <span class="token operator">--</span><span class="token operator">></span></code></pre>
+<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
+]]></content>
+      <categories>
+        <category>MarkDown的使用</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>MarkDown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Integer的valueOf(int)方法</title>
+    <url>/2020/08/14/Integer/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<blockquote>
+<p>装箱就是自动将基本数据类型转换为包装器类型（int–&gt;Integer）；调用方法：Integer的<br>valueOf(int) 方法<br>拆箱就是自动将包装器类型转换为基本数据类型（Integer–&gt;int）。调用方法：Integer的intValue方法</p>
+</blockquote>
+<p><strong>先来看一段代码</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span> <span class="token punctuation">{</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     Integer i2 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     Integer i3 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2<span class="token operator">==</span>i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+     Integer i4 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     Integer i5 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>PrintStream<span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span>
+ <span class="token punctuation">{</span>
+
+  <span class="token keyword">public</span> <span class="token function">IntegerDemo01</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+    Integer i2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i3 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2 <span class="token operator">==</span> i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i4 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i5 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3 <span class="token operator">==</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
+   <span class="token comment" spellcheck="true">//如果数值在-128~127之间的 </span>
+<span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">//返回 </span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p><strong>来看这段代码的描述</strong></p>
+<ul>
+<li>Returns an {@code Integer} instance representing the specified<br>{@code int} value.,<br>返回了这个Integer的含有指定的值的实例</li>
+<li>as this method is likely to yield significantly better space and time performance by</li>
+<li>显着更好的空间和时间性能</li>
+<li>caching frequently requested values.</li>
+</ul>
+</blockquote>
+<p><strong>解释：</strong><br><strong>1.这个方法返回了一个带有值的实例，<br>2.然后返回了一个从-128~127的值的缓存数组，用于缓存在这个范围内所有创建的实例对象。<br>3.如果之前有存在就直接拿来用，不存在的话就新建new 一个Integer对象。</strong></p>
+<h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
+<p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"> String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span><span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token operator">==</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3<span class="token operator">==</span>str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
+<blockquote>
+<p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java">    String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str <span class="token operator">==</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3 <span class="token operator">==</span> str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>包装器类型</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>Integer</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>中缀表达式转后缀表达式</title>
+    <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="中缀表达式转后缀表达式步骤"><a href="#中缀表达式转后缀表达式步骤" class="headerlink" title="中缀表达式转后缀表达式步骤"></a>中缀表达式转后缀表达式步骤</h2><p>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2； <br><br>2) 从左至右扫描中缀表达式； <br><br>3) 遇到操作数时，将其压s2； <br><br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br><br>&emsp;&emsp;&emsp;&emsp;1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br><br>&emsp;&emsp;&emsp;&emsp;2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br><br>&emsp;&emsp;&emsp;&emsp;3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br><br>5) 遇到括号时：<br><br>&emsp;&emsp;&emsp;&emsp;(1) 如果是左括号“(”，则直接压入s1<br><br>&emsp;&emsp;&emsp;&emsp;(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃 <br><br>6) 重复步骤2至5，直到表达式的最右边 <br><br>7) 将s1中剩余的运算符依次弹出并压入s2 <br><br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式 <br></p>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明:"></a>举例说明:</h2><p>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</p>
+<p>因此结果为<br>“1 2 3 + 4 × + 5 –”</p>
+<p><img src="https://img-blog.csdnimg.cn/20200822002413957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>中缀表达式</tag>
+        <tag>后缀表达式</tag>
       </tags>
   </entry>
 </search>
