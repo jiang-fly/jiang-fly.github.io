@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="我的第一篇博客, JiangBlog">
+    <meta name="keywords" content="Nginx的笔记(基础), JiangBlog">
     <meta name="description" content="人无远虑，必有近忧！">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>我的第一篇博客 | JiangBlog</title>
+    <title>Nginx的笔记(基础) | JiangBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -481,12 +481,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">我的第一篇博客</h1>
+                    <h1 class="description center-align post-title">Nginx的笔记(基础)</h1>
                 </div>
             </div>
         </div>
@@ -603,12 +603,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%8D%9A%E5%AE%A2/">
-                                <span class="chip bg-color">博客</span>
+                            <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                                <span class="chip bg-color">虚拟机</span>
                             </a>
                         
-                            <a href="/tags/Hexo/">
-                                <span class="chip bg-color">Hexo</span>
+                            <a href="/tags/CentOS7/">
+                                <span class="chip bg-color">CentOS7</span>
+                            </a>
+                        
+                            <a href="/tags/Nginx/">
+                                <span class="chip bg-color">Nginx</span>
                             </a>
                         
                     </div>
@@ -619,8 +623,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
-                                前端
+                            <a href="/categories/Nginx/" class="post-category">
+                                Nginx
                             </a>
                         
                     </div>
@@ -632,28 +636,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-16
+                    2020-08-28
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-14
+                    2020-08-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    143
+                    726
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -669,31 +673,44 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>什么都不知道</p>
-<a id="more"></a>
-
-<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>也是什么都不知道</p>
-<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><ul>
-<li>列表1</li>
-<li>列表2</li>
-</ul>
-<p> <a href="http://www.baidu.com" target="_blank" rel="noopener">百度一下</a></p>
-<p> <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3722912030,3109009394&fm=26&gp=0.jpg" alt="图片"></p>
-<hr>
-<p> <em>字体是斜线</em><br> <strong>字体加粗了</strong></p>
-<p><code>&lt;html&gt;&lt;/html&gt;</code></p>
-<pre><code>&lt;&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre><blockquote>
-<p>我的内容是引用的</p>
+<h2 id="一-Nginx-的简介"><a href="#一-Nginx-的简介" class="headerlink" title="一.Nginx 的简介"></a>一.Nginx 的简介</h2><h3 id="1、什么是-nginx"><a href="#1、什么是-nginx" class="headerlink" title="1、什么是 nginx"></a>1、什么是 nginx</h3><p>&emsp;&emsp;Nginx 是高性能的 HTTP 和反向代理的<font color=red>服务器</font>，处理高并发能力是十分强大的，能经受高负载的考验,有报告表明能支持高达 50,000 个并发连接数。</p>
+<h3 id="2、正向代理"><a href="#2、正向代理" class="headerlink" title="2、正向代理"></a>2、正向代理</h3><p><strong>（1）需要在客户端配置代理服务器进行指定网站访问</strong><br><img src="https://img-blog.csdnimg.cn/20200827211439739.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="3、反向代理"><a href="#3、反向代理" class="headerlink" title="3、反向代理"></a>3、反向代理</h3><p><strong>&emsp;&emsp;暴露的是代理服务器地址，隐藏了真实服务器 IP 地址。</strong><br><img src="https://img-blog.csdnimg.cn/20200827211534614.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="4、负载均衡"><a href="#4、负载均衡" class="headerlink" title="4、负载均衡"></a>4、负载均衡</h3><p>&emsp;&emsp;增加服务器的数量，然后将请求分发到各个服务器上，将原先请求集中到单个服务器上的情况改为将请求分发到多个服务器上，<font color=orgrane>将负载分发到不同的服务器</font>，也就是我们所说的负载均衡</p>
+<p><img src="https://img-blog.csdnimg.cn/20200827211813728.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="5、动静分离"><a href="#5、动静分离" class="headerlink" title="5、动静分离"></a>5、动静分离</h3><p><img src="https://img-blog.csdnimg.cn/20200827211854151.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h2 id="二-Nginx-的安装"><a href="#二-Nginx-的安装" class="headerlink" title="二.Nginx 的安装"></a>二.Nginx 的安装</h2><h3 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h3><p>（1）打开虚拟机，使用远程连接工具连接 linux 操作系统<br>（2）到 nginx 官网下载软件</p>
+<blockquote>
+<p><font color=red><a href="http://nginx.org/" target="_blank" rel="noopener">http://nginx.org/</a></font></p>
 </blockquote>
+<h3 id="2、开始进行-nginx-安装"><a href="#2、开始进行-nginx-安装" class="headerlink" title="2、开始进行 nginx 安装"></a>2、开始进行 nginx 安装</h3><p><strong>（1）<font color=red>安装 pcre 依赖</font></strong><br><font color=bluee><strong>第一步 联网下载 pcre 压缩文件依赖</font></strong><br>wget <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre-8.37.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre-8.37.tar.gz</a>   或者直接将压缩包拖入xshell当中。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200827212335792.png#pic_center" alt=""><br><strong><font color=blude>第二步 解压压缩文件</font></strong></p>
+<p><strong>使用命令 tar –xvf pcre-8.37.tar.gz</strong></p>
+<p><strong><font color=blude>第三步</font></strong><br><strong>./configure 完成后，回到 pcre 目录下执行 make，最后执行 make install</strong></p>
+<p><strong>（2）<font color=red>安装 openssl 、zlib 、 gcc 依赖</font></strong><br><strong>yum -y install make zlib zlib-devel gcc-c++ libtool openssl openssl-devel</strong></p>
+<p><strong>（3）<font color=red>安装 nginx</font></strong></p>
+<ul>
+<li><strong>使用命令解压</strong></li>
+<li><strong>./configure</strong></li>
+<li><strong>make &amp;&amp; make install</strong></li>
+</ul>
+<h3 id="3、若不能访问nginx"><a href="#3、若不能访问nginx" class="headerlink" title="3、若不能访问nginx"></a>3、若不能访问nginx</h3><p><strong>进入目录 <font color=red>cd /usr/local/nginx/sbin/nginx </font>启动服务</strong></p>
+<p><strong>在 windows 系统中访问 linux 中 nginx，<font color=red>默认不能访问的</font>，因为防火墙问题<br>（1）<font color=red>关闭防火墙</font><br>（2）<font color=red>开放访问的端口号，80 端口</font></strong></p>
+<p><strong><font color=red>查看开放的端口号</font></strong></p>
+<pre class=" language-powershell"><code class="language-powershell">firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>list<span class="token operator">-</span>all</code></pre>
+<p><strong><font color=red>设置开放的端口号</font></strong></p>
+<pre class=" language-powershell"><code class="language-powershell">firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>add<span class="token operator">-</span>service=http –permanent
+firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>add<span class="token operator">-</span>port=80<span class="token operator">/</span>tcp <span class="token operator">--</span>permanent</code></pre>
+<p><strong><font color=red>重启防火墙</font></strong></p>
+<pre class=" language-powershell"><code class="language-powershell">firewall<span class="token operator">-</span>cmd –reload</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20200827213812121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>成功访问Nginx的页面</strong><br><img src="https://img-blog.csdnimg.cn/20200827214024113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h2 id="三-Nginx-的常用的命令"><a href="#三-Nginx-的常用的命令" class="headerlink" title="三.Nginx 的常用的命令"></a>三.Nginx 的常用的命令</h2><p><strong>进入 nginx 目录中</strong><br><strong><font color=red>cd /usr/local/nginx/sbin</font></strong></p>
+<h3 id="1、查看-nginx-版本号"><a href="#1、查看-nginx-版本号" class="headerlink" title="1、查看 nginx 版本号"></a>1、查看 nginx 版本号</h3><pre class=" language-powershell"><code class="language-powershell"><span class="token punctuation">.</span><span class="token operator">/</span>nginx <span class="token operator">-</span>v </code></pre>
+<h3 id="2、启动-nginx"><a href="#2、启动-nginx" class="headerlink" title="2、启动 nginx"></a>2、启动 nginx</h3><pre class=" language-powershell"><code class="language-powershell"><span class="token punctuation">.</span><span class="token operator">/</span>nginx</code></pre>
+<h3 id="3、停止-nginx"><a href="#3、停止-nginx" class="headerlink" title="3、停止 nginx"></a>3、停止 nginx</h3><pre class=" language-powershell"><code class="language-powershell"><span class="token punctuation">.</span><span class="token operator">/</span>nginx <span class="token operator">-</span>s stop</code></pre>
+<h3 id="4、重新加载-nginx"><a href="#4、重新加载-nginx" class="headerlink" title="4、重新加载 nginx"></a>4、重新加载 nginx</h3><pre class=" language-powershell"><code class="language-powershell"><span class="token punctuation">.</span><span class="token operator">/</span>nginx <span class="token operator">-</span>s reload</code></pre>
+<h2 id="五-Nginx-的配置文件"><a href="#五-Nginx-的配置文件" class="headerlink" title="五.Nginx 的配置文件"></a>五.Nginx 的配置文件</h2><h3 id="1、nginx-配置文件位置"><a href="#1、nginx-配置文件位置" class="headerlink" title="1、nginx 配置文件位置"></a>1、nginx 配置文件位置</h3><pre class=" language-powershell"><code class="language-powershell">cd <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token operator">/</span>nginx<span class="token punctuation">.</span>conf</code></pre>
+<h3 id="2、配置文件中的内容"><a href="#2、配置文件中的内容" class="headerlink" title="2、配置文件中的内容"></a>2、配置文件中的内容</h3><p><strong>包含三部分内容</strong><br><strong>（1）<font color=red>全局块</font>：配置服务器整体运行的配置指令<br>比如 worker_processes 1;处理并发数的配置<br>（2）<font color=red>events 块</font>：影响 Nginx 服务器与用户的网络连接<br>比如 worker_connections 1024; 支持的最大连接数为 1024<br>（3）<font color=red>http 块</font><br>还包含两部分：<br>  &emsp;&emsp;<font color=red>http 全局块</font><br>&emsp;&emsp;<font color=red>server 块</font></strong></p>
 
             </div>
             <hr/>
@@ -719,7 +736,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">http://yoursite.com/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</a>
+                    <a href="http://yoursite.com/2020/08/28/Nginx%20%E7%9A%84%E7%AC%94%E8%AE%B0(%E5%9F%BA%E7%A1%80%EF%BC%89/">http://yoursite.com/2020/08/28/Nginx%20%E7%9A%84%E7%AC%94%E8%AE%B0(%E5%9F%BA%E7%A1%80%EF%BC%89/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -757,12 +774,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%8D%9A%E5%AE%A2/">
-                                    <span class="chip bg-color">博客</span>
+                                <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                                    <span class="chip bg-color">虚拟机</span>
                                 </a>
                             
-                                <a href="/tags/Hexo/">
-                                    <span class="chip bg-color">Hexo</span>
+                                <a href="/tags/CentOS7/">
+                                    <span class="chip bg-color">CentOS7</span>
+                                </a>
+                            
+                                <a href="/tags/Nginx/">
+                                    <span class="chip bg-color">Nginx</span>
                                 </a>
                             
                         </div>
@@ -1197,13 +1218,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/08/08/MarkDown/">
+                <a href="/2020/08/28/Nginx%E7%9A%84%E7%AC%94%E8%AE%B0%EF%BC%88%E5%AE%9E%E4%BE%8B%EF%BC%89/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Hexo与MarkDown">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Nginx的笔记(实例)">
                         
-                        <span class="card-title">Hexo与MarkDown</span>
+                        <span class="card-title">Nginx的笔记(实例)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1214,14 +1235,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-08
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-28
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MarkDown%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-category">
-                                    MarkDown的使用
+                            <a href="/categories/Nginx/" class="post-category">
+                                    Nginx
                                 </a>
                             
                             
@@ -1231,12 +1252,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%8D%9A%E5%AE%A2/">
-                        <span class="chip bg-color">博客</span>
+                    <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                        <span class="chip bg-color">虚拟机</span>
                     </a>
                     
-                    <a href="/tags/MarkDown/">
-                        <span class="chip bg-color">MarkDown</span>
+                    <a href="/tags/CentOS7/">
+                        <span class="chip bg-color">CentOS7</span>
+                    </a>
+                    
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
                     </a>
                     
                 </div>
@@ -1250,13 +1275,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/16/hello-world/">
+                <a href="/2020/08/27/%E8%A7%A3%E5%86%B3CentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%97%A0%E6%B3%95%E4%B8%8A%E7%BD%91%E5%B9%B6%E8%AE%BE%E7%BD%AECentOS7%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81IP%E4%B8%8A%E7%BD%91/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="解决CentOS7虚拟机无法上网并设置CentOS7虚拟机使用静态IP上网">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">解决CentOS7虚拟机无法上网并设置CentOS7虚拟机使用静态IP上网</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1267,15 +1292,31 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-27
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            JQF
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="post-category">
+                                    虚拟机
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                        <span class="chip bg-color">虚拟机</span>
+                    </a>
+                    
+                    <a href="/tags/CentOS7/">
+                        <span class="chip bg-color">CentOS7</span>
+                    </a>
+                    
                 </div>
                 
             </div>

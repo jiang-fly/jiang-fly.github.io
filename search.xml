@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Nginx的笔记(实例)</title>
+    <url>/2020/08/28/Nginx%E7%9A%84%E7%AC%94%E8%AE%B0%EF%BC%88%E5%AE%9E%E4%BE%8B%EF%BC%89/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h1 id="一-Nginx-配置实例-反向代理实例-1"><a href="#一-Nginx-配置实例-反向代理实例-1" class="headerlink" title="一.Nginx 配置实例-反向代理实例 1"></a>一.Nginx 配置实例-反向代理实例 1</h1><p><img src="https://img-blog.csdnimg.cn/20200827220344427.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827220943448.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221006190.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221036538.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200827221107440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221135402.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h1 id="二-Nginx-配置实例-反向代理实例-2"><a href="#二-Nginx-配置实例-反向代理实例-2" class="headerlink" title="二.Nginx 配置实例-反向代理实例 2"></a>二.Nginx 配置实例-反向代理实例 2</h1><p><img src="https://img-blog.csdnimg.cn/2020082722130548.png#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082722135657.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082722143231.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h1 id="三-Nginx-配置实例-负载均衡"><a href="#三-Nginx-配置实例-负载均衡" class="headerlink" title="三.Nginx 配置实例-负载均衡"></a>三.Nginx 配置实例-负载均衡</h1><p><img src="https://img-blog.csdnimg.cn/20200827221524666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221551607.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<p><strong>4、nginx 分配服务器策略</strong><br><strong><font color=red>第一种 轮询（默认）</font><br>&emsp;&emsp;每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器 down 掉，能自动剔除。<br><font color=red>第二种 weight</font><br>&emsp;&emsp;weight 代表权重默认为 1,权重越高被分配的客户端越多<br><font color=red>第三种 ip_hash</font><br>&emsp;&emsp;每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器<br><font color=red>第四种 fair（第三方</font>）<br>&emsp;&emsp;按后端服务器的响应时间来分配请求，响应时间短的优先分配。</strong></p>
+<h1 id="四-Nginx-配置实例-动静分离"><a href="#四-Nginx-配置实例-动静分离" class="headerlink" title="四.Nginx 配置实例-动静分离"></a>四.Nginx 配置实例-动静分离</h1><p><img src="https://img-blog.csdnimg.cn/20200827221953128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827222025918.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827222049455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>重点是添加 location，<br>&emsp;&emsp;最后检查 Nginx 配置是否正确即可，然后测试动静分离是否成功，之需要删除后端 tomcat 服务器上的某个静态文件，查看是否能访问，如果可以访问说明静态资源 nginx 直接返回<br>了，不走后端 tomcat 服务器。</strong></p>
+<h1 id="五-Nginx-配置高可用的集群"><a href="#五-Nginx-配置高可用的集群" class="headerlink" title="五.Nginx 配置高可用的集群"></a>五.Nginx 配置高可用的集群</h1><p><img src="https://img-blog.csdnimg.cn/20200828003753515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828003850682.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004035956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082800400920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004101188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004301977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004345163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004450936.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="六-Nginx-的原理"><a href="#六-Nginx-的原理" class="headerlink" title="六.Nginx 的原理"></a>六.Nginx 的原理</h1><p><img src="https://img-blog.csdnimg.cn/20200828004617577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004637228.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004655739.png#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004758540.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>CentOS7</tag>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx的笔记(基础)</title>
+    <url>/2020/08/28/Nginx%20%E7%9A%84%E7%AC%94%E8%AE%B0(%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="一-Nginx-的简介"><a href="#一-Nginx-的简介" class="headerlink" title="一.Nginx 的简介"></a>一.Nginx 的简介</h2><h3 id="1、什么是-nginx"><a href="#1、什么是-nginx" class="headerlink" title="1、什么是 nginx"></a>1、什么是 nginx</h3><p>&emsp;&emsp;Nginx 是高性能的 HTTP 和反向代理的<font color=red>服务器</font>，处理高并发能力是十分强大的，能经受高负载的考验,有报告表明能支持高达 50,000 个并发连接数。</p>
+<h3 id="2、正向代理"><a href="#2、正向代理" class="headerlink" title="2、正向代理"></a>2、正向代理</h3><p><strong>（1）需要在客户端配置代理服务器进行指定网站访问</strong><br><img src="https://img-blog.csdnimg.cn/20200827211439739.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="3、反向代理"><a href="#3、反向代理" class="headerlink" title="3、反向代理"></a>3、反向代理</h3><p><strong>&emsp;&emsp;暴露的是代理服务器地址，隐藏了真实服务器 IP 地址。</strong><br><img src="https://img-blog.csdnimg.cn/20200827211534614.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="4、负载均衡"><a href="#4、负载均衡" class="headerlink" title="4、负载均衡"></a>4、负载均衡</h3><p>&emsp;&emsp;增加服务器的数量，然后将请求分发到各个服务器上，将原先请求集中到单个服务器上的情况改为将请求分发到多个服务器上，<font color=orgrane>将负载分发到不同的服务器</font>，也就是我们所说的负载均衡</p>
+<p><img src="https://img-blog.csdnimg.cn/20200827211813728.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="5、动静分离"><a href="#5、动静分离" class="headerlink" title="5、动静分离"></a>5、动静分离</h3><p><img src="https://img-blog.csdnimg.cn/20200827211854151.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h2 id="二-Nginx-的安装"><a href="#二-Nginx-的安装" class="headerlink" title="二.Nginx 的安装"></a>二.Nginx 的安装</h2><h3 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h3><p>（1）打开虚拟机，使用远程连接工具连接 linux 操作系统<br>（2）到 nginx 官网下载软件</p>
+<blockquote>
+<p><font color=red><a href="http://nginx.org/" target="_blank" rel="noopener">http://nginx.org/</a></font></p>
+</blockquote>
+<h3 id="2、开始进行-nginx-安装"><a href="#2、开始进行-nginx-安装" class="headerlink" title="2、开始进行 nginx 安装"></a>2、开始进行 nginx 安装</h3><p><strong>（1）<font color=red>安装 pcre 依赖</font></strong><br><font color=bluee><strong>第一步 联网下载 pcre 压缩文件依赖</font></strong><br>wget <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre-8.37.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre-8.37.tar.gz</a>   或者直接将压缩包拖入xshell当中。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200827212335792.png#pic_center" alt=""><br><strong><font color=blude>第二步 解压压缩文件</font></strong></p>
+<p><strong>使用命令 tar –xvf pcre-8.37.tar.gz</strong></p>
+<p><strong><font color=blude>第三步</font></strong><br><strong>./configure 完成后，回到 pcre 目录下执行 make，最后执行 make install</strong></p>
+<p><strong>（2）<font color=red>安装 openssl 、zlib 、 gcc 依赖</font></strong><br><strong>yum -y install make zlib zlib-devel gcc-c++ libtool openssl openssl-devel</strong></p>
+<p><strong>（3）<font color=red>安装 nginx</font></strong></p>
+<ul>
+<li><strong>使用命令解压</strong></li>
+<li><strong>./configure</strong></li>
+<li><strong>make &amp;&amp; make install</strong></li>
+</ul>
+<h3 id="3、若不能访问nginx"><a href="#3、若不能访问nginx" class="headerlink" title="3、若不能访问nginx"></a>3、若不能访问nginx</h3><p><strong>进入目录 <font color=red>cd /usr/local/nginx/sbin/nginx </font>启动服务</strong></p>
+<p><strong>在 windows 系统中访问 linux 中 nginx，<font color=red>默认不能访问的</font>，因为防火墙问题<br>（1）<font color=red>关闭防火墙</font><br>（2）<font color=red>开放访问的端口号，80 端口</font></strong></p>
+<p><strong><font color=red>查看开放的端口号</font></strong></p>
+<pre class=" language-powershell"><code class="language-powershell">firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>list<span class="token operator">-</span>all</code></pre>
+<p><strong><font color=red>设置开放的端口号</font></strong></p>
+<pre class=" language-powershell"><code class="language-powershell">firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>add<span class="token operator">-</span>service=http –permanent
+firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>add<span class="token operator">-</span>port=80<span class="token operator">/</span>tcp <span class="token operator">--</span>permanent</code></pre>
+<p><strong><font color=red>重启防火墙</font></strong></p>
+<pre class=" language-powershell"><code class="language-powershell">firewall<span class="token operator">-</span>cmd –reload</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20200827213812121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>成功访问Nginx的页面</strong><br><img src="https://img-blog.csdnimg.cn/20200827214024113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h2 id="三-Nginx-的常用的命令"><a href="#三-Nginx-的常用的命令" class="headerlink" title="三.Nginx 的常用的命令"></a>三.Nginx 的常用的命令</h2><p><strong>进入 nginx 目录中</strong><br><strong><font color=red>cd /usr/local/nginx/sbin</font></strong></p>
+<h3 id="1、查看-nginx-版本号"><a href="#1、查看-nginx-版本号" class="headerlink" title="1、查看 nginx 版本号"></a>1、查看 nginx 版本号</h3><pre class=" language-powershell"><code class="language-powershell"><span class="token punctuation">.</span><span class="token operator">/</span>nginx <span class="token operator">-</span>v </code></pre>
+<h3 id="2、启动-nginx"><a href="#2、启动-nginx" class="headerlink" title="2、启动 nginx"></a>2、启动 nginx</h3><pre class=" language-powershell"><code class="language-powershell"><span class="token punctuation">.</span><span class="token operator">/</span>nginx</code></pre>
+<h3 id="3、停止-nginx"><a href="#3、停止-nginx" class="headerlink" title="3、停止 nginx"></a>3、停止 nginx</h3><pre class=" language-powershell"><code class="language-powershell"><span class="token punctuation">.</span><span class="token operator">/</span>nginx <span class="token operator">-</span>s stop</code></pre>
+<h3 id="4、重新加载-nginx"><a href="#4、重新加载-nginx" class="headerlink" title="4、重新加载 nginx"></a>4、重新加载 nginx</h3><pre class=" language-powershell"><code class="language-powershell"><span class="token punctuation">.</span><span class="token operator">/</span>nginx <span class="token operator">-</span>s reload</code></pre>
+<h2 id="五-Nginx-的配置文件"><a href="#五-Nginx-的配置文件" class="headerlink" title="五.Nginx 的配置文件"></a>五.Nginx 的配置文件</h2><h3 id="1、nginx-配置文件位置"><a href="#1、nginx-配置文件位置" class="headerlink" title="1、nginx 配置文件位置"></a>1、nginx 配置文件位置</h3><pre class=" language-powershell"><code class="language-powershell">cd <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token operator">/</span>nginx<span class="token punctuation">.</span>conf</code></pre>
+<h3 id="2、配置文件中的内容"><a href="#2、配置文件中的内容" class="headerlink" title="2、配置文件中的内容"></a>2、配置文件中的内容</h3><p><strong>包含三部分内容</strong><br><strong>（1）<font color=red>全局块</font>：配置服务器整体运行的配置指令<br>比如 worker_processes 1;处理并发数的配置<br>（2）<font color=red>events 块</font>：影响 Nginx 服务器与用户的网络连接<br>比如 worker_connections 1024; 支持的最大连接数为 1024<br>（3）<font color=red>http 块</font><br>还包含两部分：<br>  &emsp;&emsp;<font color=red>http 全局块</font><br>&emsp;&emsp;<font color=red>server 块</font></strong></p>
+]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>CentOS7</tag>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL内连接和外连接的区别</title>
     <url>/2020/08/22/SQL%E4%B8%AD%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%8F%B3%E8%BF%9E%E6%8E%A5,%E5%86%85%E8%BF%9E%E6%8E%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -283,6 +356,100 @@
       </tags>
   </entry>
   <entry>
+    <title>Integer的valueOf(int)方法</title>
+    <url>/2020/08/14/Integer/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<blockquote>
+<p>装箱就是自动将基本数据类型转换为包装器类型（int–&gt;Integer）；调用方法：Integer的<br>valueOf(int) 方法<br>拆箱就是自动将包装器类型转换为基本数据类型（Integer–&gt;int）。调用方法：Integer的intValue方法</p>
+</blockquote>
+<p><strong>先来看一段代码</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span> <span class="token punctuation">{</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     Integer i2 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     Integer i3 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2<span class="token operator">==</span>i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+     Integer i4 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     Integer i5 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>PrintStream<span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span>
+ <span class="token punctuation">{</span>
+
+  <span class="token keyword">public</span> <span class="token function">IntegerDemo01</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+    Integer i2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i3 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2 <span class="token operator">==</span> i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i4 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i5 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3 <span class="token operator">==</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
+   <span class="token comment" spellcheck="true">//如果数值在-128~127之间的 </span>
+<span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">//返回 </span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p><strong>来看这段代码的描述</strong></p>
+<ul>
+<li>Returns an {@code Integer} instance representing the specified<br>{@code int} value.,<br>返回了这个Integer的含有指定的值的实例</li>
+<li>as this method is likely to yield significantly better space and time performance by</li>
+<li>显着更好的空间和时间性能</li>
+<li>caching frequently requested values.</li>
+</ul>
+</blockquote>
+<p><strong>解释：</strong><br><strong>1.这个方法返回了一个带有值的实例，<br>2.然后返回了一个从-128~127的值的缓存数组，用于缓存在这个范围内所有创建的实例对象。<br>3.如果之前有存在就直接拿来用，不存在的话就新建new 一个Integer对象。</strong></p>
+<h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
+<p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"> String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span><span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token operator">==</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3<span class="token operator">==</span>str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
+<blockquote>
+<p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java">    String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str <span class="token operator">==</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3 <span class="token operator">==</span> str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>包装器类型</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>Integer</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2020/07/16/hello-world/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -527,41 +694,20 @@
       </tags>
   </entry>
   <entry>
-    <title>我的第一篇博客</title>
-    <url>/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <title>中缀表达式转后缀表达式</title>
+    <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>什么都不知道</p>
-<a id="more"></a>
-
-<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>也是什么都不知道</p>
-<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><ul>
-<li>列表1</li>
-<li>列表2</li>
-</ul>
-<p> <a href="http://www.baidu.com" target="_blank" rel="noopener">百度一下</a></p>
-<p> <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3722912030,3109009394&fm=26&gp=0.jpg" alt="图片"></p>
-<hr>
-<p> <em>字体是斜线</em><br> <strong>字体加粗了</strong></p>
-<p><code>&lt;html&gt;&lt;/html&gt;</code></p>
-<pre><code>&lt;&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre><blockquote>
-<p>我的内容是引用的</p>
-</blockquote>
+<h2 id="中缀表达式转后缀表达式步骤"><a href="#中缀表达式转后缀表达式步骤" class="headerlink" title="中缀表达式转后缀表达式步骤"></a>中缀表达式转后缀表达式步骤</h2><p>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2； <br><br>2) 从左至右扫描中缀表达式； <br><br>3) 遇到操作数时，将其压s2； <br><br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br><br>&emsp;&emsp;&emsp;&emsp;1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br><br>&emsp;&emsp;&emsp;&emsp;2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br><br>&emsp;&emsp;&emsp;&emsp;3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br><br>5) 遇到括号时：<br><br>&emsp;&emsp;&emsp;&emsp;(1) 如果是左括号“(”，则直接压入s1<br><br>&emsp;&emsp;&emsp;&emsp;(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃 <br><br>6) 重复步骤2至5，直到表达式的最右边 <br><br>7) 将s1中剩余的运算符依次弹出并压入s2 <br><br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式 <br></p>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明:"></a>举例说明:</h2><p>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</p>
+<p>因此结果为<br>“1 2 3 + 4 × + 5 –”</p>
+<p><img src="https://img-blog.csdnimg.cn/20200822002413957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
 ]]></content>
       <categories>
-        <category>前端</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>博客</tag>
-        <tag>Hexo</tag>
+        <tag>中缀表达式</tag>
+        <tag>后缀表达式</tag>
       </tags>
   </entry>
   <entry>
@@ -636,114 +782,41 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Integer的valueOf(int)方法</title>
-    <url>/2020/08/14/Integer/</url>
+    <title>我的第一篇博客</title>
+    <url>/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<blockquote>
-<p>装箱就是自动将基本数据类型转换为包装器类型（int–&gt;Integer）；调用方法：Integer的<br>valueOf(int) 方法<br>拆箱就是自动将包装器类型转换为基本数据类型（Integer–&gt;int）。调用方法：Integer的intValue方法</p>
-</blockquote>
-<p><strong>先来看一段代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span> <span class="token punctuation">{</span>
+<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>什么都不知道</p>
+<a id="more"></a>
 
-<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-     Integer i2 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
-     Integer i3 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
-     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2<span class="token operator">==</span>i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-     Integer i4 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
-     Integer i5 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
-     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>PrintStream<span class="token punctuation">;</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span>
- <span class="token punctuation">{</span>
-
-  <span class="token keyword">public</span> <span class="token function">IntegerDemo01</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-    Integer i2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i3 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2 <span class="token operator">==</span> i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i4 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i5 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3 <span class="token operator">==</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<blockquote>
-<p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
-   <span class="token comment" spellcheck="true">//如果数值在-128~127之间的 </span>
-<span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-   <span class="token comment" spellcheck="true">//返回 </span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span></code></pre>
-<blockquote>
-<p><strong>来看这段代码的描述</strong></p>
-<ul>
-<li>Returns an {@code Integer} instance representing the specified<br>{@code int} value.,<br>返回了这个Integer的含有指定的值的实例</li>
-<li>as this method is likely to yield significantly better space and time performance by</li>
-<li>显着更好的空间和时间性能</li>
-<li>caching frequently requested values.</li>
+<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>也是什么都不知道</p>
+<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><ul>
+<li>列表1</li>
+<li>列表2</li>
 </ul>
-</blockquote>
-<p><strong>解释：</strong><br><strong>1.这个方法返回了一个带有值的实例，<br>2.然后返回了一个从-128~127的值的缓存数组，用于缓存在这个范围内所有创建的实例对象。<br>3.如果之前有存在就直接拿来用，不存在的话就新建new 一个Integer对象。</strong></p>
-<h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
-<p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java"> String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    String str2 <span class="token operator">=</span><span class="token string">"abc"</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token operator">==</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3<span class="token operator">==</span>str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
-<blockquote>
-<p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java">    String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    String str2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str <span class="token operator">==</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3 <span class="token operator">==</span> str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<blockquote>
-<p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
+<p> <a href="http://www.baidu.com" target="_blank" rel="noopener">百度一下</a></p>
+<p> <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3722912030,3109009394&fm=26&gp=0.jpg" alt="图片"></p>
+<hr>
+<p> <em>字体是斜线</em><br> <strong>字体加粗了</strong></p>
+<p><code>&lt;html&gt;&lt;/html&gt;</code></p>
+<pre><code>&lt;&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><blockquote>
+<p>我的内容是引用的</p>
 </blockquote>
 ]]></content>
       <categories>
-        <category>包装器类型</category>
+        <category>前端</category>
       </categories>
       <tags>
         <tag>博客</tag>
-        <tag>Integer</tag>
-        <tag>String</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>中缀表达式转后缀表达式</title>
-    <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h2 id="中缀表达式转后缀表达式步骤"><a href="#中缀表达式转后缀表达式步骤" class="headerlink" title="中缀表达式转后缀表达式步骤"></a>中缀表达式转后缀表达式步骤</h2><p>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2； <br><br>2) 从左至右扫描中缀表达式； <br><br>3) 遇到操作数时，将其压s2； <br><br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br><br>&emsp;&emsp;&emsp;&emsp;1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br><br>&emsp;&emsp;&emsp;&emsp;2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br><br>&emsp;&emsp;&emsp;&emsp;3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br><br>5) 遇到括号时：<br><br>&emsp;&emsp;&emsp;&emsp;(1) 如果是左括号“(”，则直接压入s1<br><br>&emsp;&emsp;&emsp;&emsp;(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃 <br><br>6) 重复步骤2至5，直到表达式的最右边 <br><br>7) 将s1中剩余的运算符依次弹出并压入s2 <br><br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式 <br></p>
-<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明:"></a>举例说明:</h2><p>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</p>
-<p>因此结果为<br>“1 2 3 + 4 × + 5 –”</p>
-<p><img src="https://img-blog.csdnimg.cn/20200822002413957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>中缀表达式</tag>
-        <tag>后缀表达式</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
 </search>
