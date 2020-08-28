@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Nginx的笔记(实例)</title>
-    <url>/2020/08/28/Nginx%E7%9A%84%E7%AC%94%E8%AE%B0%EF%BC%88%E5%AE%9E%E4%BE%8B%EF%BC%89/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h1 id="一-Nginx-配置实例-反向代理实例-1"><a href="#一-Nginx-配置实例-反向代理实例-1" class="headerlink" title="一.Nginx 配置实例-反向代理实例 1"></a>一.Nginx 配置实例-反向代理实例 1</h1><p><img src="https://img-blog.csdnimg.cn/20200827220344427.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827220943448.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221006190.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221036538.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200827221107440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221135402.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-<h1 id="二-Nginx-配置实例-反向代理实例-2"><a href="#二-Nginx-配置实例-反向代理实例-2" class="headerlink" title="二.Nginx 配置实例-反向代理实例 2"></a>二.Nginx 配置实例-反向代理实例 2</h1><p><img src="https://img-blog.csdnimg.cn/2020082722130548.png#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082722135657.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082722143231.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-<h1 id="三-Nginx-配置实例-负载均衡"><a href="#三-Nginx-配置实例-负载均衡" class="headerlink" title="三.Nginx 配置实例-负载均衡"></a>三.Nginx 配置实例-负载均衡</h1><p><img src="https://img-blog.csdnimg.cn/20200827221524666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221551607.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-<p><strong>4、nginx 分配服务器策略</strong><br><strong><font color=red>第一种 轮询（默认）</font><br>&emsp;&emsp;每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器 down 掉，能自动剔除。<br><font color=red>第二种 weight</font><br>&emsp;&emsp;weight 代表权重默认为 1,权重越高被分配的客户端越多<br><font color=red>第三种 ip_hash</font><br>&emsp;&emsp;每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器<br><font color=red>第四种 fair（第三方</font>）<br>&emsp;&emsp;按后端服务器的响应时间来分配请求，响应时间短的优先分配。</strong></p>
-<h1 id="四-Nginx-配置实例-动静分离"><a href="#四-Nginx-配置实例-动静分离" class="headerlink" title="四.Nginx 配置实例-动静分离"></a>四.Nginx 配置实例-动静分离</h1><p><img src="https://img-blog.csdnimg.cn/20200827221953128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827222025918.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827222049455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>重点是添加 location，<br>&emsp;&emsp;最后检查 Nginx 配置是否正确即可，然后测试动静分离是否成功，之需要删除后端 tomcat 服务器上的某个静态文件，查看是否能访问，如果可以访问说明静态资源 nginx 直接返回<br>了，不走后端 tomcat 服务器。</strong></p>
-<h1 id="五-Nginx-配置高可用的集群"><a href="#五-Nginx-配置高可用的集群" class="headerlink" title="五.Nginx 配置高可用的集群"></a>五.Nginx 配置高可用的集群</h1><p><img src="https://img-blog.csdnimg.cn/20200828003753515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828003850682.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004035956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082800400920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004101188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004301977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004345163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004450936.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h1 id="六-Nginx-的原理"><a href="#六-Nginx-的原理" class="headerlink" title="六.Nginx 的原理"></a>六.Nginx 的原理</h1><p><img src="https://img-blog.csdnimg.cn/20200828004617577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004637228.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004655739.png#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004758540.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-]]></content>
-      <categories>
-        <category>Nginx</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>CentOS7</tag>
-        <tag>Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Nginx的笔记(基础)</title>
     <url>/2020/08/28/Nginx%20%E7%9A%84%E7%AC%94%E8%AE%B0(%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -71,6 +50,168 @@ firewall<span class="token operator">-</span>cmd <span class="token operator">--
         <tag>虚拟机</tag>
         <tag>CentOS7</tag>
         <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx的笔记(实例)</title>
+    <url>/2020/08/28/Nginx%E7%9A%84%E7%AC%94%E8%AE%B0%EF%BC%88%E5%AE%9E%E4%BE%8B%EF%BC%89/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h1 id="一-Nginx-配置实例-反向代理实例-1"><a href="#一-Nginx-配置实例-反向代理实例-1" class="headerlink" title="一.Nginx 配置实例-反向代理实例 1"></a>一.Nginx 配置实例-反向代理实例 1</h1><p><img src="https://img-blog.csdnimg.cn/20200827220344427.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827220943448.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221006190.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221036538.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200827221107440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221135402.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h1 id="二-Nginx-配置实例-反向代理实例-2"><a href="#二-Nginx-配置实例-反向代理实例-2" class="headerlink" title="二.Nginx 配置实例-反向代理实例 2"></a>二.Nginx 配置实例-反向代理实例 2</h1><p><img src="https://img-blog.csdnimg.cn/2020082722130548.png#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082722135657.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082722143231.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h1 id="三-Nginx-配置实例-负载均衡"><a href="#三-Nginx-配置实例-负载均衡" class="headerlink" title="三.Nginx 配置实例-负载均衡"></a>三.Nginx 配置实例-负载均衡</h1><p><img src="https://img-blog.csdnimg.cn/20200827221524666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827221551607.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<p><strong>4、nginx 分配服务器策略</strong><br><strong><font color=red>第一种 轮询（默认）</font><br>&emsp;&emsp;每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器 down 掉，能自动剔除。<br><font color=red>第二种 weight</font><br>&emsp;&emsp;weight 代表权重默认为 1,权重越高被分配的客户端越多<br><font color=red>第三种 ip_hash</font><br>&emsp;&emsp;每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器<br><font color=red>第四种 fair（第三方</font>）<br>&emsp;&emsp;按后端服务器的响应时间来分配请求，响应时间短的优先分配。</strong></p>
+<h1 id="四-Nginx-配置实例-动静分离"><a href="#四-Nginx-配置实例-动静分离" class="headerlink" title="四.Nginx 配置实例-动静分离"></a>四.Nginx 配置实例-动静分离</h1><p><img src="https://img-blog.csdnimg.cn/20200827221953128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827222025918.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200827222049455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>重点是添加 location，<br>&emsp;&emsp;最后检查 Nginx 配置是否正确即可，然后测试动静分离是否成功，之需要删除后端 tomcat 服务器上的某个静态文件，查看是否能访问，如果可以访问说明静态资源 nginx 直接返回<br>了，不走后端 tomcat 服务器。</strong></p>
+<h1 id="五-Nginx-配置高可用的集群"><a href="#五-Nginx-配置高可用的集群" class="headerlink" title="五.Nginx 配置高可用的集群"></a>五.Nginx 配置高可用的集群</h1><p><img src="https://img-blog.csdnimg.cn/20200828003753515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828003850682.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004035956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/2020082800400920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004101188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004301977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004345163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004450936.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="六-Nginx-的原理"><a href="#六-Nginx-的原理" class="headerlink" title="六.Nginx 的原理"></a>六.Nginx 的原理</h1><p><img src="https://img-blog.csdnimg.cn/20200828004617577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004637228.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004655739.png#pic_center" alt="">)<img src="https://img-blog.csdnimg.cn/20200828004758540.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>CentOS7</tag>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis入门——Nosql概述</title>
+    <url>/2020/08/29/Redis%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94Nosql%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="一、Nosql概述"><a href="#一、Nosql概述" class="headerlink" title="一、Nosql概述"></a>一、Nosql概述</h2><h3 id="emsp-为什么使用Nosql"><a href="#emsp-为什么使用Nosql" class="headerlink" title="&emsp;为什么使用Nosql"></a>&emsp;为什么使用Nosql</h3><p>&emsp;&emsp;<strong>1、单机Mysql时代</strong><br><img src="https://img-blog.csdnimg.cn/20200828232619722.png#pic_center" alt=""><br>&emsp;&emsp;90年代,一个网站的访问量一般不会太大，单个数据库完全够用。随着用户增多，网站出现以下问题</p>
+<p>&emsp;&emsp;<strong><font color=red>数据量增加到一定程度，单机数据库就放不下了</font></strong><br>&emsp;&emsp;<strong><font color=red>数据的索引（B+ Tree）,一个机器内存也存放不下</font></strong><br>&emsp;&emsp;<strong><font color=red>访问量变大后（读写混合），一台服务器承受不住。</font></strong></p>
+<p>&emsp;&emsp;<strong>2、Memcached(缓存) + Mysql + 垂直拆分（读写分离）</strong></p>
+<p>&emsp;&emsp;网站80%的情况都是在读，每次都要去查询数据库的话就十分的麻烦！所以说我们希望减轻数据库的压力，我们可以使用缓存来保证效率！<br><img src="https://img-blog.csdnimg.cn/20200828233042925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><font color=red>优化过程</font>经历了以下几个过程：</p>
+<ul>
+<li><strong>优化数据库的数据结构和索引(难度大)</strong></li>
+<li><strong>文件缓存，通过IO流获取比每次都访问数据库效率略高，但是流量爆炸式增长时候，IO流也承受不了</strong></li>
+<li><strong>MemCache,当时最热门的技术，通过在数据库和数据库访问层之间加上一层缓存，第一次访问时查询数据库，将结果保存到缓存，后续的查询先检查缓存，若有直接拿去使用，效率显著提升。</strong></li>
+</ul>
+<p>&emsp;&emsp;<strong>3、分库分表 + 水平拆分 + Mysql集群</strong><br><img src="https://img-blog.csdnimg.cn/20200828233409623.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>&emsp;&emsp;<strong>4、如今最近的年代</strong></p>
+<p>&emsp;&emsp;如今信息量井喷式增长，各种各样的数据出现（用户定位数据，图片数据等），大数据的背景下关系型数据(RDBMS）无法满足大量数据要求。<font color=red>Nosql数据库</font>就能轻松解决这些问题。</p>
+<blockquote>
+<p><strong><font color=red>目前一个基本的互联网项目</font></strong></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200828233708793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<blockquote>
+<p><strong><font color=red>为什么要用NoSQL ？</font></strong></p>
+</blockquote>
+<p>&emsp;&emsp;<font color=blue>用户的个人信息</font>，<font color=blue>社交网络</font>，<font color=blue>地理位置</font>。<font color=blue>用户自己产生的数据</font>，<font color=blue>用户日志等等爆发式增长</font>！这时候我们就需要使用NoSQL数据库的，Nosql可以很好的处理以上的情况！</p>
+<h3 id="emsp-什么是Nosql"><a href="#emsp-什么是Nosql" class="headerlink" title="&emsp;什么是Nosql"></a>&emsp;什么是Nosql</h3><blockquote>
+<p><font color=red>NoSQL = Not Only SQL（不仅仅是SQL）<br>Not Only Structured Query Language</font></p>
+</blockquote>
+<ul>
+<li><font color=red>关系型数据库</font>：列+行，同一个表下数据的结构是一样的。</li>
+<li><font color=red>非关系型数据库</font>：数据存储没有固定的格式，并且可以进行横向扩展。</li>
+<li>NoSQL泛指非关系型数据库，随着web2.0互联网的诞生，传统的关系型数据库很难对付web2.0时代！尤其是超大规模的高并发的社区，暴露出来很多难以克服的问题，NoSQL在当今大数据环境下发展的十分迅速，<font color=red>Redis是发展最快的</font>。</li>
+</ul>
+<h3 id="emsp-Nosql特点"><a href="#emsp-Nosql特点" class="headerlink" title="&emsp;Nosql特点"></a>&emsp;Nosql特点</h3><ul>
+<li><font color=red>方便扩展</font>（数据之间没有关系，很好扩展！）</li>
+<li><font color=red>大数据量高性能</font>（Redis一秒可以写8万次，读11万次，NoSQL的缓存记录级，是一种细粒度的缓存，性能会比较高！）</li>
+<li><font color=red> 数据类型是多样型的！</font>（不需要事先设计数据库，随取随用）</li>
+<li><font color=red>传统的 RDBMS 和 NoSQL</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">传统的 RDBMS<span class="token punctuation">(</span>关系型数据库<span class="token punctuation">)</span>
+- 结构化组织
+- SQL
+- 数据和关系都存在单独的表中 row col
+- 操作，数据定义语言
+- 严格的一致性
+- 基础的事务
+- <span class="token punctuation">..</span>.</code></pre>
+<pre class=" language-bash"><code class="language-bash">Nosql
+- 不仅仅是数据
+- 没有固定的查询语言
+- 键值对存储，列存储，文档存储，图形数据库（社交关系）
+- 最终一致性
+- CAP定理和BASE
+- 高性能，高可用，高扩展
+- <span class="token punctuation">..</span>.</code></pre>
+<blockquote>
+<p><font color=red><strong>了解：3V + 3高</strong></font></p>
+</blockquote>
+<p>大数据时代的3V ：<font color=red>主要是描述问题的</font></p>
+<ul>
+<li><p>海量Velume</p>
+</li>
+<li><p>多样Variety</p>
+</li>
+<li><p>实时Velocity</p>
+<p>大数据时代的3高 ：<font color=red> 主要是对程序的要求</font></p>
+</li>
+<li><p>高并发</p>
+</li>
+<li><p>高可扩</p>
+</li>
+<li><p>高性能</p>
+</li>
+</ul>
+<p><strong>真正在公司中的实践：<font color=red>NoSQL + RDBMS 一起使用才是最强的。</font></strong></p>
+<h3 id="emsp-阿里巴巴演进分析"><a href="#emsp-阿里巴巴演进分析" class="headerlink" title="&emsp;阿里巴巴演进分析"></a>&emsp;阿里巴巴演进分析</h3><p><img src="https://img-blog.csdnimg.cn/2020082823531874.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200828235343481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<pre class=" language-xml"><code class="language-xml"># 商品信息
+- 一般存放在关系型数据库：Mysql,阿里巴巴使用的Mysql都是经过内部改动的。
+
+# 商品描述、评论(文字居多)
+- 文档型数据库：MongoDB
+
+# 图片
+- 分布式文件系统 FastDFS
+- 淘宝：TFS
+- Google: GFS
+- Hadoop: HDFS
+- 阿里云: oss
+
+# 商品关键字 用于搜索
+- 搜索引擎：solr,elasticsearch
+- 阿里：Isearch 多隆
+
+# 商品热门的波段信息
+- 内存数据库：Redis，Memcache
+
+# 商品交易，外部支付接口
+- 第三方应用
+</code></pre>
+<h3 id="emsp-Nosql的四大分类"><a href="#emsp-Nosql的四大分类" class="headerlink" title="&emsp;Nosql的四大分类"></a>&emsp;Nosql的四大分类</h3><blockquote>
+<p><strong>&emsp;&emsp;1.KV键值对</strong></p>
+</blockquote>
+<ul>
+<li>新浪：<strong><font color=red>Redis</font></strong></li>
+<li>美团：<strong><font color=red>Redis + Tair</font></strong></li>
+<li>阿里、百度：<strong><font color=red>Redis + Memcache</font></strong></li>
+</ul>
+<blockquote>
+<p><strong>2.文档型数据库（bson数据格式）：</strong></p>
+</blockquote>
+<ul>
+<li><font color=red> <strong>MongoDB(掌握)</strong></font><ul>
+<li>基于分布式文件存储的数据库。C++编写，用于处理大量文档。</li>
+<li>MongoDB是RDBMS和NoSQL的中间产品。MongoDB是非关系型数据库中功能最丰富的，NoSQL中最像关系型数据库的数据库。</li>
+</ul>
+</li>
+<li><font color=red><strong>ConthDB</strong></font></li>
+</ul>
+<blockquote>
+<p><strong>3. 列存储数据库</strong></p>
+</blockquote>
+<ul>
+<li>HBase(大数据必学)</li>
+<li>分布式文件系统</li>
+</ul>
+<blockquote>
+<p><strong>4.图关系数据库</strong></p>
+</blockquote>
+<ul>
+<li><font color=red> 他不是存图形，放的是关系</font>，比如：朋友圈社交网络，广告推荐！</li>
+<li>Neo4j，InfoGrid；</li>
+</ul>
+<p><strong><em>四者对比！</em></strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200829000634318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>Nosql</category>
+      </categories>
+      <tags>
+        <tag>Nosql</tag>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -450,20 +591,75 @@ firewall<span class="token operator">-</span>cmd <span class="token operator">--
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/07/16/hello-world/</url>
+    <title>Hexo与MarkDown</title>
+    <url>/2020/08/08/MarkDown/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy84NTc0MTMwLTM3Nzc4OTA4YmU5ODFkZGQuUE5H?x-oss-process=image/format,png#pic_center" alt="Hexo与MarkDown"></p>
+<blockquote>
+<p>&emsp;&emsp;在hexo中的markdown语法稍有不同本文将列举我遇的例子，同时简述hexo的一些指令集，适用于初学者使用hexo+github搭建博客写作发布文章。</p>
+</blockquote>
+<h1 id="Hexo-指令"><a href="#Hexo-指令" class="headerlink" title="Hexo 指令"></a>Hexo 指令</h1><h2 id="hexo新建文章"><a href="#hexo新建文章" class="headerlink" title="hexo新建文章"></a>hexo新建文章</h2><p>&emsp;&emsp;hexo文件夹下右键点击Git Base here后键入$hexo new 布局 “文章名”</p>
+<table>
+<thead>
+<tr>
+<th>布局</th>
+<th>路径</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>post    source</td>
+<td>_post</td>
+<td>新建一个文章</td>
+</tr>
+<tr>
+<td>draft    source</td>
+<td>_drafts</td>
+<td>新建一个草稿文件</td>
+</tr>
+<tr>
+<td>page</td>
+<td>source</td>
+<td>新建一个页面文件</td>
+</tr>
+</tbody></table>
+<h2 id="hexo部署与调试"><a href="#hexo部署与调试" class="headerlink" title="hexo部署与调试"></a>hexo部署与调试</h2><pre><code>
+$ hexo clean //清除静态页面缓存（清除 public 文件夹)         
+$ hexo g     //在本地生成静态页面（生成 public 文件夹）        
+$ hexo s     //启动本地服务 http://localhost:4000，进行预览调试           
+$ hexo d     //远程部署，同步到 GitHub         
+
+$ npm install hexo-deployer-git --save    //自动部署
+$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d          //发布</code></pre><h1 id="MarkDown-与-文章编辑"><a href="#MarkDown-与-文章编辑" class="headerlink" title="MarkDown 与 文章编辑"></a>MarkDown 与 文章编辑</h1><h2 id="emsp-文章配置"><a href="#emsp-文章配置" class="headerlink" title="&emsp;文章配置"></a>&emsp;文章配置</h2><p>&emsp;&emsp;在hexo文件夹下右键点击Git Base here后键入$hexo new page “name”，source/_post 文件夹中生成name.md文件，打开后即可编辑，编辑格式如下：</p>
+<pre><code>title: 文章名
+date: 2017-10-31 20:38:17     //发表日期
+updated: 2017-10-31 21:58:03  //更新日期
+categories: Life              //文章分类
+tags: [tag1,tag2]             //文章标签，多标签时使用英文逗号隔开
+photos:                       //如果使用Fancybox（文章头部展示图片），如此设置  
+                              //注意冒号后面有空格</code></pre><h1 id="MarkDown语法在hexo中"><a href="#MarkDown语法在hexo中" class="headerlink" title="MarkDown语法在hexo中"></a>MarkDown语法在hexo中</h1><blockquote>
+<p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
+</blockquote>
+<p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
+<pre class=" language-//代码块放置于3个反引号中间，回车即可换行"><code class="language-//代码块放置于3个反引号中间，回车即可换行">#include<stdio.h>
+int main()
+{
+    printf("Hello World!\n");
+    return 0;
+}
+</code></pre>
+<p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
+<p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> more <span class="token operator">--</span><span class="token operator">></span></code></pre>
+<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
 ]]></content>
+      <categories>
+        <category>MarkDown的使用</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>MarkDown</tag>
+      </tags>
   </entry>
   <entry>
     <title>第一个Vue程序</title>
@@ -711,75 +907,20 @@ firewall<span class="token operator">-</span>cmd <span class="token operator">--
       </tags>
   </entry>
   <entry>
-    <title>Hexo与MarkDown</title>
-    <url>/2020/08/08/MarkDown/</url>
+    <title>Hello World</title>
+    <url>/2020/07/16/hello-world/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy84NTc0MTMwLTM3Nzc4OTA4YmU5ODFkZGQuUE5H?x-oss-process=image/format,png#pic_center" alt="Hexo与MarkDown"></p>
-<blockquote>
-<p>&emsp;&emsp;在hexo中的markdown语法稍有不同本文将列举我遇的例子，同时简述hexo的一些指令集，适用于初学者使用hexo+github搭建博客写作发布文章。</p>
-</blockquote>
-<h1 id="Hexo-指令"><a href="#Hexo-指令" class="headerlink" title="Hexo 指令"></a>Hexo 指令</h1><h2 id="hexo新建文章"><a href="#hexo新建文章" class="headerlink" title="hexo新建文章"></a>hexo新建文章</h2><p>&emsp;&emsp;hexo文件夹下右键点击Git Base here后键入$hexo new 布局 “文章名”</p>
-<table>
-<thead>
-<tr>
-<th>布局</th>
-<th>路径</th>
-<th>注释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>post    source</td>
-<td>_post</td>
-<td>新建一个文章</td>
-</tr>
-<tr>
-<td>draft    source</td>
-<td>_drafts</td>
-<td>新建一个草稿文件</td>
-</tr>
-<tr>
-<td>page</td>
-<td>source</td>
-<td>新建一个页面文件</td>
-</tr>
-</tbody></table>
-<h2 id="hexo部署与调试"><a href="#hexo部署与调试" class="headerlink" title="hexo部署与调试"></a>hexo部署与调试</h2><pre><code>
-$ hexo clean //清除静态页面缓存（清除 public 文件夹)         
-$ hexo g     //在本地生成静态页面（生成 public 文件夹）        
-$ hexo s     //启动本地服务 http://localhost:4000，进行预览调试           
-$ hexo d     //远程部署，同步到 GitHub         
-
-$ npm install hexo-deployer-git --save    //自动部署
-$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d          //发布</code></pre><h1 id="MarkDown-与-文章编辑"><a href="#MarkDown-与-文章编辑" class="headerlink" title="MarkDown 与 文章编辑"></a>MarkDown 与 文章编辑</h1><h2 id="emsp-文章配置"><a href="#emsp-文章配置" class="headerlink" title="&emsp;文章配置"></a>&emsp;文章配置</h2><p>&emsp;&emsp;在hexo文件夹下右键点击Git Base here后键入$hexo new page “name”，source/_post 文件夹中生成name.md文件，打开后即可编辑，编辑格式如下：</p>
-<pre><code>title: 文章名
-date: 2017-10-31 20:38:17     //发表日期
-updated: 2017-10-31 21:58:03  //更新日期
-categories: Life              //文章分类
-tags: [tag1,tag2]             //文章标签，多标签时使用英文逗号隔开
-photos:                       //如果使用Fancybox（文章头部展示图片），如此设置  
-                              //注意冒号后面有空格</code></pre><h1 id="MarkDown语法在hexo中"><a href="#MarkDown语法在hexo中" class="headerlink" title="MarkDown语法在hexo中"></a>MarkDown语法在hexo中</h1><blockquote>
-<p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
-</blockquote>
-<p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
-<pre class=" language-//代码块放置于3个反引号中间，回车即可换行"><code class="language-//代码块放置于3个反引号中间，回车即可换行">#include<stdio.h>
-int main()
-{
-    printf("Hello World!\n");
-    return 0;
-}
-</code></pre>
-<p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
-<p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
-<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> more <span class="token operator">--</span><span class="token operator">></span></code></pre>
-<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
+<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>MarkDown的使用</category>
-      </categories>
-      <tags>
-        <tag>博客</tag>
-        <tag>MarkDown</tag>
-      </tags>
   </entry>
   <entry>
     <title>我的第一篇博客</title>
