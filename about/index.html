@@ -533,7 +533,7 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">13</a></span>
+    <span class="count"><a href="/">14</a></span>
     <span class="name">文章</span>
 </div>
 
@@ -547,7 +547,7 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">18</a></span>
+    <span class="count"><a href="/tags">22</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -563,7 +563,7 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">13</a></span>
+    <span class="count"><a href="/">14</a></span>
     <span class="name">文章</span>
 </div>
 
@@ -577,7 +577,7 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">18</a></span>
+    <span class="count"><a href="/tags">22</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -711,7 +711,7 @@
         },
         xAxis: {
             type: 'category',
-            data: ["2019-08","2019-09","2019-10","2019-11","2019-12","2020-01","2020-02","2020-03","2020-04","2020-05","2020-06","2020-07","2020-08"]
+            data: ["2019-09","2019-10","2019-11","2019-12","2020-01","2020-02","2020-03","2020-04","2020-05","2020-06","2020-07","2020-08","2020-09"]
         },
         yAxis: {
             type: 'value',
@@ -721,7 +721,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,2,11],
+                data: [0,0,0,0,0,0,0,0,0,0,2,11,1],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -763,7 +763,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"包装器类型","value":1},{"name":"MarkDown的使用","value":1},{"name":"Nginx","value":2},{"name":"Nosql","value":1},{"name":"SQL","value":1},{"name":"Vue","value":3},{"name":"数据结构","value":1},{"name":"前端","value":1},{"name":"虚拟机","value":1}],
+                data: [{"name":"Nginx","value":2},{"name":"redis","value":2},{"name":"SQL","value":1},{"name":"Vue","value":3},{"name":"数据结构","value":1},{"name":"虚拟机","value":1},{"name":"MarkDown的使用","value":1},{"name":"包装器类型","value":1},{"name":"前端","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -787,7 +787,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["博客","虚拟机","CentOS7","Vue","Nginx","前端","Integer","String","MarkDown","Nosql"]
+                data: ["虚拟机","CentOS7","Vue","博客","Nginx","前端","事务","jedis","springboot整合","redis.conf"]
             }
         ],
         yAxis: [
@@ -918,30 +918,6 @@
         <div class="tag-chips center-align">
             
             
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/">
-                <span class="chip center-align waves-effect waves-light chip-default">博客</span>
-            </a>
-            
-            
-            
-            <a href="/tags/Integer/">
-                <span class="chip center-align waves-effect waves-light chip-default">Integer</span>
-            </a>
-            
-            
-            
-            <a href="/tags/String/">
-                <span class="chip center-align waves-effect waves-light chip-default">String</span>
-            </a>
-            
-            
-            
-            <a href="/tags/MarkDown/">
-                <span class="chip center-align waves-effect waves-light chip-default">MarkDown</span>
-            </a>
-            
-            
-            
             <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
                 <span class="chip center-align waves-effect waves-light chip-default">虚拟机</span>
             </a>
@@ -956,6 +932,30 @@
             
             <a href="/tags/Nginx/">
                 <span class="chip center-align waves-effect waves-light chip-default">Nginx</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E4%BA%8B%E5%8A%A1/">
+                <span class="chip center-align waves-effect waves-light chip-default">事务</span>
+            </a>
+            
+            
+            
+            <a href="/tags/jedis/">
+                <span class="chip center-align waves-effect waves-light chip-default">jedis</span>
+            </a>
+            
+            
+            
+            <a href="/tags/springboot%E6%95%B4%E5%90%88/">
+                <span class="chip center-align waves-effect waves-light chip-default">springboot整合</span>
+            </a>
+            
+            
+            
+            <a href="/tags/redis-conf/">
+                <span class="chip center-align waves-effect waves-light chip-default">redis.conf</span>
             </a>
             
             
@@ -1016,6 +1016,30 @@
             
             <a href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
                 <span class="chip center-align waves-effect waves-light chip-default">后缀表达式</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%8D%9A%E5%AE%A2/">
+                <span class="chip center-align waves-effect waves-light chip-default">博客</span>
+            </a>
+            
+            
+            
+            <a href="/tags/MarkDown/">
+                <span class="chip center-align waves-effect waves-light chip-default">MarkDown</span>
+            </a>
+            
+            
+            
+            <a href="/tags/Integer/">
+                <span class="chip center-align waves-effect waves-light chip-default">Integer</span>
+            </a>
+            
+            
+            
+            <a href="/tags/String/">
+                <span class="chip center-align waves-effect waves-light chip-default">String</span>
             </a>
             
             
@@ -1113,7 +1137,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">10.7k</span>&nbsp;字
+                class="white-color">19.2k</span>&nbsp;字
             
             
             

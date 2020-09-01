@@ -1,0 +1,2804 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Redis入门——笔记二, JiangBlog">
+    <meta name="description" content="人无远虑，必有近忧！">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Redis入门——笔记二 | JiangBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="JiangBlog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css"></head>
+
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">JiangBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/navigate" class="waves-effect waves-light">
+      
+      <i class="fas fa-location-arrow" style="zoom: 0.6;"></i>
+      
+      <span>导航</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">JiangBlog</div>
+        <div class="logo-desc">
+            
+            人无远虑，必有近忧！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/navigate" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-location-arrow"></i>
+			
+			导航
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/jiang-fly" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>GitHub
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/jiang-fly" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="GitHub" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Redis入门——笔记二</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%8B%E5%8A%A1/">
+                                <span class="chip bg-color">事务</span>
+                            </a>
+                        
+                            <a href="/tags/jedis/">
+                                <span class="chip bg-color">jedis</span>
+                            </a>
+                        
+                            <a href="/tags/springboot%E6%95%B4%E5%90%88/">
+                                <span class="chip bg-color">springboot整合</span>
+                            </a>
+                        
+                            <a href="/tags/redis-conf/">
+                                <span class="chip bg-color">redis.conf</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/redis/" class="post-category">
+                                redis
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-09-01
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-09-02
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    37 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="二、Redis入门"><a href="#二、Redis入门" class="headerlink" title="二、Redis入门"></a>二、Redis入门</h2><h3 id="emsp-概述"><a href="#emsp-概述" class="headerlink" title="&emsp;概述"></a>&emsp;概述</h3><blockquote>
+<p><font color=red> Redis是什么？</font></p>
+</blockquote>
+<p>&emsp;&emsp;Redis（Remote Dictionary Server )，即<font color=red>远程字典服务</font>。</p>
+<p>&emsp;&emsp;是一个开源的使用<font color=red>ANSI,C语言</font>编写、<strong>支持网络</strong>、<strong>可基于内存亦可持久化</strong>的日志型、<strong>Key-Value数据库</strong>，并提供多种语言的API。</p>
+<p>&emsp;&emsp;与memcached一样，为了保证效率，数据都是<font color=red><strong>缓存在内存中</strong></font>。区别的是redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上<strong>实现了master-slave(主从)同步</strong>。</p>
+<blockquote>
+<p><font color=red>Redis能该干什么？</font></p>
+</blockquote>
+<ul>
+<li>内存存储、持久化，内存是断电即失的，所以需要持久化（RDB、AOF）</li>
+<li>高效率、用于高速缓冲</li>
+<li>发布订阅系统</li>
+<li>地图信息分析</li>
+<li>计时器、计数器(eg：浏览量)</li>
+</ul>
+<blockquote>
+<p><font color=red>特性</font></p>
+</blockquote>
+<ul>
+<li>多样的数据类型</li>
+<li>持久化</li>
+<li>集群</li>
+<li>事务</li>
+</ul>
+<h3 id="emsp-Linux安装"><a href="#emsp-Linux安装" class="headerlink" title="&emsp;Linux安装"></a>&emsp;Linux安装</h3><p>1.下载安装包！redis-5.0.8.tar.gz</p>
+<p>2.解压Redis的安装包！程序一般放在 /opt 目录下</p>
+<p><img src="https://img-blog.csdnimg.cn/20200830213910843.png#pic_center" alt=""><br>3.基本环境安装</p>
+<pre class=" language-xml"><code class="language-xml">yum install gcc-c++
+# 然后进入redis目录下执行
+make
+# 然后执行
+make install</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20200830214011366.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>redis默认安装路径 /usr/local/bin</p>
+<p><img src="https://img-blog.csdnimg.cn/20200830214045525.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>将redis的配置文件复制到 程序安装目录 /usr/local/bin/kconfig下</p>
+<p><img src="https://img-blog.csdnimg.cn/20200830214104359.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>redis默认不是后台启动的，需要修改配置文件！</p>
+<p><img src="https://img-blog.csdnimg.cn/20200830214125276.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>通过制定的配置文件启动redis服务<br><img src="https://img-blog.csdnimg.cn/20200830214142684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>使用redis-cli连接指定的端口号测试，Redis的默认端口6379<br><img src="https://img-blog.csdnimg.cn/20200830214209578.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>查看redis进程是否开启<br><img src="https://img-blog.csdnimg.cn/20200830214225921.png#pic_center" alt=""><br>关闭Redis服务 shutdown<br><img src="https://img-blog.csdnimg.cn/20200830214244178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>再次查看进程是否存在</p>
+<p>后面我们会使用单机多Redis启动集群测试</p>
+<h3 id="emsp-测试性能"><a href="#emsp-测试性能" class="headerlink" title="&emsp;测试性能"></a>&emsp;测试性能</h3><p>redis-benchmark：Redis官方提供的性能测试工具，参数选项如下：<br><img src="https://img-blog.csdnimg.cn/20200830214451655.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>简单测试：</strong></p>
+<pre class=" language-xml"><code class="language-xml"># 测试：100个并发连接 100000请求
+redis-benchmark -h localhost -p 6379 -c 100 -n 100000
+12</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/2020083021454238.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="emsp-基础知识"><a href="#emsp-基础知识" class="headerlink" title="&emsp;基础知识"></a>&emsp;基础知识</h3><blockquote>
+<p><font color=red>redis默认有16个数据库</font></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200830214916115.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>默认使用的第0个;</p>
+<p>16个数据库为：DB 0~DB 15</p>
+<p>默认使用DB 0 ，可以使用<font color=red>select n</font>切换到DB n，<font color=red>dbsize</font>可以查看当前数据库的大小，与key数量相关</p>
+<pre class=" language-xml"><code class="language-xml">127.0.0.1:6379> config get databases # 命令行查看数据库数量databases
+1) "databases"
+2) "16"
+
+127.0.0.1:6379> select 8 # 切换数据库 DB 8
+OK
+127.0.0.1:6379[8]> dbsize # 查看数据库大小
+(integer) 0
+
+# 不同数据库之间 数据是不能互通的，并且dbsize 是根据库中key的个数。
+127.0.0.1:6379> set name sakura 
+OK
+127.0.0.1:6379> SELECT 8
+OK
+127.0.0.1:6379[8]> get name # db8中并不能获取db0中的键值对。
+(nil)
+127.0.0.1:6379[8]> DBSIZE
+(integer) 0
+127.0.0.1:6379[8]> SELECT 0
+OK
+127.0.0.1:6379> keys *
+1) "counter:__rand_int__"
+2) "mylist"
+3) "name"
+4) "key:__rand_int__"
+5) "myset:__rand_int__"
+127.0.0.1:6379> DBSIZE # size和key个数相关
+(integer) 5
+</code></pre>
+<p><font color=red>keys *</font> ：<strong>查看当前数据库中所有的key。</strong></p>
+<p><font color=red>flushdb</font>：<strong>清空当前数据库中的键值对。</strong></p>
+<p><font color=red>flushall</font>：<strong>清空所有数据库的键值对。</strong></p>
+<blockquote>
+<p><font color=red>Redis是单线程的，Redis是基于内存操作的。</font></p>
+</blockquote>
+<p>&emsp;&emsp;所以Redis的性能瓶颈不是CPU,而是<font color=red>机器内存</font>和<font color=red>网络带宽</font>。</p>
+<p>&emsp;&emsp;那么为什么Redis的速度如此快呢，性能这么高呢？QPS达到10W+</p>
+<blockquote>
+<p><font color=red>Redis为什么单线程还这么快？</font></p>
+</blockquote>
+<ul>
+<li>误区1：高性能的服务器一定是多线程的？</li>
+<li>误区2：多线程（CPU上下文会切换！）一定比单线程效率高！</li>
+</ul>
+<p><strong>&emsp;&emsp;<font color=red>核心</font>：Redis是将所有的数据放在内存中的，所以说使用单线程去操作效率就是最高的，多线程（CPU上下文会切换：耗时的操作！），对于内存系统来说，如果没有上下文切换效率就是最高的，多次读写都是在一个CPU上的，在内存存储数据情况下，单线程就是最佳的方案。</strong></p>
+<h2 id="三、五大数据类型"><a href="#三、五大数据类型" class="headerlink" title="三、五大数据类型"></a>三、五大数据类型</h2><p> &emsp;&emsp;Redis是一个开源（BSD许可），内存存储的数据结构服务器，可用作<strong>数据库，高速缓存和消息队列代理</strong>。它支持<font color=blue>字符串、哈希表、列表、集合、有序集合，位图，hyperloglogs</font>等数据类型。内置复制、Lua脚本、LRU收回、事务以及不同级别磁盘持久化功能，同时通过Redis Sentinel提供高可用，通过Redis Cluster提供自动分区。</p>
+<h3 id="emsp-Redis-key"><a href="#emsp-Redis-key" class="headerlink" title="&emsp;Redis-key"></a>&emsp;Redis-key</h3><blockquote>
+<p>&emsp;&emsp;在redis中无论什么数据类型，在数据库中都是以<font color=red>key-value形式保存</font>，通过进行对<font color=red>Redis-key</font>的操作，来完成对数据库中数据的操作。</p>
+</blockquote>
+<p>下面学习的命令：</p>
+<ul>
+<li><font color=red>exists key</font>：判断键是否存在</li>
+<li><font color=red>del key</font>：删除键值对</li>
+<li><font color=red>move key db</font>：将键值对移动到指定数据库</li>
+<li><font color=red>expire key second</font>：设置键值对的过期时间</li>
+<li><font color=red>type key</font>：查看value的数据类型</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> keys * <span class="token comment" spellcheck="true"># 查看当前数据库所有key</span>
+<span class="token punctuation">(</span>empty list or set<span class="token punctuation">)</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name qinjiang <span class="token comment" spellcheck="true"># set key</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> age 20
+OK
+127.0.0.1:6379<span class="token operator">></span> keys *
+1<span class="token punctuation">)</span> <span class="token string">"age"</span>
+2<span class="token punctuation">)</span> <span class="token string">"name"</span>
+127.0.0.1:6379<span class="token operator">></span> move age 1 <span class="token comment" spellcheck="true"># 将键值对移动到指定数据库</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> EXISTS age <span class="token comment" spellcheck="true"># 判断键是否存在</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0 <span class="token comment" spellcheck="true"># 不存在</span>
+127.0.0.1:6379<span class="token operator">></span> EXISTS name
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1 <span class="token comment" spellcheck="true"># 存在</span>
+127.0.0.1:6379<span class="token operator">></span> SELECT 1
+OK
+127.0.0.1:6379<span class="token punctuation">[</span>1<span class="token punctuation">]</span><span class="token operator">></span> keys *
+1<span class="token punctuation">)</span> <span class="token string">"age"</span>
+127.0.0.1:6379<span class="token punctuation">[</span>1<span class="token punctuation">]</span><span class="token operator">></span> del age <span class="token comment" spellcheck="true"># 删除键值对</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1 <span class="token comment" spellcheck="true"># 删除个数</span>
+
+
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> age 20
+OK
+127.0.0.1:6379<span class="token operator">></span> EXPIRE age 15 <span class="token comment" spellcheck="true"># 设置键值对的过期时间</span>
+
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1 <span class="token comment" spellcheck="true"># 设置成功 开始计数</span>
+127.0.0.1:6379<span class="token operator">></span> ttl age <span class="token comment" spellcheck="true"># 查看key的过期剩余时间</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 13
+127.0.0.1:6379<span class="token operator">></span> ttl age
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 11
+127.0.0.1:6379<span class="token operator">></span> ttl age
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 9
+127.0.0.1:6379<span class="token operator">></span> ttl age
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> -2 <span class="token comment" spellcheck="true"># -2 表示key过期，-1表示key未设置过期时间</span>
+
+127.0.0.1:6379<span class="token operator">></span> get age <span class="token comment" spellcheck="true"># 过期的key 会被自动delete</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+127.0.0.1:6379<span class="token operator">></span> keys *
+1<span class="token punctuation">)</span> <span class="token string">"name"</span>
+
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">type</span> name <span class="token comment" spellcheck="true"># 查看value的数据类型</span>
+string</code></pre>
+<p>关于TTL命令</p>
+<p>Redis的key，通过TTL命令返回key的过期时间，一般来说有3种：</p>
+<ul>
+<li>当前key没有设置过期时间，所以会返回-1.</li>
+<li>当前key有设置过期时间，而且key已经过期，所以会返回-2.</li>
+<li>当前key有设置过期时间，且key还没有过期，故会返回key的正常剩余时间.</li>
+</ul>
+<p>关于重命名<font color=red>RENAME</font>和<font color=red>RENAMENX</font></p>
+<ul>
+<li><font color=red>RENAME key newkey</font>修改 key 的名称</li>
+<li><font color=red>RENAMENX key newkey</font>仅当 newkey 不存在时，将 key 改名为 newkey 。</li>
+</ul>
+<h3 id="emsp-String-字符串"><a href="#emsp-String-字符串" class="headerlink" title="&emsp;String(字符串)"></a>&emsp;String(字符串)</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>APPEND key value</td>
+<td>向指定的key的value后追加字符串</td>
+<td>127.0.0.1:6379&gt; set msg hello OK 127.0.0.1:6379&gt; append msg “ world” (integer) 11 127.0.0.1:6379&gt; get msg “hello world”</td>
+</tr>
+<tr>
+<td>DECR/INCR key</td>
+<td>将指定key的value数值进行+1/-1(仅对于数字)</td>
+<td>127.0.0.1:6379&gt; set age 20 OK 127.0.0.1:6379&gt; incr age (integer) 21 127.0.0.1:6379&gt; decr age (integer) 20</td>
+</tr>
+<tr>
+<td>INCRBY/DECRBY key n</td>
+<td>按指定的步长对数值进行加减</td>
+<td>127.0.0.1:6379&gt; INCRBY age 5 (integer) 25 127.0.0.1:6379&gt; DECRBY age 10 (integer) 15</td>
+</tr>
+<tr>
+<td>INCRBYFLOAT key n</td>
+<td>为数值加上浮点型数值</td>
+<td>127.0.0.1:6379&gt; INCRBYFLOAT age 5.2 “20.2”</td>
+</tr>
+<tr>
+<td><font color=red> STRLEN key</font></td>
+<td>获取key保存值的字符串长度</td>
+<td>127.0.0.1:6379&gt; get msg “hello world” 127.0.0.1:6379&gt; STRLEN msg (integer) 11</td>
+</tr>
+<tr>
+<td><font color=red>GETRANGE key start end </font></td>
+<td>按起止位置获取字符串（闭区间，起止位置都取）</td>
+<td>127.0.0.1:6379&gt; get msg “hello world” 127.0.0.1:6379&gt; GETRANGE msg 3 9 “lo worl”</td>
+</tr>
+<tr>
+<td><font color=red>SETRANGE key offset value </font></td>
+<td>用指定的value 替换key中 offset开始的值</td>
+<td>127.0.0.1:6379&gt; SETRANGE msg 2 hello (integer) 7 127.0.0.1:6379&gt; get msg “tehello”</td>
+</tr>
+<tr>
+<td><font color=red>GETSET key value </font></td>
+<td>将给定 key 的值设为 value ，并返回 key 的旧值(old value)。</td>
+<td>127.0.0.1:6379&gt; GETSET msg test “hello world”</td>
+</tr>
+<tr>
+<td><font color=red>SETNX key value     </font></td>
+<td>仅当key不存在时进行set</td>
+<td>127.0.0.1:6379&gt; SETNX msg test (integer) 0 127.0.0.1:6379&gt; SETNX name sakura (integer) 1</td>
+</tr>
+<tr>
+<td><font color=red>SETEX key seconds value </font></td>
+<td>set 键值对并设置过期时间</td>
+<td>127.0.0.1:6379&gt; setex name 10 root OK 127.0.0.1:6379&gt; get name (nil)</td>
+</tr>
+<tr>
+<td><font color=red>MSET key1 value1 [key2 value2..]     </font></td>
+<td>批量set键值对</td>
+<td>127.0.0.1:6379&gt; MSET k1 v1 k2 v2 k3 v3 OK</td>
+</tr>
+<tr>
+<td><font color=red>MSETNX key1 value1 [key2 value2..] </font></td>
+<td>批量设置键值对，仅当参数中所有的key都不存在时执行</td>
+<td>127.0.0.1:6379&gt; MSETNX k1 v1 k4 v4 (integer) 0</td>
+</tr>
+<tr>
+<td><font color=red>MGET key1 [key2..] </font></td>
+<td>批量获取多个key保存的值</td>
+<td>127.0.0.1:6379&gt; MGET k1 k2 k3 1) “v1” 2) “v2” 3) “v3”</td>
+</tr>
+<tr>
+<td><font color=red> PSETEX key milliseconds value</font></td>
+<td>和 SETEX 命令相似，但它以毫秒为单位设置 key 的生存时间，</td>
+<td></td>
+</tr>
+<tr>
+<td><font color=red> getset key value</font></td>
+<td>如果不存在值，则返回nil，如果存在值，获取原来的值，并设置新的值</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>String类似的使用场景：value除了是字符串还可以是数字，用途举例：</p>
+<ul>
+<li>计数器</li>
+<li>统计多单位的数量：uid:123666：follow 0<ul>
+<li>粉丝数</li>
+<li>对象存储缓存</li>
+</ul>
+</li>
+</ul>
+<h3 id="emsp-List-列表"><a href="#emsp-List-列表" class="headerlink" title="&emsp;List(列表)"></a>&emsp;List(列表)</h3><blockquote>
+<p>Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）<br>一个列表最多可以包含 232 - 1 个元素 (4294967295, 每个列表超过40亿个元素)。</p>
+</blockquote>
+<p>首先我们列表，可以经过规则定义将其变为队列、栈、双端队列等</p>
+<p><img src="https://img-blog.csdnimg.cn/2020083100424595.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>正如图Redis中List是可以进行双端操作的，所以命令也就分为了LXXX和RLLL两类，有时候L也表示List例如LLEN</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><font color=red>LPUSH/RPUSH key value1[value2..]    </font></td>
+<td>从左边/右边向列表中PUSH值(一个或者多个)。</td>
+</tr>
+<tr>
+<td><font color=red>LRANGE key start end</font></td>
+<td>获取list 起止元素==（索引从左往右 递增）==</td>
+</tr>
+<tr>
+<td><font color=red>LPUSHX/RPUSHX key value</font></td>
+<td>向已存在的列名中push值（一个或者多个）</td>
+</tr>
+<tr>
+<td><font color=red>LINSERT key BEFORE/AFTER pivot value</font></td>
+<td>在指定列表元素的前/后 插入value</td>
+</tr>
+<tr>
+<td><font color=red>LLEN key</font></td>
+<td>查看列表长度</td>
+</tr>
+<tr>
+<td><font color=red>LINDEX key index    </font></td>
+<td>通过索引获取列表元素</td>
+</tr>
+<tr>
+<td><font color=red>LSET key index value    </font></td>
+<td>通过索引为元素设值</td>
+</tr>
+<tr>
+<td><font color=red>LPOP/RPOP key</font></td>
+<td>从最左边/最右边移除值 并返回</td>
+</tr>
+<tr>
+<td><font color=red>RPOPLPUSH source destination</font></td>
+<td>将列表的尾部(右)最后一个值弹出，并返回，然后加到另一个列表的头部</td>
+</tr>
+<tr>
+<td><font color=red>LTRIM key start end    </font></td>
+<td>通过下标截取指定范围内的列表</td>
+</tr>
+<tr>
+<td><font color=red>LREM key count value</font></td>
+<td>List中是允许value重复的 count &gt; 0：从头部开始搜索 然后删除指定的value 至多删除count个 count &lt; 0：从尾部开始搜索… count = 0：删除列表中所有的指定value。</td>
+</tr>
+<tr>
+<td><font color=red>BLPOP/BRPOP key1[key2] timout</font></td>
+<td>移出并获取列表的第一个/最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</td>
+</tr>
+<tr>
+<td><font color=red>BRPOPLPUSH source destination timeout</font></td>
+<td>和RPOPLPUSH功能相同，如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</td>
+</tr>
+</tbody></table>
+<pre class=" language-bash"><code class="language-bash">---------------------------LPUSH---RPUSH---LRANGE--------------------------------
+
+127.0.0.1:6379<span class="token operator">></span> LPUSH mylist k1 <span class="token comment" spellcheck="true"># LPUSH mylist=>{1}</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> LPUSH mylist k2 <span class="token comment" spellcheck="true"># LPUSH mylist=>{2,1}</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+127.0.0.1:6379<span class="token operator">></span> RPUSH mylist k3 <span class="token comment" spellcheck="true"># RPUSH mylist=>{2,1,3}</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+127.0.0.1:6379<span class="token operator">></span> get mylist <span class="token comment" spellcheck="true"># 普通的get是无法获取list值的</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> WRONGTYPE Operation against a key holding the wrong kind of value
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 4 <span class="token comment" spellcheck="true"># LRANGE 获取起止位置范围内的元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 2
+1<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 1
+1<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 -1 <span class="token comment" spellcheck="true"># 获取全部元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+
+---------------------------LPUSHX---RPUSHX-----------------------------------
+
+127.0.0.1:6379<span class="token operator">></span> LPUSHX list v1 <span class="token comment" spellcheck="true"># list不存在 LPUSHX失败</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> LPUSHX list v1 v2  
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> LPUSHX mylist k4 k5 <span class="token comment" spellcheck="true"># 向mylist中 左边 PUSH k4 k5</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 5
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"k5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+4<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+5<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+
+---------------------------LINSERT--LLEN--LINDEX--LSET----------------------------
+
+127.0.0.1:6379<span class="token operator">></span> LINSERT mylist after k2 ins_key1 <span class="token comment" spellcheck="true"># 在k2元素后 插入ins_key1</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 6
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"k5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+4<span class="token punctuation">)</span> <span class="token string">"ins_key1"</span>
+5<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+6<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+127.0.0.1:6379<span class="token operator">></span> LLEN mylist <span class="token comment" spellcheck="true"># 查看mylist的长度</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 6
+127.0.0.1:6379<span class="token operator">></span> LINDEX mylist 3 <span class="token comment" spellcheck="true"># 获取下标为3的元素</span>
+<span class="token string">"ins_key1"</span>
+127.0.0.1:6379<span class="token operator">></span> LINDEX mylist 0
+<span class="token string">"k5"</span>
+127.0.0.1:6379<span class="token operator">></span> LSET mylist 3 k6 <span class="token comment" spellcheck="true"># 将下标3的元素 set值为k6</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"k5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+4<span class="token punctuation">)</span> <span class="token string">"k6"</span>
+5<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+6<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+
+---------------------------LPOP--RPOP--------------------------
+
+127.0.0.1:6379<span class="token operator">></span> LPOP mylist <span class="token comment" spellcheck="true"># 左侧(头部)弹出</span>
+<span class="token string">"k5"</span>
+127.0.0.1:6379<span class="token operator">></span> RPOP mylist <span class="token comment" spellcheck="true"># 右侧(尾部)弹出</span>
+<span class="token string">"k3"</span>
+
+---------------------------RPOPLPUSH--------------------------
+
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"k4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k6"</span>
+4<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+127.0.0.1:6379<span class="token operator">></span> RPOPLPUSH mylist newlist <span class="token comment" spellcheck="true"># 将mylist的最后一个值(k1)弹出，加入到newlist的头部</span>
+<span class="token string">"k1"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE newlist 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"k4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k6"</span>
+
+---------------------------LTRIM--------------------------
+
+127.0.0.1:6379<span class="token operator">></span> LTRIM mylist 0 1 <span class="token comment" spellcheck="true"># 截取mylist中的 0~1部分</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> LRANGE mylist 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"k4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+
+<span class="token comment" spellcheck="true"># 初始 mylist: k2,k2,k2,k2,k2,k2,k4,k2,k2,k2,k2</span>
+---------------------------LREM--------------------------
+
+127.0.0.1:6379<span class="token operator">></span> LREM mylist 3 k2 <span class="token comment" spellcheck="true"># 从头部开始搜索 至多删除3个 k2</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+<span class="token comment" spellcheck="true"># 删除后：mylist: k2,k2,k2,k4,k2,k2,k2,k2</span>
+
+127.0.0.1:6379<span class="token operator">></span> LREM mylist -2 k2 <span class="token comment" spellcheck="true">#从尾部开始搜索 至多删除2个 k2</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+<span class="token comment" spellcheck="true"># 删除后：mylist: k2,k2,k2,k4,k2,k2</span>
+
+
+---------------------------BLPOP--BRPOP--------------------------
+
+mylist: k2,k2,k2,k4,k2,k2
+newlist: k1
+
+127.0.0.1:6379<span class="token operator">></span> BLPOP newlist mylist 30 <span class="token comment" spellcheck="true"># 从newlist中弹出第一个值，mylist作为候选</span>
+1<span class="token punctuation">)</span> <span class="token string">"newlist"</span> <span class="token comment" spellcheck="true"># 弹出</span>
+2<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+127.0.0.1:6379<span class="token operator">></span> BLPOP newlist mylist 30
+1<span class="token punctuation">)</span> <span class="token string">"mylist"</span> <span class="token comment" spellcheck="true"># 由于newlist空了 从mylist中弹出</span>
+2<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+127.0.0.1:6379<span class="token operator">></span> BLPOP newlist 30
+<span class="token punctuation">(</span>30.10s<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 超时了</span>
+
+127.0.0.1:6379<span class="token operator">></span> BLPOP newlist 30 <span class="token comment" spellcheck="true"># 我们连接另一个客户端向newlist中push了test, 阻塞被解决。</span>
+1<span class="token punctuation">)</span> <span class="token string">"newlist"</span>
+2<span class="token punctuation">)</span> <span class="token string">"test"</span>
+<span class="token punctuation">(</span>12.54s<span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>小结</p>
+</blockquote>
+<ul>
+<li>list实际上是一个链表，before Node after , left, right 都可以插入值</li>
+<li>如果key不存在，则创建新的链表</li>
+<li>如果key存在，新增内容</li>
+<li>如果移除了所有值，空链表，也代表不存在</li>
+<li>在两边插入或者改动值，效率最高！修改中间元素，效率相对较低</li>
+</ul>
+<p><strong>应用：<br>消息排队！消息队列（Lpush Rpop）,栈（Lpush Lpop）</strong></p>
+<h3 id="emsp-Set-集合"><a href="#emsp-Set-集合" class="headerlink" title="&emsp;Set(集合)"></a>&emsp;Set(集合)</h3><blockquote>
+<p>Redis的Set是string类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。<br>Redis 中 集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。<br>集合中最大的成员数为 232 - 1 (4294967295, 每个集合可存储40多亿个成员)。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><font color=red>SADD key member1[member2..]</font></td>
+<td>向集合中无序增加一个/多个成员</td>
+</tr>
+<tr>
+<td><font color=red>SCARD key</font></td>
+<td>获取集合的成员数</td>
+</tr>
+<tr>
+<td><font color=red>SMEMBERS key</font></td>
+<td>返回集合中所有的成员</td>
+</tr>
+<tr>
+<td><font color=red>SISMEMBER key member</font></td>
+<td>查询member元素是否是集合的成员,结果是无序的</td>
+</tr>
+<tr>
+<td><font color=red>SRANDMEMBER key [count]</font></td>
+<td>随机返回集合中count个成员，count缺省值为1</td>
+</tr>
+<tr>
+<td><font color=red>SPOP key [count]</font></td>
+<td>随机移除并返回集合中count个成员，count缺省值为1</td>
+</tr>
+<tr>
+<td><font color=red>SMOVE source destination member</font></td>
+<td>将source集合的成员member移动到destination集合</td>
+</tr>
+<tr>
+<td><font color=red>SREM key member1[member2..]</font></td>
+<td>移除集合中一个/多个成员</td>
+</tr>
+<tr>
+<td><font color=red>SDIFF key1[key2..]</font></td>
+<td>返回所有集合的差集 key1- key2 - …</td>
+</tr>
+<tr>
+<td><font color=red>SDIFFSTORE destination key1[key2..]</font></td>
+<td>在SDIFF的基础上，将结果保存到集合中==(覆盖)==。不能保存到其他类型key噢！</td>
+</tr>
+<tr>
+<td><font color=red>SINTER key1 [key2..]</font></td>
+<td>返回所有集合的交集</td>
+</tr>
+<tr>
+<td><font color=red>SINTERSTORE destination key1[key2..]    </font></td>
+<td>在SINTER的基础上，存储结果到集合中。覆盖</td>
+</tr>
+<tr>
+<td><font color=red>SUNION key1 [key2..]</font></td>
+<td>返回所有集合的并集</td>
+</tr>
+<tr>
+<td><font color=red>SUNIONSTORE destination key1 [key2..]    </font></td>
+<td>在SUNION的基础上，存储结果到及和张。覆盖</td>
+</tr>
+<tr>
+<td><font color=red>SSCAN KEY [MATCH pattern] [COUNT count]</font></td>
+<td>在大量数据环境下，使用此命令遍历集合中元素，每次遍历部分</td>
+</tr>
+</tbody></table>
+<pre class=" language-bash"><code class="language-bash">---------------SADD--SCARD--SMEMBERS--SISMEMBER--------------------
+
+127.0.0.1:6379<span class="token operator">></span> SADD myset m1 m2 m3 m4 <span class="token comment" spellcheck="true"># 向myset中增加成员 m1~m4</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+127.0.0.1:6379<span class="token operator">></span> SCARD myset <span class="token comment" spellcheck="true"># 获取集合的成员数目</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+127.0.0.1:6379<span class="token operator">></span> smembers myset <span class="token comment" spellcheck="true"># 获取集合中所有成员</span>
+1<span class="token punctuation">)</span> <span class="token string">"m4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"m3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"m2"</span>
+4<span class="token punctuation">)</span> <span class="token string">"m1"</span>
+127.0.0.1:6379<span class="token operator">></span> SISMEMBER myset m5 <span class="token comment" spellcheck="true"># 查询m5是否是myset的成员</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0 <span class="token comment" spellcheck="true"># 不是，返回0</span>
+127.0.0.1:6379<span class="token operator">></span> SISMEMBER myset m2
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1 <span class="token comment" spellcheck="true"># 是，返回1</span>
+127.0.0.1:6379<span class="token operator">></span> SISMEMBER myset m3
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+
+---------------------SRANDMEMBER--SPOP----------------------------------
+
+127.0.0.1:6379<span class="token operator">></span> SRANDMEMBER myset 3 <span class="token comment" spellcheck="true"># 随机返回3个成员</span>
+1<span class="token punctuation">)</span> <span class="token string">"m2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"m3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"m4"</span>
+127.0.0.1:6379<span class="token operator">></span> SRANDMEMBER myset <span class="token comment" spellcheck="true"># 随机返回1个成员</span>
+<span class="token string">"m3"</span>
+127.0.0.1:6379<span class="token operator">></span> SPOP myset 2 <span class="token comment" spellcheck="true"># 随机移除并返回2个成员</span>
+1<span class="token punctuation">)</span> <span class="token string">"m1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"m4"</span>
+<span class="token comment" spellcheck="true"># 将set还原到{m1,m2,m3,m4}</span>
+
+---------------------SMOVE--SREM----------------------------------------
+
+127.0.0.1:6379<span class="token operator">></span> SMOVE myset newset m3 <span class="token comment" spellcheck="true"># 将myset中m3成员移动到newset集合</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS myset
+1<span class="token punctuation">)</span> <span class="token string">"m4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"m2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"m1"</span>
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS newset
+1<span class="token punctuation">)</span> <span class="token string">"m3"</span>
+127.0.0.1:6379<span class="token operator">></span> SREM newset m3 <span class="token comment" spellcheck="true"># 从newset中移除m3元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS newset
+<span class="token punctuation">(</span>empty list or set<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 下面开始是多集合操作,多集合操作中若只有一个参数默认和自身进行运算</span>
+<span class="token comment" spellcheck="true"># setx=>{m1,m2,m4,m6}, sety=>{m2,m5,m6}, setz=>{m1,m3,m6}</span>
+
+-----------------------------SDIFF------------------------------------
+
+127.0.0.1:6379<span class="token operator">></span> SDIFF setx sety setz <span class="token comment" spellcheck="true"># 等价于setx-sety-setz</span>
+1<span class="token punctuation">)</span> <span class="token string">"m4"</span>
+127.0.0.1:6379<span class="token operator">></span> SDIFF setx sety <span class="token comment" spellcheck="true"># setx - sety</span>
+1<span class="token punctuation">)</span> <span class="token string">"m4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"m1"</span>
+127.0.0.1:6379<span class="token operator">></span> SDIFF sety setx <span class="token comment" spellcheck="true"># sety - setx</span>
+1<span class="token punctuation">)</span> <span class="token string">"m5"</span>
+
+
+-------------------------SINTER---------------------------------------
+<span class="token comment" spellcheck="true"># 共同关注（交集）</span>
+
+127.0.0.1:6379<span class="token operator">></span> SINTER setx sety setz <span class="token comment" spellcheck="true"># 求 setx、sety、setx的交集</span>
+1<span class="token punctuation">)</span> <span class="token string">"m6"</span>
+127.0.0.1:6379<span class="token operator">></span> SINTER setx sety <span class="token comment" spellcheck="true"># 求setx sety的交集</span>
+1<span class="token punctuation">)</span> <span class="token string">"m2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"m6"</span>
+
+-------------------------SUNION---------------------------------------
+
+127.0.0.1:6379<span class="token operator">></span> SUNION setx sety setz <span class="token comment" spellcheck="true"># setx sety setz的并集</span>
+1<span class="token punctuation">)</span> <span class="token string">"m4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"m6"</span>
+3<span class="token punctuation">)</span> <span class="token string">"m3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"m2"</span>
+5<span class="token punctuation">)</span> <span class="token string">"m1"</span>
+6<span class="token punctuation">)</span> <span class="token string">"m5"</span>
+127.0.0.1:6379<span class="token operator">></span> SUNION setx sety <span class="token comment" spellcheck="true"># setx sety 并集</span>
+1<span class="token punctuation">)</span> <span class="token string">"m4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"m6"</span>
+3<span class="token punctuation">)</span> <span class="token string">"m2"</span>
+4<span class="token punctuation">)</span> <span class="token string">"m1"</span>
+5<span class="token punctuation">)</span> <span class="token string">"m5"</span>
+</code></pre>
+<h2 id="四、三种特殊数据类型"><a href="#四、三种特殊数据类型" class="headerlink" title="四、三种特殊数据类型"></a>四、三种特殊数据类型</h2><h3 id="emsp-Geospatial-地理位置"><a href="#emsp-Geospatial-地理位置" class="headerlink" title="&emsp;Geospatial(地理位置)"></a>&emsp;Geospatial(地理位置)</h3><blockquote>
+<p>使用经纬度定位地理坐标并用一个<strong>有序集合zset保存</strong>，所以==zset命令也可以使用==</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><font color=red>geoadd key longitud(经度) latitude(纬度) member [..]    </font></td>
+<td>将具体经纬度的坐标存入一个有序集合</td>
+</tr>
+<tr>
+<td><font color=red>geopos key member [member..]</font></td>
+<td>获取集合中的一个/多个成员坐标</td>
+</tr>
+<tr>
+<td><font color=red>geodist key member1 member2 [unit]</font></td>
+<td>返回两个给定位置之间的距离。默认以米作为单位。</td>
+</tr>
+<tr>
+<td><font color=red>georadius key longitude latitude radius m/km/mi/ft [WITHCOORD][WITHDIST] [WITHHASH] [COUNT count]</font></td>
+<td>以给定的经纬度为中心， 返回集合包含的位置元素当中， 与中心的距离不超过给定最大距离的所有位置元素。</td>
+</tr>
+<tr>
+<td><font color=red>GEORADIUSBYMEMBER key member radius…</font></td>
+<td>功能与GEORADIUS相同，只是中心位置不是具体的经纬度，而是使用结合中已有的成员作为中心点。</td>
+</tr>
+<tr>
+<td><font color=red>geohash key member1 [member2..]</font></td>
+<td>返回一个或多个位置元素的Geohash表示。使用Geohash位置52点整数编码。</td>
+</tr>
+</tbody></table>
+<p><strong>有效经纬度</strong></p>
+<blockquote>
+<ul>
+<li>有效的经度从-180度到180度。<ul>
+<li>有效的纬度从-85.05112878度到85.05112878度。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>指定单位的参数 <strong>unit</strong> 必须是以下单位的其中一个：</p>
+<ul>
+<li><strong>m</strong> 表示单位为米。</li>
+<li><strong>km</strong> 表示单位为千米。</li>
+<li><strong>mi</strong> 表示单位为英里。</li>
+<li><strong>ft</strong> 表示单位为英尺。</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">-----------------geoadd--------------------
+127.0.0.1:6379<span class="token operator">></span> geoadd china:city 111.4 30.5 yichang <span class="token comment" spellcheck="true"># 将经纬度(111.4,30.5)的地理坐标加入china:city 并命名yichang</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> geoadd china:city 121.4 31.4 shanghai <span class="token comment" spellcheck="true"># ...</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> geoadd china:city 120.2 30.2 hangzhou
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> geoadd china:city 104.1 30.6 chengdu
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+
+-----------------geopos--------------------
+127.0.0.1:6379<span class="token operator">></span> geopos china:city shanghai
+1<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"121.40000134706497"</span> <span class="token comment" spellcheck="true"># 经度</span>
+   2<span class="token punctuation">)</span> <span class="token string">"31.400000253193539"</span> <span class="token comment" spellcheck="true"># 纬度</span>
+
+-----------------geodist--------------------
+127.0.0.1:6379<span class="token operator">></span> GEODIST china:city yichang shanghai <span class="token comment" spellcheck="true"># 获取yichang和shanghai两个地理坐标的距离(单位:m)</span>
+<span class="token string">"958793.6834"</span>
+127.0.0.1:6379<span class="token operator">></span> GEODIST china:city shanghai yichang km <span class="token comment" spellcheck="true"># 单位：km</span>
+<span class="token string">"958.7937"</span>
+</code></pre>
+<p><strong>关于GEORADIUS的参数</strong></p>
+<blockquote>
+<p>通过<font color=red>georadius</font>就可以完成 附近的人功能<br>withcoord:带上坐标<br>withdist:带上距离，单位与半径单位相同<br>COUNT n : 只显示前n个(按距离递增排序)</p>
+</blockquote>
+<pre class=" language-bash"><code class="language-bash">----------------georadius---------------------
+127.0.0.1:6379<span class="token operator">></span> GEORADIUS china:city 120 30 500 km withcoord withdist <span class="token comment" spellcheck="true"># 查询经纬度(120,30)坐标500km半径内的成员</span>
+1<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"hangzhou"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"29.4151"</span>
+   3<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"120.20000249147415"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"30.199999888333501"</span>
+2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"shanghai"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"205.3611"</span>
+   3<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"121.40000134706497"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"31.400000253193539"</span>
+
+------------geohash---------------------------
+127.0.0.1:6379<span class="token operator">></span> geohash china:city yichang shanghai <span class="token comment" spellcheck="true"># 获取成员经纬坐标的geohash表示</span>
+1<span class="token punctuation">)</span> <span class="token string">"wmrjwbr5250"</span>
+2<span class="token punctuation">)</span> <span class="token string">"wtw6ds0y300"</span>
+</code></pre>
+<h3 id="emsp-Hyperloglog-基数统计"><a href="#emsp-Hyperloglog-基数统计" class="headerlink" title="&emsp;Hyperloglog(基数统计)"></a>&emsp;Hyperloglog(基数统计)</h3><blockquote>
+<p>Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，==计算基数所需的空间总是固定的、并且是很小的。==<br>花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基数。<br>因为 HyperLogLog ==只会根据输入元素来计算基数，而不会储存输入元素本身==，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。<br>其底层使用string数据类型</p>
+</blockquote>
+<p><strong>什么是基数？</strong></p>
+<blockquote>
+<p>==数据集中不重复的元素的个数。==</p>
+</blockquote>
+<p><strong>应用场景</strong></p>
+<p>网页的访问量（UV）：一个用户多次访问，也只能算作一个人。</p>
+<blockquote>
+<p>传统实现，存储用户的id,然后每次进行比较。当用户变多之后这种方式及其浪费空间，而我们的<strong>目的只是计数</strong>，==Hyperloglog就能帮助我们利用最小的空间完成。==</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><font color=red>PFADD key element1 [elememt2..]</font></td>
+<td>添加指定元素到 HyperLogLog 中</td>
+</tr>
+<tr>
+<td><font color=red>PFCOUNT key [key]</font></td>
+<td>返回给定 HyperLogLog 的基数估算值。</td>
+</tr>
+<tr>
+<td><font color=red>PFMERGE destkey sourcekey [sourcekey..]</font></td>
+<td>将多个 HyperLogLog 合并为一个 HyperLogLog</td>
+</tr>
+</tbody></table>
+<pre class=" language-bash"><code class="language-bash">----------PFADD--PFCOUNT---------------------
+127.0.0.1:6379<span class="token operator">></span> PFADD myelemx a b c d e f g h i j k <span class="token comment" spellcheck="true"># 添加元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">type</span> myelemx <span class="token comment" spellcheck="true"># hyperloglog底层使用String</span>
+string
+127.0.0.1:6379<span class="token operator">></span> PFCOUNT myelemx <span class="token comment" spellcheck="true"># 估算myelemx的基数</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 11
+127.0.0.1:6379<span class="token operator">></span> PFADD myelemy i j k z m c b <span class="token function">v</span> p q s
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> PFCOUNT myelemy
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 11
+
+----------------PFMERGE-----------------------
+127.0.0.1:6379<span class="token operator">></span> PFMERGE myelemz myelemx myelemy <span class="token comment" spellcheck="true"># 合并myelemx和myelemy 成为myelemz</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> PFCOUNT myelemz <span class="token comment" spellcheck="true"># 估算基数</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 17
+
+</code></pre>
+<p>虽然其底层使用String，但是get出来的值…</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901230125774.png#pic_center" alt=""></p>
+<h3 id="emsp-BitMaps-位图"><a href="#emsp-BitMaps-位图" class="headerlink" title="&emsp;BitMaps(位图)"></a>&emsp;BitMaps(位图)</h3><blockquote>
+<p>==使用位存储==，信息状态只有 0 和 1<br>Bitmap是一串连续的2进制数字（0或1），每一位所在的位置为偏移(offset)，在bitmap上可执行AND,OR,XOR,NOT以及其它位操作。</p>
+</blockquote>
+<p><strong>应用场景</strong></p>
+<p>签到统计、状态统计<br>|命令| 描述 |<br>|–|–|<br>| <font color=red> setbit key offset value</font>|  为指定key的offset位设置值|<br>| <font color=red> getbit key offset</font>|  获取offset位的值|<br>| <font color=red>bitcount key [start end] </font>|统计字符串被设置为1的bit数，也可以指定统计范围==按字节==<br>| <font color=red> bitop operration destkey key[key..]</font>|对一个或多个保存二进制位的字符串 key 进行位元操作，并将结果保存到 destkey 上。  |<br>| <font color=red> BITPOS key bit [start] [end]    </font>| 返回字符串里面第一个被设置为1或者0的bit位。==start和end只能按字节,不能按位== |</p>
+<pre class=" language-bash"><code class="language-bash">------------setbit--getbit--------------
+127.0.0.1:6379<span class="token operator">></span> setbit sign 0 1 <span class="token comment" spellcheck="true"># 设置sign的第0位为 1 </span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> setbit sign 2 1 <span class="token comment" spellcheck="true"># 设置sign的第2位为 1  不设置默认 是0</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> setbit sign 3 1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> setbit sign 5 1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">type</span> sign
+string
+
+127.0.0.1:6379<span class="token operator">></span> getbit sign 2 <span class="token comment" spellcheck="true"># 获取第2位的数值</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> getbit sign 3
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> getbit sign 4 <span class="token comment" spellcheck="true"># 未设置默认是0</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+
+-----------bitcount----------------------------
+127.0.0.1:6379<span class="token operator">></span> BITCOUNT sign <span class="token comment" spellcheck="true"># 统计sign中为1的位数</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+
+</code></pre>
+<p><strong>==bitmaps的底层==</strong><br><img src="https://img-blog.csdnimg.cn/20200901230621645.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>这样设置以后你能get到的值是：\xA2\x80，所以bitmaps是一串从==左到右的二进制串==</p>
+<h2 id="五、事务"><a href="#五、事务" class="headerlink" title="五、事务"></a>五、事务</h2><p>==Redis的<strong>单条命令</strong>是<strong>保证原子性</strong>的，但是<strong>redis事务<font color=red>不能</font>保证原子性</strong>==</p>
+<blockquote>
+<p>Redis事务：一组命令的集合。<br>事务中每条命令都会被序列化，执行过程中按顺序执行，不允许其他命令进行干扰。</p>
+<ul>
+<li><p>一次性</p>
+</li>
+<li><p>顺序性</p>
+</li>
+<li><p>排他性</p>
+<hr>
+
+<p><strong>1.Redis事务没有隔离级别的概念</strong> </p>
+</li>
+</ul>
+<p><strong>2.Redis单条命令是保证原子性的，但是事务不保证原子性！</strong></p>
+</blockquote>
+<p>&emsp;&emsp;所以事务中的命令在加入时都没有被执行，直到提交时才会开始执行(Exec)一次性完成。</p>
+<p>&emsp;&emsp;操作过程：<strong>开启事务</strong>(==multi==) &gt;&gt; <strong>命令入队</strong> &gt;&gt; <strong>执行事务</strong>(==exec==)</p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> multi <span class="token comment" spellcheck="true"># 开启事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k1 v1 <span class="token comment" spellcheck="true"># 命令入队</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k2 v2 <span class="token comment" spellcheck="true"># ..</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> get k1
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k3 v3
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> keys *
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span> <span class="token comment" spellcheck="true"># 事务执行</span>
+1<span class="token punctuation">)</span> OK
+2<span class="token punctuation">)</span> OK
+3<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+4<span class="token punctuation">)</span> OK
+5<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+   3<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+</code></pre>
+<p><strong>取消事务(==discurd==)</strong></p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> multi
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k1 v1
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k2 v2
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> DISCARD <span class="token comment" spellcheck="true"># 放弃事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> EXEC 
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR EXEC without MULTI <span class="token comment" spellcheck="true"># 当前未开启事务</span>
+127.0.0.1:6379<span class="token operator">></span> get k1 <span class="token comment" spellcheck="true"># 被放弃事务中命令并未执行</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="emsp-事务错误"><a href="#emsp-事务错误" class="headerlink" title="&emsp;事务错误"></a>&emsp;事务错误</h3><blockquote>
+<p><font color=red>代码语法错误</font>（编译时异常）==所有的命令都不执行==</p>
+</blockquote>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> multi
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k1 v1
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k2 v2
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> error k1 <span class="token comment" spellcheck="true"># 这是一条语法错误命令</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR unknown <span class="token function">command</span> <span class="token variable"><span class="token variable">`</span>error<span class="token variable">`</span></span>, with args beginning with: <span class="token variable"><span class="token variable">`</span>k1<span class="token variable">`</span></span>, <span class="token comment" spellcheck="true"># 会报错但是不影响后续命令入队 </span>
+127.0.0.1:6379<span class="token operator">></span> get k2
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> EXEC
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> EXECABORT Transaction discarded because of previous errors. <span class="token comment" spellcheck="true"># 执行报错</span>
+127.0.0.1:6379<span class="token operator">></span> get k1 
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 其他命令并没有被执行</span>
+
+</code></pre>
+<blockquote>
+<p><font color=red>代码逻辑错误</font> (运行时异常) *<em>==其他命令可以正常执行== *</em>&gt;&gt; ==不保证事务原子性==</p>
+</blockquote>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> multi
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k1 v1
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k2 v2
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> INCR k1 <span class="token comment" spellcheck="true"># 这条命令逻辑错误（对字符串进行增量）</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> get k2
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span>
+1<span class="token punctuation">)</span> OK
+2<span class="token punctuation">)</span> OK
+3<span class="token punctuation">)</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR value is not an integer or out of range <span class="token comment" spellcheck="true"># 运行时报错</span>
+4<span class="token punctuation">)</span> <span class="token string">"v2"</span> <span class="token comment" spellcheck="true"># 其他命令正常执行</span>
+</code></pre>
+<h3 id="emsp-监控"><a href="#emsp-监控" class="headerlink" title="&emsp;监控"></a>&emsp;监控</h3><p><strong>悲观锁：</strong></p>
+<ul>
+<li>很悲观，认为什么时候都会出现问题，==无论做什么都会加锁==</li>
+</ul>
+<p><strong>乐观锁：</strong></p>
+<ul>
+<li>很乐观，认为什么时候都不会出现问题，所以不会上锁！==更新数据的时候去判断一下，在此期间是否有人修改过这个数据==</li>
+<li>==获取version==</li>
+<li>==更新的时候比较version==</li>
+</ul>
+<p>使用<font color=red>watch key</font>监控指定数据，相当于乐观锁加锁。</p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> money 100 <span class="token comment" spellcheck="true"># 设置余额:100</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> use 0 <span class="token comment" spellcheck="true"># 支出使用:0</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">watch</span> money <span class="token comment" spellcheck="true"># 监视money (上锁)</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> multi
+OK
+127.0.0.1:6379<span class="token operator">></span> DECRBY money 20
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> INCRBY use 20
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span> <span class="token comment" spellcheck="true"># 监视值没有被中途修改，事务正常执行</span>
+1<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 80
+2<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 20
+</code></pre>
+<blockquote>
+<p>线程插队，修改监视值。</p>
+</blockquote>
+<p>我们启动另外一个客户端模拟插队线程。</p>
+<p>线程1：</p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> <span class="token function">watch</span> money <span class="token comment" spellcheck="true"># money上锁</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> multi
+OK
+127.0.0.1:6379<span class="token operator">></span> DECRBY money 20
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> INCRBY use 20
+QUEUED
+127.0.0.1:6379<span class="token operator">></span>     <span class="token comment" spellcheck="true"># 此时事务并没有执行</span>
+</code></pre>
+<p>模拟线程插队，线程2:</p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> INCRBY money 500 <span class="token comment" spellcheck="true"># 修改了线程一中监视的money</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 600
+</code></pre>
+<p>回到线程1，执行事务：</p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> EXEC 
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 没有结果，说明事务执行失败</span>
+
+127.0.0.1:6379<span class="token operator">></span> get money <span class="token comment" spellcheck="true"># 线程2 修改生效</span>
+<span class="token string">"600"</span>
+127.0.0.1:6379<span class="token operator">></span> get use <span class="token comment" spellcheck="true"># 线程1事务执行失败，数值没有被修改</span>
+<span class="token string">"0"</span>
+
+</code></pre>
+<blockquote>
+<p>解锁获取最新值，然后再加锁进行事务。<br><font color=red>unwatch</font>进行解锁。</p>
+</blockquote>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> UNWATCH <span class="token comment" spellcheck="true"># 解锁</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> WATCH money
+OK
+127.0.0.1:6379<span class="token operator">></span> multi <span class="token comment" spellcheck="true"># 重新进行事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> DECRBY money 200
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> INCRBY use 200
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span>
+1<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 400
+2<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 200
+</code></pre>
+<p>==注意：每次提交执行exec后都会自动释放锁，不管是否成功==</p>
+<h2 id="六、Jedis"><a href="#六、Jedis" class="headerlink" title="六、Jedis"></a>六、Jedis</h2><p>==使用Java来操作Redis==，<strong>Jedis</strong>是Redis官方推荐使用的==Java连接redis的客户端==。</p>
+<p>1.依赖导入:jedis、fastjson</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>导入jredis的包<span class="token operator">--</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>dependency<span class="token operator">></span>
+    <span class="token operator">&lt;</span>groupId<span class="token operator">></span>redis<span class="token punctuation">.</span>clients<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>artifactId<span class="token operator">></span>jedis<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>version<span class="token operator">></span><span class="token number">3.2</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">&lt;</span><span class="token operator">/</span>version<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>fastjson<span class="token operator">--</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>dependency<span class="token operator">></span>
+    <span class="token operator">&lt;</span>groupId<span class="token operator">></span>com<span class="token punctuation">.</span>alibaba<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>artifactId<span class="token operator">></span>fastjson<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>version<span class="token operator">></span><span class="token number">1.2</span><span class="token punctuation">.</span><span class="token number">70</span><span class="token operator">&lt;</span><span class="token operator">/</span>version<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+</code></pre>
+<p>2.连接数据库</p>
+<blockquote>
+<p>连接远程：<br>开放端口6379</p>
+</blockquote>
+<pre class=" language-bash"><code class="language-bash">firewall-cmd --zone<span class="token operator">=</span>public --add-port<span class="token operator">=</span>6379/tcp --permanent
+</code></pre>
+<blockquote>
+<p>需要修改配置文件：<br>修改bind IP，默认是127.0.0.1 也就是localhost,只有本机可用。<br>修改为0.0.0.0 或者 本机的ip地址。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200901233305692.png#pic_center" alt=""></p>
+<blockquote>
+<p>关闭保护模式<br>默认是yes,修改为no</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200901233332404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>然后以此配置文件启动redis-server</p>
+<p>==Java中操作Redis就需要 一个Jedis对象==，创建Jedis对象，需要主机号和端口号作为参数。</p>
+<p>其中的API与使用Redis原生的命令是一样的。</p>
+<p><strong>事务：</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestTransaction</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Jedis jedis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Jedis</span><span class="token punctuation">(</span><span class="token string">"192.168.167.15"</span><span class="token punctuation">,</span> <span class="token number">6379</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        JSONObject jsonObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JSONObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        jsonObject<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"sakura"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        jsonObject<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span> <span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String info <span class="token operator">=</span> jsonObject<span class="token punctuation">.</span><span class="token function">toJSONString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 开启事务</span>
+        Transaction transaction <span class="token operator">=</span> jedis<span class="token punctuation">.</span><span class="token function">multi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            transaction<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"user1"</span><span class="token punctuation">,</span> info<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            transaction<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"user2"</span><span class="token punctuation">,</span> info<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 执行事务</span>
+            transaction<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 如果出错则放弃事务</span>
+            transaction<span class="token punctuation">.</span><span class="token function">discard</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>jedis<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"user1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>jedis<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"user2"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 关闭连接</span>
+            jedis<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h2 id="七、SpringBoot整合Redis"><a href="#七、SpringBoot整合Redis" class="headerlink" title="七、SpringBoot整合Redis"></a>七、SpringBoot整合Redis</h2><p>需要的依赖项,在创建项目时选择，或者手动加入。</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span>dependency<span class="token operator">></span>
+    <span class="token operator">&lt;</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>boot<span class="token operator">-</span>starter<span class="token operator">-</span>data<span class="token operator">-</span>redis<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+</code></pre>
+<p>==springboot 2.x后 ，原来使用的 Jedis 被 lettuce 替换。==</p>
+<ul>
+<li><p>Jedis：采用直连，多线程操作不安全。如果要避免不安全，使用jedis pool连接池！更像BIO模式</p>
+</li>
+<li><p>Lettuce：底层采用Netty,实例可以在多个线程中共享，不存在线程不安全的情况！可以减少线程数据了，更像NIO模式<br><img src="https://img-blog.csdnimg.cn/20200901233830376.png#pic_center" alt=""></p>
+</li>
+</ul>
+<br>
+
+<p>&emsp;&emsp;我们在学习SpringBoot自动配置的原理时，整合一个组件并进行配置一定会有一个==自动配置类RedisAutoConfiguration==,并且在spring.factories中也一定能找到这个类的完全限定名。Redis也不例外。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901233902657.png#pic_center" alt=""><br>那么就一定还存在一个==RedisProperties类==</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901234029365.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>&emsp;&emsp;之前我们说SpringBoot2.x后默认使用Lettuce来替换Jedis，现在我们就能来验证了。</p>
+<p>先看Jedis:</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901234053505.png#pic_center" alt=""><br>@ConditionalOnClass注解中有两个类是默认不存在的，所以Jedis是无法生效的</p>
+<p>然后再看Lettuce：<br><img src="https://img-blog.csdnimg.cn/20200901234125641.png#pic_center" alt=""><br>完美生效。</p>
+<p>现在我们回到RedisAutoConfiguration<br><img src="https://img-blog.csdnimg.cn/20200901234148706.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>只有两个简单的Bean</p>
+<ul>
+<li>RedisTemplate</li>
+<li>StringRedisTemplate</li>
+</ul>
+<p>&emsp;&emsp;当看到xxTemplate时可以对比RestTemplat、SqlSessionTemplate,通过使用这些Template来间接操作组件。那么这俩也不会例外。分别用于操作Redis和Redis中的String数据类型。</p>
+<p>==在RedisTemplate上也有一个条件注解，说明我们是可以对其进行定制化的==</p>
+<p>说完这些，我们需要知道如何编写配置文件然后连接Redis，就需要阅读RedisProperties</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901234320278.png#pic_center" alt=""><br>这是一些基本的配置属性。<br><img src="https://img-blog.csdnimg.cn/2020090123445044.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>还有一些连接池相关的配置。注意使用时一定使用==Lettuce的连接池。==</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901234512739.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>配置文件:(基本不用写)</p>
+<pre class=" language-java"><code class="language-java">spring<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>host<span class="token operator">=</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span>
+spring<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>port<span class="token operator">=</span><span class="token number">6379</span>
+# 以上俩个属性都有默认值 可以省略
+
+# 默认使用 db0
+spring<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>database<span class="token operator">=</span><span class="token number">0</span>
+</code></pre>
+<p>测试使用：</p>
+<p>1.我们说过现在操作Redis需要用到==RedisTemplate==，所以需要自动注入。</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Autowired</span>
+RedisTemplate redisTemplate<span class="token punctuation">;</span>
+</code></pre>
+<p>2.使用RedisTemplate<br><img src="https://img-blog.csdnimg.cn/20200901234642170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>在操作Redis中数据时，需要先通过opsForxxx()方法来获取对应的Operations,然后才可以操作数据。</p>
+<p>3.以ValueOperations（操作String）为例<br><img src="https://img-blog.csdnimg.cn/20200901234730723.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Autowired</span>
+RedisTemplate redisTemplate<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">contextLoads</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token comment" spellcheck="true">// 获取Redis连接对象</span>
+   RedisConnection connection <span class="token operator">=</span> redisTemplate<span class="token punctuation">.</span><span class="token function">getConnectionFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">// 清空数据库</span>
+   connection<span class="token punctuation">.</span><span class="token function">flushDb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>redisTemplate<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   ValueOperations operations <span class="token operator">=</span> redisTemplate<span class="token punctuation">.</span><span class="token function">opsForValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">// set</span>
+   operations<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"sakura"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">// get</span>
+   System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>operations<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">// 事务支持开启</span>
+   redisTemplate<span class="token punctuation">.</span><span class="token function">setEnableTransactionSupport</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   redisTemplate<span class="token punctuation">.</span><span class="token function">multi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">try</span> <span class="token punctuation">{</span>
+      operations<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span> <span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>operations<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 事务执行</span>
+      redisTemplate<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 放弃事务</span>
+      redisTemplate<span class="token punctuation">.</span><span class="token function">discard</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 关闭连接</span>
+      connection<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>此时我们回到Redis查看数据时候，惊奇发现全是乱码，可是程序中可以正常输出：<br><img src="https://img-blog.csdnimg.cn/20200901234824965.png#pic_center" alt=""><br>这时候就关系到存储==对象的序列化问题==，在网络中传输的对象也是一样需要序列化，否者就全是乱码。</p>
+<p>我们转到看那个默认的RedisTemplate内部什么样子：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901234910748.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>在最开始就能看到几个关于序列化的参数。</p>
+<p>默认的序列化器是采用JDK序列化器<br><img src="https://img-blog.csdnimg.cn/20200901234935780.png#pic_center" alt=""><br>而默认的RedisTemplate中的所有序列化器都是使用这个序列化器</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901235012612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>后续我们定制RedisTemplate就可以对其进行修改。</p>
+<p><strong><font color=red>RedisSerializer</font></strong>提供了很多种序列化方案：</p>
+<ul>
+<li>我们可以直接调用RedisSerializer的方法来返回序列化器，然后set<br><img src="https://img-blog.csdnimg.cn/20200901235149514.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></li>
+</ul>
+<ul>
+<li>也可以自己new 相应的实现类，然后set</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200901235219125.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>==定制RedisTemplate的模板：==</p>
+<p>我们创建一个Bean加入容器，就会触发RedisTemplate上的条件注解使默认的RedisTemplate失效。</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisConfig</span> <span class="token punctuation">{</span>
+
+   <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> <span class="token function">redisTemplate</span><span class="token punctuation">(</span>RedisConnectionFactory redisConnectionFactory<span class="token punctuation">)</span> <span class="token keyword">throws</span> UnknownHostException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 将template 泛型设置为 &lt;String, Object></span>
+        RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> template <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 连接工厂，不必修改</span>
+        template<span class="token punctuation">.</span><span class="token function">setConnectionFactory</span><span class="token punctuation">(</span>redisConnectionFactory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">/*
+         * 序列化设置
+         */</span>
+        <span class="token comment" spellcheck="true">// key、hash的key 采用 String序列化方式</span>
+        template<span class="token punctuation">.</span><span class="token function">setKeySerializer</span><span class="token punctuation">(</span>RedisSerializer<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        template<span class="token punctuation">.</span><span class="token function">setHashKeySerializer</span><span class="token punctuation">(</span>RedisSerializer<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// value、hash的value 采用 Jackson 序列化方式</span>
+        template<span class="token punctuation">.</span><span class="token function">setValueSerializer</span><span class="token punctuation">(</span>RedisSerializer<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        template<span class="token punctuation">.</span><span class="token function">setHashValueSerializer</span><span class="token punctuation">(</span>RedisSerializer<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        template<span class="token punctuation">.</span><span class="token function">afterPropertiesSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> template<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>==这样一来，只要实体类进行了序列化，我们存什么都不会有乱码的担忧了。==</p>
+<p><img src="https://img-blog.csdnimg.cn/202009012353448.png#pic_center" alt=""></p>
+<h2 id="八、自定义Redis工具类"><a href="#八、自定义Redis工具类" class="headerlink" title="八、自定义Redis工具类"></a>八、自定义Redis工具类</h2><p>&emsp;&emsp;使用==RedisTemplate==需要频繁调用.==opForxxx==然后才能进行对应的操作，这样使用起来代码效率低下，工作中一般不会这样使用，而是==将这些常用的公共API抽取出来封装成为一个工具类==，然后直接使用工具类来间接操作Redis,不但效率高并且易用。</p>
+<p>工具类参考博客：</p>
+<p><a href="https://www.cnblogs.com/zeng1994/p/03303c805731afc9aa9c60dbbd32a323.html、" target="_blank" rel="noopener">https://www.cnblogs.com/zeng1994/p/03303c805731afc9aa9c60dbbd32a323.html、</a></p>
+<p><a href="https://www.cnblogs.com/zhzhlong/p/11434284.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhzhlong/p/11434284.html</a></p>
+<h2 id="九、Redis-conf"><a href="#九、Redis-conf" class="headerlink" title="九、Redis.conf"></a>九、Redis.conf</h2><p>1.容量单位不区分大小写，==G和GB有区别==</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901235729105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>2.可以使用 include 组合多个配置问题<br><img src="https://img-blog.csdnimg.cn/20200901235749257.png#pic_center" alt=""><br>3.网络配置</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901235811299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>4.日志输出级别<br><img src="https://img-blog.csdnimg.cn/20200901235830866.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>6.日志输出文件</p>
+<p><img src="https://img-blog.csdnimg.cn/20200901235848607.png#pic_center" alt=""><br>6.持久化规则</p>
+<blockquote>
+<p>由于Redis是基于内存的数据库，需要将数据由内存持久化到文件中<br>持久化方式：</p>
+<ul>
+<li>RDB</li>
+<li>AOF</li>
+</ul>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/2020090200002178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>7.RDB文件相关</p>
+<p><img src="https://img-blog.csdnimg.cn/20200902000050954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200902000121926.png#pic_center" alt=""><br>8.关于主从复制，稍后再提<br><img src="https://img-blog.csdnimg.cn/20200902000140577.png#pic_center" alt=""><br>9.Security模块中进行密码设置<br><img src="https://img-blog.csdnimg.cn/20200902000159764.png#pic_center" alt=""><br>10.客户端连接相关</p>
+<pre class=" language-java"><code class="language-java">maxclients <span class="token number">10000</span>  最大客户端数量
+maxmemory <span class="token operator">&lt;</span>bytes<span class="token operator">></span> 最大内存限制
+maxmemory<span class="token operator">-</span>policy noeviction # 内存达到限制值的处理策略
+</code></pre>
+<p>redis 中的默认的过期策略是== volatile-lru ==。</p>
+<p><strong>设置方式</strong></p>
+<pre class=" language-bash"><code class="language-bash">config <span class="token keyword">set</span> maxmemory-policy volatile-lru 
+</code></pre>
+<p><strong>==maxmemory-policy 六种方式==</strong></p>
+<ul>
+<li>1、<font color=red><strong>volatile-lru</font></strong>：**只对设置了过期时间的key进行LRU（默认值）</li>
+<li>2、<font color=red><strong>allkeys-lru</strong> </font>： 删除lru算法的key</li>
+<li>3、<font color=red><strong>volatile-random</font></strong>：**随机删除即将过期key</li>
+<li>4、<font color=red><strong>allkeys-random</font></strong>：**随机删除</li>
+<li>5、<font color=red><strong>volatile-ttl</font></strong> ： 删除即将过期的</li>
+<li>6、<font color=red><strong>noeviction</font></strong> ： 永不过期，返回错误</li>
+</ul>
+<p>11.AOF相关部分<br><img src="https://img-blog.csdnimg.cn/2020090200073065.png#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200902000738609.png#pic_center" alt=""></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">JQF</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://yoursite.com/2020/09/01/Redis%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B0%E4%BA%8C/">http://yoursite.com/2020/09/01/Redis%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B0%E4%BA%8C/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">JQF</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%8B%E5%8A%A1/">
+                                    <span class="chip bg-color">事务</span>
+                                </a>
+                            
+                                <a href="/tags/jedis/">
+                                    <span class="chip bg-color">jedis</span>
+                                </a>
+                            
+                                <a href="/tags/springboot%E6%95%B4%E5%90%88/">
+                                    <span class="chip bg-color">springboot整合</span>
+                                </a>
+                            
+                                <a href="/tags/redis-conf/">
+                                    <span class="chip bg-color">redis.conf</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'DXsOzh6GddHUUjfC68wgYOTM-gzGzoHsz',
+        appKey: 'npR4AizoMyD0sAUMctGSf7Kz',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/09/01/Redis%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B0%E4%BA%8C/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Redis入门——笔记二">
+                        
+                        <span class="card-title">Redis入门——笔记二</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/redis/" class="post-category">
+                                    redis
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%8B%E5%8A%A1/">
+                        <span class="chip bg-color">事务</span>
+                    </a>
+                    
+                    <a href="/tags/jedis/">
+                        <span class="chip bg-color">jedis</span>
+                    </a>
+                    
+                    <a href="/tags/springboot%E6%95%B4%E5%90%88/">
+                        <span class="chip bg-color">springboot整合</span>
+                    </a>
+                    
+                    <a href="/tags/redis-conf/">
+                        <span class="chip bg-color">redis.conf</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/08/29/Redis%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94Nosql%E6%A6%82%E8%BF%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Redis入门——Nosql概述">
+                        
+                        <span class="card-title">Redis入门——Nosql概述</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/redis/" class="post-category">
+                                    redis
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Nosql/">
+                        <span class="chip bg-color">Nosql</span>
+                    </a>
+                    
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">JQF</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">19.2k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "7";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/jiang-fly" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1191137191@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1191137191" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1191137191" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+   
+
+    <script src="/js/sakura.js"></script>
+
+
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
