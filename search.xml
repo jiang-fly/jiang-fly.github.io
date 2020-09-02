@@ -1,6 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Integer的valueOf(int)方法</title>
+    <url>/2020/08/14/Integer/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<blockquote>
+<p>装箱就是自动将基本数据类型转换为包装器类型（int–&gt;Integer）；调用方法：Integer的<br>valueOf(int) 方法<br>拆箱就是自动将包装器类型转换为基本数据类型（Integer–&gt;int）。调用方法：Integer的intValue方法</p>
+</blockquote>
+<p><strong>先来看一段代码</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span> <span class="token punctuation">{</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     Integer i2 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     Integer i3 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2<span class="token operator">==</span>i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+     Integer i4 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     Integer i5 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>PrintStream<span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span>
+ <span class="token punctuation">{</span>
+
+  <span class="token keyword">public</span> <span class="token function">IntegerDemo01</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+    Integer i2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i3 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2 <span class="token operator">==</span> i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i4 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Integer i5 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3 <span class="token operator">==</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
+   <span class="token comment" spellcheck="true">//如果数值在-128~127之间的 </span>
+<span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">//返回 </span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p><strong>来看这段代码的描述</strong></p>
+<ul>
+<li>Returns an {@code Integer} instance representing the specified<br>{@code int} value.,<br>返回了这个Integer的含有指定的值的实例</li>
+<li>as this method is likely to yield significantly better space and time performance by</li>
+<li>显着更好的空间和时间性能</li>
+<li>caching frequently requested values.</li>
+</ul>
+</blockquote>
+<p><strong>解释：</strong><br><strong>1.这个方法返回了一个带有值的实例，<br>2.然后返回了一个从-128~127的值的缓存数组，用于缓存在这个范围内所有创建的实例对象。<br>3.如果之前有存在就直接拿来用，不存在的话就新建new 一个Integer对象。</strong></p>
+<h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
+<p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"> String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span><span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token operator">==</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3<span class="token operator">==</span>str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
+<blockquote>
+<p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java">    String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    String str2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str <span class="token operator">==</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3 <span class="token operator">==</span> str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>包装器类型</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>Integer</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo与MarkDown</title>
+    <url>/2020/08/08/MarkDown/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy84NTc0MTMwLTM3Nzc4OTA4YmU5ODFkZGQuUE5H?x-oss-process=image/format,png#pic_center" alt="Hexo与MarkDown"></p>
+<blockquote>
+<p>&emsp;&emsp;在hexo中的markdown语法稍有不同本文将列举我遇的例子，同时简述hexo的一些指令集，适用于初学者使用hexo+github搭建博客写作发布文章。</p>
+</blockquote>
+<h1 id="Hexo-指令"><a href="#Hexo-指令" class="headerlink" title="Hexo 指令"></a>Hexo 指令</h1><h2 id="hexo新建文章"><a href="#hexo新建文章" class="headerlink" title="hexo新建文章"></a>hexo新建文章</h2><p>&emsp;&emsp;hexo文件夹下右键点击Git Base here后键入$hexo new 布局 “文章名”</p>
+<table>
+<thead>
+<tr>
+<th>布局</th>
+<th>路径</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>post    source</td>
+<td>_post</td>
+<td>新建一个文章</td>
+</tr>
+<tr>
+<td>draft    source</td>
+<td>_drafts</td>
+<td>新建一个草稿文件</td>
+</tr>
+<tr>
+<td>page</td>
+<td>source</td>
+<td>新建一个页面文件</td>
+</tr>
+</tbody></table>
+<h2 id="hexo部署与调试"><a href="#hexo部署与调试" class="headerlink" title="hexo部署与调试"></a>hexo部署与调试</h2><pre><code>
+$ hexo clean //清除静态页面缓存（清除 public 文件夹)         
+$ hexo g     //在本地生成静态页面（生成 public 文件夹）        
+$ hexo s     //启动本地服务 http://localhost:4000，进行预览调试           
+$ hexo d     //远程部署，同步到 GitHub         
+
+$ npm install hexo-deployer-git --save    //自动部署
+$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d          //发布</code></pre><h1 id="MarkDown-与-文章编辑"><a href="#MarkDown-与-文章编辑" class="headerlink" title="MarkDown 与 文章编辑"></a>MarkDown 与 文章编辑</h1><h2 id="emsp-文章配置"><a href="#emsp-文章配置" class="headerlink" title="&emsp;文章配置"></a>&emsp;文章配置</h2><p>&emsp;&emsp;在hexo文件夹下右键点击Git Base here后键入$hexo new page “name”，source/_post 文件夹中生成name.md文件，打开后即可编辑，编辑格式如下：</p>
+<pre><code>title: 文章名
+date: 2017-10-31 20:38:17     //发表日期
+updated: 2017-10-31 21:58:03  //更新日期
+categories: Life              //文章分类
+tags: [tag1,tag2]             //文章标签，多标签时使用英文逗号隔开
+photos:                       //如果使用Fancybox（文章头部展示图片），如此设置  
+                              //注意冒号后面有空格</code></pre><h1 id="MarkDown语法在hexo中"><a href="#MarkDown语法在hexo中" class="headerlink" title="MarkDown语法在hexo中"></a>MarkDown语法在hexo中</h1><blockquote>
+<p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
+</blockquote>
+<p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
+<pre class=" language-//代码块放置于3个反引号中间，回车即可换行"><code class="language-//代码块放置于3个反引号中间，回车即可换行">#include<stdio.h>
+int main()
+{
+    printf("Hello World!\n");
+    return 0;
+}
+</code></pre>
+<p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
+<p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> more <span class="token operator">--</span><span class="token operator">></span></code></pre>
+<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
+]]></content>
+      <categories>
+        <category>MarkDown的使用</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>MarkDown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nginx的笔记(基础)</title>
     <url>/2020/08/28/Nginx%20%E7%9A%84%E7%AC%94%E8%AE%B0(%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -71,6 +236,147 @@ firewall<span class="token operator">-</span>cmd <span class="token operator">--
         <tag>虚拟机</tag>
         <tag>CentOS7</tag>
         <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis入门——Nosql概述</title>
+    <url>/2020/08/29/Redis%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94Nosql%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="一、Nosql概述"><a href="#一、Nosql概述" class="headerlink" title="一、Nosql概述"></a>一、Nosql概述</h2><h3 id="emsp-为什么使用Nosql"><a href="#emsp-为什么使用Nosql" class="headerlink" title="&emsp;为什么使用Nosql"></a>&emsp;为什么使用Nosql</h3><p>&emsp;&emsp;<strong>1、单机Mysql时代</strong><br><img src="https://img-blog.csdnimg.cn/20200828232619722.png#pic_center" alt=""><br>&emsp;&emsp;90年代,一个网站的访问量一般不会太大，单个数据库完全够用。随着用户增多，网站出现以下问题</p>
+<p>&emsp;&emsp;<strong><font color=red>数据量增加到一定程度，单机数据库就放不下了</font></strong><br>&emsp;&emsp;<strong><font color=red>数据的索引（B+ Tree）,一个机器内存也存放不下</font></strong><br>&emsp;&emsp;<strong><font color=red>访问量变大后（读写混合），一台服务器承受不住。</font></strong></p>
+<p>&emsp;&emsp;<strong>2、Memcached(缓存) + Mysql + 垂直拆分（读写分离）</strong></p>
+<p>&emsp;&emsp;网站80%的情况都是在读，每次都要去查询数据库的话就十分的麻烦！所以说我们希望减轻数据库的压力，我们可以使用缓存来保证效率！<br><img src="https://img-blog.csdnimg.cn/20200828233042925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><font color=red>优化过程</font>经历了以下几个过程：</p>
+<ul>
+<li><strong>优化数据库的数据结构和索引(难度大)</strong></li>
+<li><strong>文件缓存，通过IO流获取比每次都访问数据库效率略高，但是流量爆炸式增长时候，IO流也承受不了</strong></li>
+<li><strong>MemCache,当时最热门的技术，通过在数据库和数据库访问层之间加上一层缓存，第一次访问时查询数据库，将结果保存到缓存，后续的查询先检查缓存，若有直接拿去使用，效率显著提升。</strong></li>
+</ul>
+<p>&emsp;&emsp;<strong>3、分库分表 + 水平拆分 + Mysql集群</strong><br><img src="https://img-blog.csdnimg.cn/20200828233409623.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>&emsp;&emsp;<strong>4、如今最近的年代</strong></p>
+<p>&emsp;&emsp;如今信息量井喷式增长，各种各样的数据出现（用户定位数据，图片数据等），大数据的背景下关系型数据(RDBMS）无法满足大量数据要求。<font color=red>Nosql数据库</font>就能轻松解决这些问题。</p>
+<blockquote>
+<p><strong><font color=red>目前一个基本的互联网项目</font></strong></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200828233708793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<blockquote>
+<p><strong><font color=red>为什么要用NoSQL ？</font></strong></p>
+</blockquote>
+<p>&emsp;&emsp;<font color=blue>用户的个人信息</font>，<font color=blue>社交网络</font>，<font color=blue>地理位置</font>。<font color=blue>用户自己产生的数据</font>，<font color=blue>用户日志等等爆发式增长</font>！这时候我们就需要使用NoSQL数据库的，Nosql可以很好的处理以上的情况！</p>
+<h3 id="emsp-什么是Nosql"><a href="#emsp-什么是Nosql" class="headerlink" title="&emsp;什么是Nosql"></a>&emsp;什么是Nosql</h3><blockquote>
+<p>NoSQL = Not Only SQL（不仅仅是SQL）<br>Not Only Structured Query Language </p>
+</blockquote>
+<ul>
+<li><font color=red>关系型数据库</font>：列+行，同一个表下数据的结构是一样的。</li>
+<li><font color=red>非关系型数据库</font>：数据存储没有固定的格式，并且可以进行横向扩展。</li>
+<li>NoSQL泛指非关系型数据库，随着web2.0互联网的诞生，传统的关系型数据库很难对付web2.0时代！尤其是超大规模的高并发的社区，暴露出来很多难以克服的问题，NoSQL在当今大数据环境下发展的十分迅速，<font color=red>Redis是发展最快的</font>。</li>
+</ul>
+<h3 id="emsp-Nosql特点"><a href="#emsp-Nosql特点" class="headerlink" title="&emsp;Nosql特点"></a>&emsp;Nosql特点</h3><ul>
+<li><font color=red>方便扩展</font>（数据之间没有关系，很好扩展！）</li>
+<li><font color=red>大数据量高性能</font>（Redis一秒可以写8万次，读11万次，NoSQL的缓存记录级，是一种细粒度的缓存，性能会比较高！）</li>
+<li><font color=red> 数据类型是多样型的！</font>（不需要事先设计数据库，随取随用）</li>
+<li><font color=red>传统的 RDBMS 和 NoSQL</font></li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">传统的 RDBMS<span class="token punctuation">(</span>关系型数据库<span class="token punctuation">)</span>
+- 结构化组织
+- SQL
+- 数据和关系都存在单独的表中 row col
+- 操作，数据定义语言
+- 严格的一致性
+- 基础的事务
+- <span class="token punctuation">..</span>.</code></pre>
+<pre class=" language-bash"><code class="language-bash">Nosql
+- 不仅仅是数据
+- 没有固定的查询语言
+- 键值对存储，列存储，文档存储，图形数据库（社交关系）
+- 最终一致性
+- CAP定理和BASE
+- 高性能，高可用，高扩展
+- <span class="token punctuation">..</span>.</code></pre>
+<blockquote>
+<p><font color=red><strong>了解：3V + 3高</strong></font></p>
+</blockquote>
+<p>大数据时代的3V ：<font color=red>主要是描述问题的</font></p>
+<ul>
+<li><p>海量Velume</p>
+</li>
+<li><p>多样Variety</p>
+</li>
+<li><p>实时Velocity</p>
+<p>大数据时代的3高 ：<font color=red> 主要是对程序的要求</font></p>
+</li>
+<li><p>高并发</p>
+</li>
+<li><p>高可扩</p>
+</li>
+<li><p>高性能</p>
+</li>
+</ul>
+<p><strong>真正在公司中的实践：<font color=red>NoSQL + RDBMS 一起使用才是最强的。</font></strong></p>
+<h3 id="emsp-阿里巴巴演进分析"><a href="#emsp-阿里巴巴演进分析" class="headerlink" title="&emsp;阿里巴巴演进分析"></a>&emsp;阿里巴巴演进分析</h3><p><img src="https://img-blog.csdnimg.cn/2020082823531874.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200828235343481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<pre class=" language-xml"><code class="language-xml"># 商品信息
+- 一般存放在关系型数据库：Mysql,阿里巴巴使用的Mysql都是经过内部改动的。
+
+# 商品描述、评论(文字居多)
+- 文档型数据库：MongoDB
+
+# 图片
+- 分布式文件系统 FastDFS
+- 淘宝：TFS
+- Google: GFS
+- Hadoop: HDFS
+- 阿里云: oss
+
+# 商品关键字 用于搜索
+- 搜索引擎：solr,elasticsearch
+- 阿里：Isearch 多隆
+
+# 商品热门的波段信息
+- 内存数据库：Redis，Memcache
+
+# 商品交易，外部支付接口
+- 第三方应用
+</code></pre>
+<h3 id="emsp-Nosql的四大分类"><a href="#emsp-Nosql的四大分类" class="headerlink" title="&emsp;Nosql的四大分类"></a>&emsp;Nosql的四大分类</h3><blockquote>
+<p><strong>&emsp;&emsp;1.KV键值对</strong></p>
+</blockquote>
+<ul>
+<li>新浪：<strong><font color=red>Redis</font></strong></li>
+<li>美团：<strong><font color=red>Redis + Tair</font></strong></li>
+<li>阿里、百度：<strong><font color=red>Redis + Memcache</font></strong></li>
+</ul>
+<blockquote>
+<p><strong>2.文档型数据库（bson数据格式）：</strong></p>
+</blockquote>
+<ul>
+<li><font color=red> <strong>MongoDB(掌握)</strong></font><ul>
+<li>基于分布式文件存储的数据库。C++编写，用于处理大量文档。</li>
+<li>MongoDB是RDBMS和NoSQL的中间产品。MongoDB是非关系型数据库中功能最丰富的，NoSQL中最像关系型数据库的数据库。</li>
+</ul>
+</li>
+<li><font color=red><strong>ConthDB</strong></font></li>
+</ul>
+<blockquote>
+<p><strong>3. 列存储数据库</strong></p>
+</blockquote>
+<ul>
+<li>HBase(大数据必学)</li>
+<li>分布式文件系统</li>
+</ul>
+<blockquote>
+<p><strong>4.图关系数据库</strong></p>
+</blockquote>
+<ul>
+<li><font color=red> 他不是存图形，放的是关系</font>，比如：朋友圈社交网络，广告推荐！</li>
+<li>Neo4j，InfoGrid；</li>
+</ul>
+<p><strong><em>四者对比！</em></strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200829000634318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>Nosql</tag>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -1260,147 +1566,6 @@ maxmemory<span class="token operator">-</span>policy noeviction # 内存达到�
       </tags>
   </entry>
   <entry>
-    <title>Redis入门——Nosql概述</title>
-    <url>/2020/08/29/Redis%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94Nosql%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h2 id="一、Nosql概述"><a href="#一、Nosql概述" class="headerlink" title="一、Nosql概述"></a>一、Nosql概述</h2><h3 id="emsp-为什么使用Nosql"><a href="#emsp-为什么使用Nosql" class="headerlink" title="&emsp;为什么使用Nosql"></a>&emsp;为什么使用Nosql</h3><p>&emsp;&emsp;<strong>1、单机Mysql时代</strong><br><img src="https://img-blog.csdnimg.cn/20200828232619722.png#pic_center" alt=""><br>&emsp;&emsp;90年代,一个网站的访问量一般不会太大，单个数据库完全够用。随着用户增多，网站出现以下问题</p>
-<p>&emsp;&emsp;<strong><font color=red>数据量增加到一定程度，单机数据库就放不下了</font></strong><br>&emsp;&emsp;<strong><font color=red>数据的索引（B+ Tree）,一个机器内存也存放不下</font></strong><br>&emsp;&emsp;<strong><font color=red>访问量变大后（读写混合），一台服务器承受不住。</font></strong></p>
-<p>&emsp;&emsp;<strong>2、Memcached(缓存) + Mysql + 垂直拆分（读写分离）</strong></p>
-<p>&emsp;&emsp;网站80%的情况都是在读，每次都要去查询数据库的话就十分的麻烦！所以说我们希望减轻数据库的压力，我们可以使用缓存来保证效率！<br><img src="https://img-blog.csdnimg.cn/20200828233042925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><font color=red>优化过程</font>经历了以下几个过程：</p>
-<ul>
-<li><strong>优化数据库的数据结构和索引(难度大)</strong></li>
-<li><strong>文件缓存，通过IO流获取比每次都访问数据库效率略高，但是流量爆炸式增长时候，IO流也承受不了</strong></li>
-<li><strong>MemCache,当时最热门的技术，通过在数据库和数据库访问层之间加上一层缓存，第一次访问时查询数据库，将结果保存到缓存，后续的查询先检查缓存，若有直接拿去使用，效率显著提升。</strong></li>
-</ul>
-<p>&emsp;&emsp;<strong>3、分库分表 + 水平拆分 + Mysql集群</strong><br><img src="https://img-blog.csdnimg.cn/20200828233409623.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>&emsp;&emsp;<strong>4、如今最近的年代</strong></p>
-<p>&emsp;&emsp;如今信息量井喷式增长，各种各样的数据出现（用户定位数据，图片数据等），大数据的背景下关系型数据(RDBMS）无法满足大量数据要求。<font color=red>Nosql数据库</font>就能轻松解决这些问题。</p>
-<blockquote>
-<p><strong><font color=red>目前一个基本的互联网项目</font></strong></p>
-</blockquote>
-<p><img src="https://img-blog.csdnimg.cn/20200828233708793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-<blockquote>
-<p><strong><font color=red>为什么要用NoSQL ？</font></strong></p>
-</blockquote>
-<p>&emsp;&emsp;<font color=blue>用户的个人信息</font>，<font color=blue>社交网络</font>，<font color=blue>地理位置</font>。<font color=blue>用户自己产生的数据</font>，<font color=blue>用户日志等等爆发式增长</font>！这时候我们就需要使用NoSQL数据库的，Nosql可以很好的处理以上的情况！</p>
-<h3 id="emsp-什么是Nosql"><a href="#emsp-什么是Nosql" class="headerlink" title="&emsp;什么是Nosql"></a>&emsp;什么是Nosql</h3><blockquote>
-<p>NoSQL = Not Only SQL（不仅仅是SQL）<br>Not Only Structured Query Language </p>
-</blockquote>
-<ul>
-<li><font color=red>关系型数据库</font>：列+行，同一个表下数据的结构是一样的。</li>
-<li><font color=red>非关系型数据库</font>：数据存储没有固定的格式，并且可以进行横向扩展。</li>
-<li>NoSQL泛指非关系型数据库，随着web2.0互联网的诞生，传统的关系型数据库很难对付web2.0时代！尤其是超大规模的高并发的社区，暴露出来很多难以克服的问题，NoSQL在当今大数据环境下发展的十分迅速，<font color=red>Redis是发展最快的</font>。</li>
-</ul>
-<h3 id="emsp-Nosql特点"><a href="#emsp-Nosql特点" class="headerlink" title="&emsp;Nosql特点"></a>&emsp;Nosql特点</h3><ul>
-<li><font color=red>方便扩展</font>（数据之间没有关系，很好扩展！）</li>
-<li><font color=red>大数据量高性能</font>（Redis一秒可以写8万次，读11万次，NoSQL的缓存记录级，是一种细粒度的缓存，性能会比较高！）</li>
-<li><font color=red> 数据类型是多样型的！</font>（不需要事先设计数据库，随取随用）</li>
-<li><font color=red>传统的 RDBMS 和 NoSQL</font></li>
-</ul>
-<pre class=" language-bash"><code class="language-bash">传统的 RDBMS<span class="token punctuation">(</span>关系型数据库<span class="token punctuation">)</span>
-- 结构化组织
-- SQL
-- 数据和关系都存在单独的表中 row col
-- 操作，数据定义语言
-- 严格的一致性
-- 基础的事务
-- <span class="token punctuation">..</span>.</code></pre>
-<pre class=" language-bash"><code class="language-bash">Nosql
-- 不仅仅是数据
-- 没有固定的查询语言
-- 键值对存储，列存储，文档存储，图形数据库（社交关系）
-- 最终一致性
-- CAP定理和BASE
-- 高性能，高可用，高扩展
-- <span class="token punctuation">..</span>.</code></pre>
-<blockquote>
-<p><font color=red><strong>了解：3V + 3高</strong></font></p>
-</blockquote>
-<p>大数据时代的3V ：<font color=red>主要是描述问题的</font></p>
-<ul>
-<li><p>海量Velume</p>
-</li>
-<li><p>多样Variety</p>
-</li>
-<li><p>实时Velocity</p>
-<p>大数据时代的3高 ：<font color=red> 主要是对程序的要求</font></p>
-</li>
-<li><p>高并发</p>
-</li>
-<li><p>高可扩</p>
-</li>
-<li><p>高性能</p>
-</li>
-</ul>
-<p><strong>真正在公司中的实践：<font color=red>NoSQL + RDBMS 一起使用才是最强的。</font></strong></p>
-<h3 id="emsp-阿里巴巴演进分析"><a href="#emsp-阿里巴巴演进分析" class="headerlink" title="&emsp;阿里巴巴演进分析"></a>&emsp;阿里巴巴演进分析</h3><p><img src="https://img-blog.csdnimg.cn/2020082823531874.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><img src="https://img-blog.csdnimg.cn/20200828235343481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-<pre class=" language-xml"><code class="language-xml"># 商品信息
-- 一般存放在关系型数据库：Mysql,阿里巴巴使用的Mysql都是经过内部改动的。
-
-# 商品描述、评论(文字居多)
-- 文档型数据库：MongoDB
-
-# 图片
-- 分布式文件系统 FastDFS
-- 淘宝：TFS
-- Google: GFS
-- Hadoop: HDFS
-- 阿里云: oss
-
-# 商品关键字 用于搜索
-- 搜索引擎：solr,elasticsearch
-- 阿里：Isearch 多隆
-
-# 商品热门的波段信息
-- 内存数据库：Redis，Memcache
-
-# 商品交易，外部支付接口
-- 第三方应用
-</code></pre>
-<h3 id="emsp-Nosql的四大分类"><a href="#emsp-Nosql的四大分类" class="headerlink" title="&emsp;Nosql的四大分类"></a>&emsp;Nosql的四大分类</h3><blockquote>
-<p><strong>&emsp;&emsp;1.KV键值对</strong></p>
-</blockquote>
-<ul>
-<li>新浪：<strong><font color=red>Redis</font></strong></li>
-<li>美团：<strong><font color=red>Redis + Tair</font></strong></li>
-<li>阿里、百度：<strong><font color=red>Redis + Memcache</font></strong></li>
-</ul>
-<blockquote>
-<p><strong>2.文档型数据库（bson数据格式）：</strong></p>
-</blockquote>
-<ul>
-<li><font color=red> <strong>MongoDB(掌握)</strong></font><ul>
-<li>基于分布式文件存储的数据库。C++编写，用于处理大量文档。</li>
-<li>MongoDB是RDBMS和NoSQL的中间产品。MongoDB是非关系型数据库中功能最丰富的，NoSQL中最像关系型数据库的数据库。</li>
-</ul>
-</li>
-<li><font color=red><strong>ConthDB</strong></font></li>
-</ul>
-<blockquote>
-<p><strong>3. 列存储数据库</strong></p>
-</blockquote>
-<ul>
-<li>HBase(大数据必学)</li>
-<li>分布式文件系统</li>
-</ul>
-<blockquote>
-<p><strong>4.图关系数据库</strong></p>
-</blockquote>
-<ul>
-<li><font color=red> 他不是存图形，放的是关系</font>，比如：朋友圈社交网络，广告推荐！</li>
-<li>Neo4j，InfoGrid；</li>
-</ul>
-<p><strong><em>四者对比！</em></strong></p>
-<p><img src="https://img-blog.csdnimg.cn/20200829000634318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>Nosql</tag>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL内连接和外连接的区别</title>
     <url>/2020/08/22/SQL%E4%B8%AD%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%8F%B3%E8%BF%9E%E6%8E%A5,%E5%86%85%E8%BF%9E%E6%8E%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -1683,168 +1848,470 @@ maxmemory<span class="token operator">-</span>policy noeviction # 内存达到�
       </tags>
   </entry>
   <entry>
-    <title>Hexo与MarkDown</title>
-    <url>/2020/08/08/MarkDown/</url>
+    <title>Hello World</title>
+    <url>/2020/07/16/hello-world/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy84NTc0MTMwLTM3Nzc4OTA4YmU5ODFkZGQuUE5H?x-oss-process=image/format,png#pic_center" alt="Hexo与MarkDown"></p>
-<blockquote>
-<p>&emsp;&emsp;在hexo中的markdown语法稍有不同本文将列举我遇的例子，同时简述hexo的一些指令集，适用于初学者使用hexo+github搭建博客写作发布文章。</p>
-</blockquote>
-<h1 id="Hexo-指令"><a href="#Hexo-指令" class="headerlink" title="Hexo 指令"></a>Hexo 指令</h1><h2 id="hexo新建文章"><a href="#hexo新建文章" class="headerlink" title="hexo新建文章"></a>hexo新建文章</h2><p>&emsp;&emsp;hexo文件夹下右键点击Git Base here后键入$hexo new 布局 “文章名”</p>
-<table>
-<thead>
-<tr>
-<th>布局</th>
-<th>路径</th>
-<th>注释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>post    source</td>
-<td>_post</td>
-<td>新建一个文章</td>
-</tr>
-<tr>
-<td>draft    source</td>
-<td>_drafts</td>
-<td>新建一个草稿文件</td>
-</tr>
-<tr>
-<td>page</td>
-<td>source</td>
-<td>新建一个页面文件</td>
-</tr>
-</tbody></table>
-<h2 id="hexo部署与调试"><a href="#hexo部署与调试" class="headerlink" title="hexo部署与调试"></a>hexo部署与调试</h2><pre><code>
-$ hexo clean //清除静态页面缓存（清除 public 文件夹)         
-$ hexo g     //在本地生成静态页面（生成 public 文件夹）        
-$ hexo s     //启动本地服务 http://localhost:4000，进行预览调试           
-$ hexo d     //远程部署，同步到 GitHub         
-
-$ npm install hexo-deployer-git --save    //自动部署
-$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d          //发布</code></pre><h1 id="MarkDown-与-文章编辑"><a href="#MarkDown-与-文章编辑" class="headerlink" title="MarkDown 与 文章编辑"></a>MarkDown 与 文章编辑</h1><h2 id="emsp-文章配置"><a href="#emsp-文章配置" class="headerlink" title="&emsp;文章配置"></a>&emsp;文章配置</h2><p>&emsp;&emsp;在hexo文件夹下右键点击Git Base here后键入$hexo new page “name”，source/_post 文件夹中生成name.md文件，打开后即可编辑，编辑格式如下：</p>
-<pre><code>title: 文章名
-date: 2017-10-31 20:38:17     //发表日期
-updated: 2017-10-31 21:58:03  //更新日期
-categories: Life              //文章分类
-tags: [tag1,tag2]             //文章标签，多标签时使用英文逗号隔开
-photos:                       //如果使用Fancybox（文章头部展示图片），如此设置  
-                              //注意冒号后面有空格</code></pre><h1 id="MarkDown语法在hexo中"><a href="#MarkDown语法在hexo中" class="headerlink" title="MarkDown语法在hexo中"></a>MarkDown语法在hexo中</h1><blockquote>
-<p>编辑器：<a href="https://www.jianshu.com/go-wild?ac=2&url=http://markdownpad.com/" target="_blank" rel="noopener">markdownPad 2.5</a></p>
-</blockquote>
-<p><strong>代码格式</strong><br><code>codes</code>   //单行代码放置于一对反引号中<br>          //4空格+codes亦可实现单行代码</p>
-<pre class=" language-//代码块放置于3个反引号中间，回车即可换行"><code class="language-//代码块放置于3个反引号中间，回车即可换行">#include<stdio.h>
-int main()
-{
-    printf("Hello World!\n");
-    return 0;
-}
-</code></pre>
-<p><strong>首行缩进</strong><br> &amp;ensp 相当于1个中文，2字节</p>
-<p><strong>文章折叠</strong><br>在要显示的文字末尾添加如下代码实现文章在主页的折叠显示。</p>
-<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> more <span class="token operator">--</span><span class="token operator">></span></code></pre>
-<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zczAuYmRzdGF0aWMuY29tLzcwY0Z2SFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTM3MjI5MTIwMzAsMzEwOTAwOTM5NCZmbT0yNiZncD0wLmpwZw?x-oss-process=image/format,png" alt="图片"></p>
+<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>中缀表达式转后缀表达式</title>
+    <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="中缀表达式转后缀表达式步骤"><a href="#中缀表达式转后缀表达式步骤" class="headerlink" title="中缀表达式转后缀表达式步骤"></a>中缀表达式转后缀表达式步骤</h2><p>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2； <br><br>2) 从左至右扫描中缀表达式； <br><br>3) 遇到操作数时，将其压s2； <br><br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br><br>&emsp;&emsp;&emsp;&emsp;1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br><br>&emsp;&emsp;&emsp;&emsp;2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br><br>&emsp;&emsp;&emsp;&emsp;3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br><br>5) 遇到括号时：<br><br>&emsp;&emsp;&emsp;&emsp;(1) 如果是左括号“(”，则直接压入s1<br><br>&emsp;&emsp;&emsp;&emsp;(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃 <br><br>6) 重复步骤2至5，直到表达式的最右边 <br><br>7) 将s1中剩余的运算符依次弹出并压入s2 <br><br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式 <br></p>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明:"></a>举例说明:</h2><p>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</p>
+<p>因此结果为<br>“1 2 3 + 4 × + 5 –”</p>
+<p><img src="https://img-blog.csdnimg.cn/20200822002413957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
 ]]></content>
       <categories>
-        <category>MarkDown的使用</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>博客</tag>
-        <tag>MarkDown</tag>
+        <tag>中缀表达式</tag>
+        <tag>后缀表达式</tag>
       </tags>
   </entry>
   <entry>
-    <title>Integer的valueOf(int)方法</title>
-    <url>/2020/08/14/Integer/</url>
+    <title>我的第一篇博客</title>
+    <url>/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<blockquote>
-<p>装箱就是自动将基本数据类型转换为包装器类型（int–&gt;Integer）；调用方法：Integer的<br>valueOf(int) 方法<br>拆箱就是自动将包装器类型转换为基本数据类型（Integer–&gt;int）。调用方法：Integer的intValue方法</p>
-</blockquote>
-<p><strong>先来看一段代码</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span> <span class="token punctuation">{</span>
+<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>什么都不知道</p>
+<a id="more"></a>
 
-<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-     Integer i2 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
-     Integer i3 <span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
-     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2<span class="token operator">==</span>i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-     Integer i4 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
-     Integer i5 <span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
-     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p><strong>以上输出是true 还是false呢？<br>其中第一个是true ，第二个是false。初学者就会对这个答案产生疑问。为啥会出现这个情况呢？<br>先通过反编译 查看一下到底编译器是怎么处理这行代码的？</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>PrintStream<span class="token punctuation">;</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDemo01</span>
- <span class="token punctuation">{</span>
-
-  <span class="token keyword">public</span> <span class="token function">IntegerDemo01</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-    Integer i2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i3 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i2 <span class="token operator">==</span> i3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i4 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Integer i5 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3 <span class="token operator">==</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<blockquote>
-<p>从上面代码可以得知，编译器引用变量的定义和初始化中使用到了Integer.valueOf()方法，这个valueOf()是干嘛用的呢？</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
-   <span class="token comment" spellcheck="true">//如果数值在-128~127之间的 </span>
-<span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-   <span class="token comment" spellcheck="true">//返回 </span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span></code></pre>
-<blockquote>
-<p><strong>来看这段代码的描述</strong></p>
-<ul>
-<li>Returns an {@code Integer} instance representing the specified<br>{@code int} value.,<br>返回了这个Integer的含有指定的值的实例</li>
-<li>as this method is likely to yield significantly better space and time performance by</li>
-<li>显着更好的空间和时间性能</li>
-<li>caching frequently requested values.</li>
+<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>也是什么都不知道</p>
+<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><ul>
+<li>列表1</li>
+<li>列表2</li>
 </ul>
-</blockquote>
-<p><strong>解释：</strong><br><strong>1.这个方法返回了一个带有值的实例，<br>2.然后返回了一个从-128~127的值的缓存数组，用于缓存在这个范围内所有创建的实例对象。<br>3.如果之前有存在就直接拿来用，不存在的话就新建new 一个Integer对象。</strong></p>
-<h2 id="String类型的问题"><a href="#String类型的问题" class="headerlink" title="String类型的问题"></a>String类型的问题</h2><blockquote>
-<p>有人会联想到String类型，因为String的实例有时候也是这么赋值的。那么编译器在背后有没有进行转化呢？看一下代码？</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java"> String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    String str2 <span class="token operator">=</span><span class="token string">"abc"</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token operator">==</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3<span class="token operator">==</span>str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>如上的结果第一个是true ，第二个是false。</strong></p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>第一个是在常量池中去查找是否有没有这个abc这个值，有的话，直接进行引用。没有的话，再在常量池中创建。所以第一个的引用变量他们的地址都相同的，因此为true。</strong></p>
-<p>&ensp;&ensp;&ensp;&ensp;<strong>第二个用到了new，这个单词告诉了编译器 直接在堆内存中给我开辟了一个空间，不管之前是否有存在。因此，尽管值也一样，但是它们引用的地址是不一样的。因此为false。</strong></p>
-<blockquote>
-<p>再来看一下编译器是否有将String的实例构建进行某些转换？发现没有任何操作，没有偷着我们干了什么事。</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java">    String str <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    String str2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str <span class="token operator">==</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    String str4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str3 <span class="token operator">==</span> str4<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<blockquote>
-<p>建议，如果要判断包装类的对象是否相等，最好用equals()方法.</p>
+<p> <a href="http://www.baidu.com" target="_blank" rel="noopener">百度一下</a></p>
+<p> <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3722912030,3109009394&fm=26&gp=0.jpg" alt="图片"></p>
+<hr>
+<p> <em>字体是斜线</em><br> <strong>字体加粗了</strong></p>
+<p><code>&lt;html&gt;&lt;/html&gt;</code></p>
+<pre><code>&lt;&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><blockquote>
+<p>我的内容是引用的</p>
 </blockquote>
 ]]></content>
       <categories>
-        <category>包装器类型</category>
+        <category>前端</category>
       </categories>
       <tags>
         <tag>博客</tag>
-        <tag>Integer</tag>
-        <tag>String</tag>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis深入——笔记三</title>
+    <url>/2020/09/02/%E7%8B%82%E7%A5%9E%E7%AC%94%E8%AE%B0--Redis%E6%B7%B1%E5%85%A5%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B0%E4%B8%89/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="十、持久化——RDB"><a href="#十、持久化——RDB" class="headerlink" title="十、持久化——RDB"></a>十、持久化——RDB</h2><blockquote>
+<p><strong>RDB：Redis Databases</strong></p>
+</blockquote>
+<h3 id="emsp-什么是RDB"><a href="#emsp-什么是RDB" class="headerlink" title="&emsp;什么是RDB"></a>&emsp;什么是RDB</h3><p>&emsp;&emsp;<font color=red>在指定时间间隔后，将内存中的数据集快照写入数据库 ；在恢复时候，直接读取快照文件，进行数据的恢复 ；</font></p>
+<p><img src="https://img-blog.csdnimg.cn/20200902213922227.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>&emsp;&emsp;默认情况下， Redis 将数据库快照保存在名字为 <font color=red>dump.rdb</font>的二进制文件中。文件名可以在配置文件中进行自定义。</p>
+<h3 id="emsp-工作原理"><a href="#emsp-工作原理" class="headerlink" title="&emsp;工作原理"></a>&emsp;工作原理</h3><p>&emsp;&emsp;在进行 RDB 的时候，<font color=red>redis</font> 的主线程是不会做<font color=red> io </font>操作的，主线程会 <font color=red>fork</font> 一个子线程来完成该操作；</p>
+<ul>
+<li>Redis 调用forks。同时拥有父进程和子进程。</li>
+<li>子进程将数据集写入到一个临时 RDB 文件中。</li>
+<li>当子进程完成对新 RDB 文件的写入时，Redis 用新 RDB 文件替换原来的 RDB 文件，并删除旧的 RDB 文件。</li>
+</ul>
+<p>&emsp;&emsp;<font color=red><strong>这种工作方式使得 Redis 可以从写时复制（copy-on-write）机制中获益</strong>(因为是使用子进程进行写操作，而父进程依然可以接收来自客户端的请求。)</font></p>
+<p><img src="https://img-blog.csdnimg.cn/2020090221495985.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="emsp-触发机制"><a href="#emsp-触发机制" class="headerlink" title="&emsp;触发机制"></a>&emsp;触发机制</h3><p>&emsp;&emsp;<strong>save</strong></p>
+<p>&emsp;&emsp;使用 <strong>save</strong> 命令，会立刻对当前内存中的数据进行持久化 ,但是会阻塞，也就是不接受其他操作了；</p>
+<blockquote>
+<p>由于 <font color=red>save</font> 命令是同步命令，会占用Redis的主进程。若Redis数据非常多时，save命令执行速度会非常慢，阻塞所有客户端的请求。<br><img src="https://img-blog.csdnimg.cn/20200902215153895.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+</blockquote>
+<p><strong>flushall命令</strong><br><strong>flushall</strong> 命令也会触发持久化 ；</p>
+<p><strong>触发持久化规则</strong><br>满足配置条件中的触发条件 ；</p>
+<blockquote>
+<p>可以通过配置文件对 Redis 进行设置， 让它在“ N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动进行数据集保存操作。<br><img src="https://img-blog.csdnimg.cn/20200902215335249.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020090221540739.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+</blockquote>
+<p><strong>bgsave</strong><br>&emsp;&emsp;<font color=red>bgsave</font> 是异步进行，进行持久化的时候，<font color=red>redis</font> 还可以将继续响应客户端请求 ；</p>
+<p><img src="https://img-blog.csdnimg.cn/2020090221551855.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>重新启动 redis ，也会触发，记进行加载持久化文件 ；</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>save</th>
+<th>bgsave</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IO类型</td>
+<td>同步</td>
+<td>异步</td>
+</tr>
+<tr>
+<td>阻塞？</td>
+<td>是</td>
+<td>是（阻塞发生在fock()，通常非常快）</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>不会消耗额外的内存</td>
+<td>不阻塞客户端命令</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>阻塞客户端命令</td>
+<td>需要fock子进程，消耗内存</td>
+</tr>
+</tbody></table>
+<h3 id="emsp-优缺点"><a href="#emsp-优缺点" class="headerlink" title="&emsp;优缺点"></a>&emsp;优缺点</h3><p><strong>优点：</strong></p>
+<ul>
+<li>适合大规模的数据恢复</li>
+<li>对数据的完整性要求不高、</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>需要一定的时间间隔进行操作，如果redis意外宕机了，这个最后一次修改的数据就没有了。</li>
+<li>fork进程的时候，会占用一定的内容空间。</li>
+</ul>
+<h2 id="十一、持久化——AOF"><a href="#十一、持久化——AOF" class="headerlink" title="十一、持久化——AOF"></a>十一、持久化——AOF</h2><h3 id="emsp-什么是AOF"><a href="#emsp-什么是AOF" class="headerlink" title="&emsp;什么是AOF"></a>&emsp;什么是AOF</h3><p>&emsp;&emsp;快照功能（RDB）并不是非常耐久（durable）： 如果 Redis 因为某些原因而造成故障停机， 那么服务器将丢失最近写入、以及未保存到快照中的那些数据。 从 1.1 版本开始， Redis 增加了一种完全耐久的持久化方式： AOF 持久化。</p>
+<p>如果要使用AOF，需要修改配置文件：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200902220139678.png#pic_center" alt="在这里插入图片描述"><br><font color=red>appendonly no yes</font>则表示启用AOF</p>
+<h3 id="emsp-工作原理-1"><a href="#emsp-工作原理-1" class="headerlink" title="&emsp;工作原理"></a>&emsp;工作原理</h3><p>&emsp;&emsp;每当 Redis 执行一个改变数据集的命令时（比如 SET）， 这个命令就会被追加到 AOF 文件的末尾。这样的话， 当 Redis 重新启时， 程序就可以<font color=red><strong>通过重新执行 AOF 文件中的命令来达到重建数据集的目的。</strong></font></p>
+<p><strong>创建</strong><br><img src="https://img-blog.csdnimg.cn/20200902220448182.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>恢复</strong><br><img src="https://img-blog.csdnimg.cn/20200902220637491.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="emsp-AOF持久化的三种策略"><a href="#emsp-AOF持久化的三种策略" class="headerlink" title="&emsp;AOF持久化的三种策略"></a>&emsp;AOF持久化的三种策略</h3><p><img src="https://img-blog.csdnimg.cn/20200902220737303.png#pic_center" alt=""><br><strong>always</strong></p>
+<p>&emsp;&emsp;每次有新命令追加到 AOF 文件时就执行一次同步，安全但是速度慢</p>
+<p><img src="https://img-blog.csdnimg.cn/20200902220815786.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>everysec(default)</strong></p>
+<p>&emsp;&emsp;这种 fsync 策略可以兼顾速度和安全性，可能丢失一秒的数据。<br><img src="https://img-blog.csdnimg.cn/2020090222085391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>no</strong></p>
+<p>&emsp;&emsp;将数据交给操作系统来处理，由操作系统来决定什么时候同步数据。更快，但是不安全<br><img src="https://img-blog.csdnimg.cn/20200902220939176.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>三者对比</strong><br>| 命令 | 优点 | 缺点|<br>|–|–|–|<br>|always  |  不丢失数据| IO开销大，一般SATA磁盘只有几百TPS|<br>| everysec | 每秒进行与fsync，最多丢失1秒数据 | 可能丢失1秒数据|<br>|no  |  不用管| 不可控|</p>
+<h3 id="emsp-aof文件修复"><a href="#emsp-aof文件修复" class="headerlink" title="&emsp;aof文件修复"></a>&emsp;aof文件修复</h3><p>&emsp;&emsp;当aof被人为破坏，redis就无法完成启动，可以<font color=red>通过官方提供的 redis-check-aof工具</font>对<font color=red>aof文件</font>进行修复,当然数据可能发生部分丢失。</p>
+<pre class=" language-bash"><code class="language-bash">redis-check-aof --fix appendonly.aof</code></pre>
+<h3 id="emsp-AOF重写"><a href="#emsp-AOF重写" class="headerlink" title="&emsp;AOF重写"></a>&emsp;AOF重写</h3><p>&emsp;&emsp;因为 AOF 的运作方式是不断地将命令追加到文件的末尾， 所以<font color=red>随着写入命令的不断增加， AOF 文件的体积也会变得越来越大。</font></p>
+<p>&emsp;&emsp;举个例子， 如果你对一个计数器调用了 100 次 INCR ， 那么仅仅是为了保存这个计数器的当前值， AOF 文件就需要使用 100 条记录（entry）。然而在实际上， 只使用一条 SET 命令已经足以保存计数器的当前值了， 其余 99 条记录实际上都是多余的。</p>
+<p>&emsp;&emsp;为了处理这种情况， Redis 支持一种有趣的特性：<font color=red> 可以在不打断服务客户端的情况下， 对 AOF 文件进行重建（rebuild）。执行 bgrewriteaof 命令， Redis 将生成一个新的 AOF 文件， 这个文件包含重建当前数据集所需的最少命令。</font></p>
+<p>&emsp;&emsp;Redis 2.2 需要自己手动执行 bgrewriteaof 命令； <font color=red>Redis 2.4+ 则可以通过配置自动触发 AOF 重写。</font></p>
+<p><strong>AOF重写的作用</strong></p>
+<ul>
+<li>减少磁盘占用量</li>
+<li>加速数据恢复</li>
+</ul>
+<h3 id="emsp-AOF的缺点"><a href="#emsp-AOF的缺点" class="headerlink" title="&emsp;AOF的缺点"></a>&emsp;AOF的缺点</h3><p>&emsp;&emsp;1.对于相同的数据集来说，==AOF 文件的体积通常要大于 RDB 文件的体积。==<br>&emsp;&emsp;2.根据所使用的 fsync 策略，==AOF 的速度可能会慢于 RDB==。 在一般情况下， 每秒 fsync 的性能依然非常高， 而关闭 fsync 可以让 AOF 的速度和 RDB 一样快， 即使在高负荷之下也是如此。<br>&emsp;&emsp;3.==数据量较大时，恢复较慢==</p>
+<h3 id="emsp-AOF优点"><a href="#emsp-AOF优点" class="headerlink" title="&emsp;AOF优点"></a>&emsp;AOF优点</h3><ul>
+<li>一旦出现故障，你最多丢失1秒的数据。</li>
+<li>AOF文件是一个只进行追加的日志文件</li>
+<li>Redis 可以在 AOF 文件体积变得过大时，自动地在后台对 AOF 进行重写</li>
+<li>AOF 文件的内容非常容易被人读懂， 对文件进行分析（parse）也很轻松</li>
+</ul>
+<h2 id="十二、RDB-和-AOF-选择"><a href="#十二、RDB-和-AOF-选择" class="headerlink" title="十二、RDB 和 AOF 选择"></a>十二、RDB 和 AOF 选择</h2><h3 id="emsp-RDB-和-AOF-对比"><a href="#emsp-RDB-和-AOF-对比" class="headerlink" title="&emsp;RDB 和 AOF 对比"></a>&emsp;RDB 和 AOF 对比</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>RDB</th>
+<th>AOF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动优先级</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>体积</td>
+<td>小</td>
+<td>大</td>
+</tr>
+<tr>
+<td>恢复速度</td>
+<td>快</td>
+<td>慢</td>
+</tr>
+<tr>
+<td>数据安全性</td>
+<td>丢数据</td>
+<td>根据策略决定</td>
+</tr>
+</tbody></table>
+<h3 id="emsp-如何选择使用哪种持久化方式？"><a href="#emsp-如何选择使用哪种持久化方式？" class="headerlink" title="&emsp;如何选择使用哪种持久化方式？"></a>&emsp;如何选择使用哪种持久化方式？</h3><p>&emsp;&emsp;一般来说， 如果想达到足以媲美 PostgreSQL 的数据安全性， 你应该同时使用两种持久化功能。</p>
+<p>&emsp;&emsp;如果你非常关心你的数据， 但仍然可以承受数分钟以内的数据丢失， 那么你可以只使用 RDB 持久化。</p>
+<p>&emsp;&emsp;有很多用户都只使用 AOF 持久化， 但并不推荐这种方式： 因为定时生成 RDB 快照（snapshot）非常便于进行数据库备份， 并且 RDB 恢复数据集的速度也要比 AOF 恢复的速度要快。</p>
+<h2 id="十三、Redis发布与订阅"><a href="#十三、Redis发布与订阅" class="headerlink" title="十三、Redis发布与订阅"></a>十三、Redis发布与订阅</h2><p>&emsp;&emsp;Redis 发布订阅(pub/sub)是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200902223507305.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：<br><img src="https://img-blog.csdnimg.cn/2020090222352751.png#pic_center" alt=""><br>当有新消息通过 PUBLISH 命令发送给频道 channel1 时， 这个消息就会被发送给订阅它的三个客户端：<br><img src="https://img-blog.csdnimg.cn/20200902223543741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="emsp-命令"><a href="#emsp-命令" class="headerlink" title="&emsp;命令"></a>&emsp;命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><font color=red> PSUBSCRIBE pattern [pattern..]</font></td>
+<td>订阅一个或多个符合给定模式的频道。</td>
+</tr>
+<tr>
+<td><font color=red>PUNSUBSCRIBE pattern [pattern..] </font></td>
+<td>退订一个或多个符合给定模式的频道。</td>
+</tr>
+<tr>
+<td><font color=red> PUBSUB subcommand [argument[argument]]</font></td>
+<td>查看订阅与发布系统状态。</td>
+</tr>
+<tr>
+<td><font color=red>PUBLISH channel message </font></td>
+<td>向指定频道发布消息</td>
+</tr>
+<tr>
+<td><font color=red>SUBSCRIBE channel [channel..] </font></td>
+<td>订阅给定的一个或多个频道。</td>
+</tr>
+<tr>
+<td><font color=red>SUBSCRIBE channel [channel..] </font></td>
+<td>退订一个或多个频道</td>
+</tr>
+</tbody></table>
+<pre class=" language-java"><code class="language-java"><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>订阅端<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> SUBSCRIBE sakura # 订阅sakura频道
+Reading messages<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">(</span>press Ctrl<span class="token operator">-</span>C to quit<span class="token punctuation">)</span> # 等待接收消息
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"subscribe"</span> # 订阅成功的消息
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">"sakura"</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">1</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"message"</span> # 接收到来自sakura频道的消息 <span class="token string">"hello world"</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">"sakura"</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">"hello world"</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"message"</span> # 接收到来自sakura频道的消息 <span class="token string">"hello i am sakura"</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">"sakura"</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">"hello i am sakura"</span>
+
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>消息发布端<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> PUBLISH sakura <span class="token string">"hello world"</span> # 发布消息到sakura频道
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">1</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> PUBLISH sakura <span class="token string">"hello i am sakura"</span> # 发布消息
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">1</span>
+
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>查看活跃的频道<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> PUBSUB channels
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"sakura"</span>
+</code></pre>
+<h3 id="emsp-原理"><a href="#emsp-原理" class="headerlink" title="&emsp;原理"></a>&emsp;原理</h3><p>&emsp;&emsp;每个 Redis 服务器进程都维持着一个表示服务器状态的 redis.h/redisServer 结构， 结构的 pubsub_channels 属性是一个字典， 这个==字典就用于保存订阅频道的信息==，其中，==字典的键为正在被订阅的频道， 而字典的值则是一个链表==， 链表中保存了==所有订阅这个频道的客户端。==</p>
+<p><img src="https://img-blog.csdnimg.cn/20200902224054259.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>客户端订阅，就被链接到对应频道的链表的尾部，退订则就是将客户端节点从链表中移除。</p>
+<p><strong>缺点</strong></p>
+<p>&emsp;&emsp;1，如果一个客户端订阅了频道，但自己读取消息的速度却不够快的话，那么不断积压的消息会使redis输出缓冲区的体积变得越来越大，这可能使得redis本身的速度变慢，甚至直接崩溃。<br>&emsp;&emsp;2，这和数据传输可靠性有关，如果在订阅方断线，那么他将会丢失所有在短线期间发布者发布的消息。</p>
+<p><strong>应用</strong><br>&emsp;&emsp;消息订阅：公众号订阅，微博关注等等（起始更多是使用消息队列来进行实现）<br>&emsp;&emsp;多人在线聊天室。</p>
+<h2 id="十四、主从复制"><a href="#十四、主从复制" class="headerlink" title="十四、主从复制"></a>十四、主从复制</h2><h3 id="emsp-概念"><a href="#emsp-概念" class="headerlink" title="&emsp;概念"></a>&emsp;概念</h3><p>&emsp;&emsp;主从复制，是指将一台Redis服务器的数据，复制到其他的Redis服务器。前者称为主节点（Master/Leader）,后者称为从节点（Slave/Follower），==<strong>数据的复制是单向的！只能由主节点复制到从节点</strong>==（主节点以写为主、从节点以读为主）。</p>
+<p>&emsp;&emsp;默认情况下，每台Redis服务器都是主节点，一个主节点可以有0个或者多个从节点，但每个从节点只能由一个主节点。</p>
+<h3 id="emsp-作用"><a href="#emsp-作用" class="headerlink" title="&emsp;作用"></a>&emsp;作用</h3><p>&emsp;&emsp;<font color=red>1.数据冗余</font>：主从复制实现了数据的热备份，是持久化之外的一种数据冗余的方式。<br>&emsp;&emsp;<font color=red>2.故障恢复</font>：当主节点故障时，从节点可以暂时替代主节点提供服务，是一种服务冗余的方式<br>&emsp;&emsp;<font color=red>3.负载均衡</font>：在主从复制的基础上，配合读写分离，由主节点进行写操作，从节点进行读操作，分担服务器的负载；尤其是在多读少写的场景下，通过多个从节点分担负载，提高并发量。<br>&emsp;&emsp;<font color=red>4.高可用基石</font>：主从复制还是哨兵和集群能够实施的基础。</p>
+<h3 id="emsp-为什么使用集群"><a href="#emsp-为什么使用集群" class="headerlink" title="&emsp;为什么使用集群"></a>&emsp;为什么使用集群</h3><ul>
+<li>单台服务器难以负载大量的请求</li>
+<li>单台服务器故障率高，系统崩坏概率大</li>
+<li>单台服务器内存容量有限。</li>
+</ul>
+<h3 id="emsp-环境配置"><a href="#emsp-环境配置" class="headerlink" title="&emsp;环境配置"></a>&emsp;环境配置</h3><p>&emsp;&emsp;我们在讲解配置文件的时候，注意到有一个replication模块 (见Redis.conf中第8条)</p>
+<p>&emsp;&emsp;查看当前库的信息：<font color=red> info replication</font></p>
+<pre class=" language-java"><code class="language-java"><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> info replication
+# Replication
+role<span class="token operator">:</span>master # 角色
+connected_slaves<span class="token operator">:</span><span class="token number">0</span> # 从机数量
+master_replid<span class="token operator">:</span>3b54deef5b7b7b7f7dd8acefa23be48879b4fcff
+master_replid2<span class="token operator">:</span><span class="token number">0000000000000000000000000000000000000000</span>
+master_repl_offset<span class="token operator">:</span><span class="token number">0</span>
+second_repl_offset<span class="token operator">:</span><span class="token operator">-</span><span class="token number">1</span>
+repl_backlog_active<span class="token operator">:</span><span class="token number">0</span>
+repl_backlog_size<span class="token operator">:</span><span class="token number">1048576</span>
+repl_backlog_first_byte_offset<span class="token operator">:</span><span class="token number">0</span>
+repl_backlog_histlen<span class="token operator">:</span><span class="token number">0</span>
+</code></pre>
+<p>既然需要启动多个服务，就需要多个配置文件。每个配置文件对应修改以下信息：</p>
+<ul>
+<li>端口号</li>
+<li>pid文件名</li>
+<li>日志文件名</li>
+<li>rdb文件名</li>
+</ul>
+<p>启动单机多服务集群：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200902225006902.png#pic_center" alt=""></p>
+<h3 id="emsp-一主二从配置"><a href="#emsp-一主二从配置" class="headerlink" title="&emsp;一主二从配置"></a>&emsp;一主二从配置</h3><p>此时每个redis都是主节点，此时我们只需配置我们想要的从机即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/2020090222504562.png#pic_center" alt=""><br>使用<font color=red> SLAVEOF host port</font>就可以为从机配置主机了。<br><img src="https://img-blog.csdnimg.cn/20200902225116868.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>然后主机上也能看到从机的状态：<br><img src="https://img-blog.csdnimg.cn/20200902225134119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>我们这里是使用命令搭建，是暂时的，<strong>真实开发中应该在从机的配置文件中进行配置。</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200902225202382.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h3 id="emsp-使用规则"><a href="#emsp-使用规则" class="headerlink" title="&emsp;使用规则"></a>&emsp;使用规则</h3><p>1.从机只能读，不能写，主机可读可写但是多用于写。</p>
+<pre class=" language-java"><code class="language-java"><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6381</span><span class="token operator">></span> set name sakura # 从机<span class="token number">6381</span>写入失败
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> READONLY You can't write against a read only replica<span class="token punctuation">.</span>
+
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6380</span><span class="token operator">></span> set name sakura # 从机<span class="token number">6380</span>写入失败
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> READONLY You can't write against a read only replica<span class="token punctuation">.</span>
+
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> set name sakura
+OK
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get name
+<span class="token string">"sakura"</span>
+</code></pre>
+<p>2.当主机断电宕机后，默认情况下从机的角色不会发生变化 ，集群中只是失去了写操作，当主机恢复以后，又会连接上从机恢复原状。</p>
+<p>3.当从机断电宕机后，若不是使用配置文件配置的从机，再次启动后作为主机是无法获取之前主机的数据的，若此时重新配置称为从机，又可以获取到主机的所有数据。这里就要提到一个同步原理。</p>
+<p>4.第二条中提到，默认情况下，主机故障后，不会出现新的主机，有两种方式可以产生新的主机：</p>
+<ul>
+<li>从机手动执行命令<font color=red>slaveof no one</font>,这样执行以后从机会独立出来成为一个主机</li>
+<li>使用哨兵模式（自动选举）</li>
+</ul>
+<h3 id="emsp-同步复制原理"><a href="#emsp-同步复制原理" class="headerlink" title="&emsp;同步复制原理"></a>&emsp;同步复制原理</h3><p><strong>全量同步</strong></p>
+<p>==Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Master上的所有数据都复制一份。==</p>
+<p>具体步骤如下：</p>
+<ul>
+<li>从服务器连接主服务器，发送SYNC命令；</li>
+<li>主服务器接收到SYNC命名后，开始执行BGSAVE命令生成RDB文 件并使用缓冲区记录此后执行的所有写命令；</li>
+<li>主服务器BGSAVE执行完后，向所有从服务器发送快照文件，并在发送期间继续记录被执行的写命令；</li>
+<li>从服务器收到快照文件后丢弃所有旧数据，载入收到的快照；</li>
+<li>主服务器快照发送完毕后开始向从服务器发送缓冲区中的写命令；</li>
+<li>从服务器完成对快照的载入，开始接收命令请求，并执行来自主服务器缓冲区的写命令；<br><img src="https://img-blog.csdnimg.cn/20200902225651744.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></li>
+</ul>
+<p><strong>增量同步</strong></p>
+<p>==Redis增量复制是指Slave初始化后开始正常工作时，主服务器发生的写操作同步到从服务器的过程。==</p>
+<p>增量复制的过程主要：</p>
+<ul>
+<li>主服务器每执行一个写命令就会向从服务器发送相同的写命令，从服务器接收并执行收到的写命令。</li>
+</ul>
+<h2 id="十五、哨兵模式"><a href="#十五、哨兵模式" class="headerlink" title="十五、哨兵模式"></a>十五、哨兵模式</h2><blockquote>
+<p>更多信息参考博客：<a href="https://www.jianshu.com/p/06ab9daf921d" target="_blank" rel="noopener">https://www.jianshu.com/p/06ab9daf921d</a></p>
+</blockquote>
+<p><strong>主从切换技术的方法是：当主服务器宕机后，需要手动把一台从服务器切换为主服务器，这就需要人工干预，费事费力，还会造成一段时间内服务不可用。这不是一种推荐的方式，更多时候，我们优先考虑哨兵模式。</strong></p>
+<p>单机单个哨兵<br><img src="https://img-blog.csdnimg.cn/20200902225906568.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>哨兵的作用：</p>
+<ul>
+<li><p>通过发送命令，让Redis服务器返回监控其运行状态，包括主服务器和从服务器。</p>
+</li>
+<li><p>当哨兵监测到master宕机，会自动将slave切换成master，然后通过发布订阅模式通知其他的从服务器，修改配置文件，让它们切换主机。</p>
+</li>
+</ul>
+<p>多哨兵模式<br><img src="https://img-blog.csdnimg.cn/20200902225933750.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>哨兵的核心配置</p>
+<pre class=" language-bash"><code class="language-bash">sentinel monitor mymaster 127.0.0.1 6379 1</code></pre>
+<p>数字1表示 ：当一个哨兵主观认为主机断开，就可以客观认为主机故障，然后开始选举新的主机。</p>
+<p>完整的哨兵模式配置文件 sentinel.conf</p>
+<pre class=" language-java"><code class="language-java"># Example sentinel<span class="token punctuation">.</span>conf
+
+# 哨兵sentinel实例运行的端口 默认<span class="token number">26379</span>
+port <span class="token number">26379</span>
+
+# 哨兵sentinel的工作目录
+dir <span class="token operator">/</span>tmp
+
+# 哨兵sentinel监控的redis主节点的 ip port 
+# master<span class="token operator">-</span>name  可以自己命名的主节点名字 只能由字母A<span class="token operator">-</span>z、数字<span class="token number">0</span><span class="token operator">-</span><span class="token number">9</span> 、这三个字符<span class="token string">".-_"</span>组成。
+# quorum 当这些quorum个数sentinel哨兵认为master主节点失联 那么这时 客观上认为主节点失联了
+# sentinel monitor <span class="token operator">&lt;</span>master<span class="token operator">-</span>name<span class="token operator">></span> <span class="token operator">&lt;</span>ip<span class="token operator">></span> <span class="token operator">&lt;</span>redis<span class="token operator">-</span>port<span class="token operator">></span> <span class="token operator">&lt;</span>quorum<span class="token operator">></span>
+sentinel monitor mymaster <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span> <span class="token number">6379</span> <span class="token number">1</span>
+
+# 当在Redis实例中开启了requirepass foobared 授权密码 这样所有连接Redis实例的客户端都要提供密码
+# 设置哨兵sentinel 连接主从的密码 注意必须为主从设置一样的验证密码
+# sentinel auth<span class="token operator">-</span>pass <span class="token operator">&lt;</span>master<span class="token operator">-</span>name<span class="token operator">></span> <span class="token operator">&lt;</span>password<span class="token operator">></span>
+sentinel auth<span class="token operator">-</span>pass mymaster MySUPER<span class="token operator">--</span>secret<span class="token operator">-</span>0123passw0rd
+
+
+# 指定多少毫秒之后 主节点没有应答哨兵sentinel 此时 哨兵主观上认为主节点下线 默认<span class="token number">30</span>秒
+# sentinel down<span class="token operator">-</span>after<span class="token operator">-</span>milliseconds <span class="token operator">&lt;</span>master<span class="token operator">-</span>name<span class="token operator">></span> <span class="token operator">&lt;</span>milliseconds<span class="token operator">></span>
+sentinel down<span class="token operator">-</span>after<span class="token operator">-</span>milliseconds mymaster <span class="token number">30000</span>
+
+# 这个配置项指定了在发生failover主备切换时最多可以有多少个slave同时对新的master进行 同步，
+这个数字越小，完成failover所需的时间就越长，
+但是如果这个数字越大，就意味着越 多的slave因为replication而不可用。
+可以通过将这个值设为 <span class="token number">1</span> 来保证每次只有一个slave 处于不能处理命令请求的状态。
+# sentinel parallel<span class="token operator">-</span>syncs <span class="token operator">&lt;</span>master<span class="token operator">-</span>name<span class="token operator">></span> <span class="token operator">&lt;</span>numslaves<span class="token operator">></span>
+sentinel parallel<span class="token operator">-</span>syncs mymaster <span class="token number">1</span>
+
+
+
+# 故障转移的超时时间 failover<span class="token operator">-</span>timeout 可以用在以下这些方面： 
+#<span class="token number">1</span><span class="token punctuation">.</span> 同一个sentinel对同一个master两次failover之间的间隔时间。
+#<span class="token number">2</span><span class="token punctuation">.</span> 当一个slave从一个错误的master那里同步数据开始计算时间。直到slave被纠正为向正确的master那里同步数据时。
+#<span class="token number">3</span><span class="token punctuation">.</span>当想要取消一个正在进行的failover所需要的时间。  
+#<span class="token number">4</span><span class="token punctuation">.</span>当进行failover时，配置所有slaves指向新的master所需的最大时间。不过，即使过了这个超时，slaves依然会被正确配置为指向master，但是就不按parallel<span class="token operator">-</span>syncs所配置的规则来了
+# 默认三分钟
+# sentinel failover<span class="token operator">-</span>timeout <span class="token operator">&lt;</span>master<span class="token operator">-</span>name<span class="token operator">></span> <span class="token operator">&lt;</span>milliseconds<span class="token operator">></span>
+sentinel failover<span class="token operator">-</span>timeout mymaster <span class="token number">180000</span>
+
+# SCRIPTS EXECUTION
+
+#配置当某一事件发生时所需要执行的脚本，可以通过脚本来通知管理员，例如当系统运行不正常时发邮件通知相关人员。
+#对于脚本的运行结果有以下规则：
+#若脚本执行后返回<span class="token number">1</span>，那么该脚本稍后将会被再次执行，重复次数目前默认为<span class="token number">10</span>
+#若脚本执行后返回<span class="token number">2</span>，或者比<span class="token number">2</span>更高的一个返回值，脚本将不会重复执行。
+#如果脚本在执行过程中由于收到系统中断信号被终止了，则同返回值为<span class="token number">1</span>时的行为相同。
+#一个脚本的最大执行时间为60s，如果超过这个时间，脚本将会被一个SIGKILL信号终止，之后重新执行。
+
+#通知型脚本<span class="token operator">:</span>当sentinel有任何警告级别的事件发生时（比如说redis实例的主观失效和客观失效等等），将会去调用这个脚本，
+#这时这个脚本应该通过邮件，SMS等方式去通知系统管理员关于系统不正常运行的信息。调用该脚本时，将传给脚本两个参数，
+#一个是事件的类型，
+#一个是事件的描述。
+#如果sentinel<span class="token punctuation">.</span>conf配置文件中配置了这个脚本路径，那么必须保证这个脚本存在于这个路径，并且是可执行的，否则sentinel无法正常启动成功。
+#通知脚本
+# sentinel notification<span class="token operator">-</span>script <span class="token operator">&lt;</span>master<span class="token operator">-</span>name<span class="token operator">></span> <span class="token operator">&lt;</span>script<span class="token operator">-</span>path<span class="token operator">></span>
+  sentinel notification<span class="token operator">-</span>script mymaster <span class="token operator">/</span>var<span class="token operator">/</span>redis<span class="token operator">/</span>notify<span class="token punctuation">.</span>sh
+
+# 客户端重新配置主节点参数脚本
+# 当一个master由于failover而发生改变时，这个脚本将会被调用，通知相关的客户端关于master地址已经发生改变的信息。
+# 以下参数将会在调用脚本时传给脚本<span class="token operator">:</span>
+# <span class="token operator">&lt;</span>master<span class="token operator">-</span>name<span class="token operator">></span> <span class="token operator">&lt;</span>role<span class="token operator">></span> <span class="token operator">&lt;</span>state<span class="token operator">></span> <span class="token operator">&lt;</span>from<span class="token operator">-</span>ip<span class="token operator">></span> <span class="token operator">&lt;</span>from<span class="token operator">-</span>port<span class="token operator">></span> <span class="token operator">&lt;</span>to<span class="token operator">-</span>ip<span class="token operator">></span> <span class="token operator">&lt;</span>to<span class="token operator">-</span>port<span class="token operator">></span>
+# 目前<span class="token operator">&lt;</span>state<span class="token operator">></span>总是“failover”<span class="token punctuation">,</span>
+# <span class="token operator">&lt;</span>role<span class="token operator">></span>是“leader”或者“observer”中的一个。 
+# 参数 from<span class="token operator">-</span>ip<span class="token punctuation">,</span> from<span class="token operator">-</span>port<span class="token punctuation">,</span> to<span class="token operator">-</span>ip<span class="token punctuation">,</span> to<span class="token operator">-</span>port是用来和旧的master和新的<span class="token function">master</span><span class="token punctuation">(</span>即旧的slave<span class="token punctuation">)</span>通信的
+# 这个脚本应该是通用的，能被多次调用，不是针对性的。
+# sentinel client<span class="token operator">-</span>reconfig<span class="token operator">-</span>script <span class="token operator">&lt;</span>master<span class="token operator">-</span>name<span class="token operator">></span> <span class="token operator">&lt;</span>script<span class="token operator">-</span>path<span class="token operator">></span>
+sentinel client<span class="token operator">-</span>reconfig<span class="token operator">-</span>script mymaster <span class="token operator">/</span>var<span class="token operator">/</span>redis<span class="token operator">/</span>reconfig<span class="token punctuation">.</span>sh
+</code></pre>
+<p><font color=red>redis-sentinel xxx/sentinel.conf</font></p>
+<p>成功启动哨兵模式</p>
+<p><img src="https://img-blog.csdnimg.cn/202009022301005.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>此时哨兵监视着我们的主机6379，当我们断开主机后：<br><img src="https://img-blog.csdnimg.cn/20200902230117886.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
+<h2 id="十六、缓存穿透与雪崩"><a href="#十六、缓存穿透与雪崩" class="headerlink" title="十六、缓存穿透与雪崩"></a>十六、缓存穿透与雪崩</h2><h3 id="emsp-缓存穿透"><a href="#emsp-缓存穿透" class="headerlink" title="&emsp;缓存穿透"></a>&emsp;缓存穿透</h3><p><strong>概念</strong></p>
+<p>&emsp;&emsp;在默认情况下，用户请求数据时，会先在缓存(Redis)中查找，若没找到即缓存未命中，再在数据库中进行查找，数量少可能问题不大，可是一旦大量的请求数据（例如秒杀场景）缓存都没有命中的话，就会全部转移到数据库上，造成数据库极大的压力，就有可能导致数据库崩溃。网络安全中也有人恶意使用这种手段进行攻击被称为洪水攻击。</p>
+<p><strong>解决方案</strong></p>
+<p>1.布隆过滤器</p>
+<p>&emsp;&emsp;对所有可能查询的参数以Hash的形式存储，以便快速确定是否存在这个值，在控制层先进行拦截校验，校验不通过直接打回，减轻了存储系统的压力。<br><img src="https://img-blog.csdnimg.cn/20200902230247979.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>2.缓存空对象</p>
+<p>&emsp;&emsp;一次请求若在缓存和数据库中都没找到，就在缓存中方一个空对象用于处理后续这个请求。<br><img src="https://img-blog.csdnimg.cn/2020090223035087.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>这样做有一个缺陷：存储空对象也需要空间，大量的空对象会耗费一定的空间，存储效率并不高。解决这个缺陷的方式就是<font color=red>设置较短过期时间</font></p>
+<p>即使对空值设置了过期时间，还是会存在缓存层和存储层的数据会有一段时间窗口的不一致，这对于需要保持一致性的业务会有影响。</p>
+<h3 id="emsp-缓存击穿"><a href="#emsp-缓存击穿" class="headerlink" title="&emsp;缓存击穿"></a>&emsp;缓存击穿</h3><p><strong>概念</strong></p>
+<p>&emsp;&emsp;相较于缓存穿透，缓存击穿的目的性更强，一个存在的key，在缓存过期的一刻，同时有大量的请求，这些请求都会击穿到DB，造成瞬时DB请求量大、压力骤增。这就是缓存被击穿，只是针对其中某个key的缓存不可用而导致击穿，但是其他的key依然可以使用缓存响应。</p>
+<p>&emsp;&emsp;比如热搜排行上，一个热点新闻被同时大量访问就可能导致缓存击穿。</p>
+<p><strong>解决方案</strong></p>
+<p>1.设置热点数据永不过期</p>
+<p>&emsp;&emsp;这样就不会出现热点数据过期的情况，但是当Redis内存空间满的时候也会清理部分数据，而且此种方案会占用空间，一旦热点数据多了起来，就会占用部分空间。</p>
+<p>2.加互斥锁(分布式锁)</p>
+<p>&emsp;&emsp;在访问key之前，采用SETNX（set if not exists）来设置另一个短期key来锁住当前key的访问，访问结束再删除该短期key。保证同时刻只有一个线程访问。这样对锁的要求就十分高。</p>
+<h3 id="emsp-缓存雪崩"><a href="#emsp-缓存雪崩" class="headerlink" title="&emsp;缓存雪崩"></a>&emsp;缓存雪崩</h3><p><strong>概念</strong><br>&emsp;&emsp;大量的key设置了相同的过期时间，导致在缓存在同一时刻全部失效，造成瞬时DB请求量大、压力骤增，引起雪崩。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200902230635843.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>解决方案</strong></p>
+<ul>
+<li>redis高可用</li>
+</ul>
+<p>&emsp;&emsp;这个思想的含义是，既然redis有可能挂掉，那我多增设几台redis，这样一台挂掉之后其他的还可以继续工作，其实就是<font color=red> 搭建的集群</font></p>
+<ul>
+<li>限流降级</li>
+</ul>
+<p>&emsp;&emsp;这个解决方案的思想是，在缓存失效后，通过<font color=red> 加锁或者队列来控制读数据库写缓存的线程数量</font>。比如对某个key只允许一个线程查询数据和写缓存，其他线程等待。</p>
+<ul>
+<li>数据预热</li>
+</ul>
+<p>&emsp;&emsp;数据加热的含义就是在正式部署之前，我先<font color=red> 把可能的数据先预先访问一遍，这样部分可能大量访问的数据就会加载到缓存中</font>。在即将发生大并发访问前手动触发加载缓存不同的key，设置不同的过期时间，让缓存失效的时间点尽量均匀。</p>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>RDB</tag>
+        <tag>AOF</tag>
+        <tag>主从复制</tag>
+        <tag>哨兵模式</tag>
+        <tag>缓存穿透与雪崩</tag>
       </tags>
   </entry>
   <entry>
@@ -2073,77 +2540,6 @@ int main()
       <tags>
         <tag>虚拟机</tag>
         <tag>CentOS7</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>中缀表达式转后缀表达式</title>
-    <url>/2020/08/22/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h2 id="中缀表达式转后缀表达式步骤"><a href="#中缀表达式转后缀表达式步骤" class="headerlink" title="中缀表达式转后缀表达式步骤"></a>中缀表达式转后缀表达式步骤</h2><p>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2； <br><br>2) 从左至右扫描中缀表达式； <br><br>3) 遇到操作数时，将其压s2； <br><br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br><br>&emsp;&emsp;&emsp;&emsp;1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br><br>&emsp;&emsp;&emsp;&emsp;2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br><br>&emsp;&emsp;&emsp;&emsp;3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br><br>5) 遇到括号时：<br><br>&emsp;&emsp;&emsp;&emsp;(1) 如果是左括号“(”，则直接压入s1<br><br>&emsp;&emsp;&emsp;&emsp;(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃 <br><br>6) 重复步骤2至5，直到表达式的最右边 <br><br>7) 将s1中剩余的运算符依次弹出并压入s2 <br><br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式 <br></p>
-<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明:"></a>举例说明:</h2><p>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</p>
-<p>因此结果为<br>“1 2 3 + 4 × + 5 –”</p>
-<p><img src="https://img-blog.csdnimg.cn/20200822002413957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDQ2MTU2,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>中缀表达式</tag>
-        <tag>后缀表达式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/07/16/hello-world/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>我的第一篇博客</title>
-    <url>/2020/07/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>什么都不知道</p>
-<a id="more"></a>
-
-<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>也是什么都不知道</p>
-<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><ul>
-<li>列表1</li>
-<li>列表2</li>
-</ul>
-<p> <a href="http://www.baidu.com" target="_blank" rel="noopener">百度一下</a></p>
-<p> <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3722912030,3109009394&fm=26&gp=0.jpg" alt="图片"></p>
-<hr>
-<p> <em>字体是斜线</em><br> <strong>字体加粗了</strong></p>
-<p><code>&lt;html&gt;&lt;/html&gt;</code></p>
-<pre><code>&lt;&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre><blockquote>
-<p>我的内容是引用的</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>博客</tag>
-        <tag>Hexo</tag>
       </tags>
   </entry>
 </search>
