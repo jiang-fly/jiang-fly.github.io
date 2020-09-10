@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-02T15:12:59.115Z</updated>
+  <updated>2020-09-10T16:32:01.669Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>多线程笔记</title>
+    <link href="http://yoursite.com/2020/09/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2020/09/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-09-10T15:11:47.000Z</published>
+    <updated>2020-09-10T16:32:01.669Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Thread" scheme="http://yoursite.com/categories/Thread/"/>
+    
+    
+      <category term="线程状态" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81/"/>
+    
+      <category term="线程同步" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/"/>
+    
+      <category term="线程通信" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis深入——笔记三</title>
